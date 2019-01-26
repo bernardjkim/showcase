@@ -9,98 +9,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import styled from 'styled-components';
+import uuid from 'uuid/v1';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import image from 'images/ptrade.png';
 
-import { Typography } from '@material-ui/core';
-import uuid from 'uuid/v1';
 import saga from './saga';
 import reducer from './reducer';
 import makeSelectHomePage from './selectors';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 90%;
-  max-width: 1080px;
-`;
-
-const ContentTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 20px;
-`;
-
-const ContentActions = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 15%;
-`;
-
-const Title = styled(Typography)`
-  font-size: 40px;
-  font-weight: 100;
-`;
-
-const GitHub = styled(Typography)`
-  width: 100%;
-  font-size: 20px;
-  font-weight: 100;
-  color: green;
-  margin-bottom: 20px;
-`;
-
-const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20px;
-`;
-
-const Description = styled(Typography)`
-  margin-bottom: 20px;
-`;
-
-const CommentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow: hidden;
-  border: solid 2px;
-  border-radius: 5px;
-  border-color: #d0caba;
-  margin-bottom: 20px;
-`;
-
-const StyledTextField = styled(TextField)`
-  padding-left: 10px;
-  padding-right: 10px;
-`;
-
-const CommentList = styled.div`
-  width: 100%;
-  height: 50%;
-`;
+import {
+  CommentBox,
+  CommentList,
+  Container,
+  Content,
+  ContentActions,
+  ContentTop,
+  Description,
+  GitHub,
+  StyledImage,
+  StyledTextField,
+  Title,
+} from './components';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
