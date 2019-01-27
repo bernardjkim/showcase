@@ -12,6 +12,9 @@ import {
   LOAD_ARTICLE,
   LOAD_ARTICLE_ERROR,
   LOAD_ARTICLE_SUCCESS,
+  LOAD_COMMENTS,
+  LOAD_COMMENTS_ERROR,
+  LOAD_COMMENTS_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -44,6 +47,18 @@ function homePageReducer(state = initialState, action) {
       return state.set('article', action.article).set('loading', false);
 
     case LOAD_ARTICLE_ERROR:
+      return state.set('error', action.error).set('loading', false);
+
+    case LOAD_COMMENTS:
+      return state.set('loading', true).set('error', false);
+
+    case LOAD_COMMENTS_SUCCESS: {
+      const article = state.get('article');
+      article.comments = action.comments;
+      return state.set('article', article).set('loading', false);
+    }
+
+    case LOAD_COMMENTS_ERROR:
       return state.set('error', action.error).set('loading', false);
 
     default:

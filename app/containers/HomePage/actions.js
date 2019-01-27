@@ -11,12 +11,15 @@ import {
   LOAD_ARTICLE,
   LOAD_ARTICLE_ERROR,
   LOAD_ARTICLE_SUCCESS,
+  LOAD_COMMENTS,
+  LOAD_COMMENTS_ERROR,
+  LOAD_COMMENTS_SUCCESS,
 } from './constants';
 
 /**
  * Like article, this action starts the request saga
  *
- * @return {object} An action object with a type of LIKE_ARTICLE
+ * @return {object} - An action object with a type of LIKE_ARTICLE
  */
 export function likeArticle() {
   return {
@@ -27,7 +30,7 @@ export function likeArticle() {
 /**
  * Dispatched when posting the like is acknowledged by the request saga
  *
- * @return {object} An action object with a type of LIKE_ARTICLE_SUCCESS
+ * @return {object} - An action object with a type of LIKE_ARTICLE_SUCCESS
  */
 export function likeArticleSuccess() {
   return {
@@ -38,7 +41,7 @@ export function likeArticleSuccess() {
 /**
  * Dispatched when posting the like fails
  *
- * @return {object} An action object with a type of LIKE_ARTICLE_ERROR
+ * @return {object} - An action object with a type of LIKE_ARTICLE_ERROR
  */
 export function likeArticleError(error) {
   return {
@@ -50,7 +53,7 @@ export function likeArticleError(error) {
 /**
  * Load article, this action starts the request saga
  *
- * @return {object} An action object with a type of LOAD_ARTICLE
+ * @return {object} - An action object with a type of LOAD_ARTICLE
  */
 export function loadArticle() {
   return {
@@ -61,9 +64,9 @@ export function loadArticle() {
 /**
  * Dispatched when the article is loaded by the request saga
  *
- * @param  {array}  article The article data
+ * @param  {object}  article  - The article data
  *
- * @return {object}         An action object with a type of LOAD_ARTICLE_SUCCESS
+ * @return {object}           - An action object with a type of LOAD_ARTICLE_SUCCESS
  */
 export function loadArticleSuccess(article) {
   return {
@@ -82,6 +85,45 @@ export function loadArticleSuccess(article) {
 export function loadArticleError(error) {
   return {
     type: LOAD_ARTICLE_ERROR,
+    error,
+  };
+}
+
+/**
+ * Load comments, this action starts the request saga
+ *
+ * @return {object} - An action object with a type of LOAD_COMMENTS
+ */
+export function loadComments() {
+  return {
+    type: LOAD_COMMENTS,
+  };
+}
+
+/**
+ * Dispatched when the comments are loaded by the request saga
+ *
+ * @param  {array}  comments  - The comments data
+ *
+ * @return {object}           - An action object with a type of LOAD_COMMENT_SUCCESS
+ */
+export function loadCommentsSuccess(comments) {
+  return {
+    type: LOAD_COMMENTS_SUCCESS,
+    comments,
+  };
+}
+
+/**
+ * Dispatched when loading the comments fails
+ *
+ * @param  {object} error - The error
+ *
+ * @return {object}       - An action object with a type of LOAD_COMMENTS_ERROR
+ */
+export function loadCommentsError(error) {
+  return {
+    type: LOAD_COMMENTS_ERROR,
     error,
   };
 }

@@ -8,8 +8,11 @@ import {
   likeArticleError,
   loadArticleSuccess,
   loadArticleError,
+  loadComments as loadCommentsAction,
+  loadCommentsSuccess,
+  loadCommentsError,
 } from './actions';
-import { LIKE_ARTICLE, LOAD_ARTICLE } from './constants';
+import { LIKE_ARTICLE, LOAD_ARTICLE, LOAD_COMMENTS } from './constants';
 import { makeSelectArticle } from './selectors';
 
 // Individual exports for testing
@@ -52,8 +55,26 @@ export function* loadArticle() {
     const article = yield call(request, url);
 
     yield put(loadArticleSuccess(article));
+    yield put(loadCommentsAction());
   } catch (err) {
     yield put(loadArticleError(err));
+  }
+}
+
+/**
+ * GET comments for article request/response handler
+ */
+export function* loadComments() {
+  const article = yield select(makeSelectArticle());
+
+  const url = `/api/comments/${article._id}`; // eslint-disable-line no-underscore-dangle
+
+  try {
+    // Call our request helper (see 'utils/request')
+    const comments = yield call(request, url);
+    yield put(loadCommentsSuccess(comments));
+  } catch (err) {
+    yield put(loadCommentsError(err));
   }
 }
 
@@ -67,5 +88,6 @@ export default function* homePageSaga() {
   yield all([
     takeLatest(LOAD_ARTICLE, loadArticle),
     takeLatest(LIKE_ARTICLE, likeArticle),
+    takeLatest(LOAD_COMMENTS, loadComments),
   ]);
 }
