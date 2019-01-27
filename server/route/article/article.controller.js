@@ -72,11 +72,7 @@ function random(req, res, next) {
           Like.getByArticle(article._id).then(likes => {
             const obj = article.toObject();
             obj.likes = likes;
-            req.article = obj;
-            console.log(article);
-            console.log(article.toObject());
-            console.log(obj);
-            return next();
+            return res.json(obj);
           });
         })
         .catch(e => next(e));

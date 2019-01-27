@@ -5,7 +5,7 @@ const ContentActions = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 15%;
+  width: 20%;
 `;
 
 export default ContentActions;

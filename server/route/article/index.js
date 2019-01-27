@@ -22,7 +22,7 @@ router
   .route('/random')
 
   /** GET /api/article/random - Get random article */
-  .get(article.random, article.get);
+  .get(article.random);
 
 router
   .route('/:id')

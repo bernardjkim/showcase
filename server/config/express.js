@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const expressValidation = require('express-validation');
 const httpStatus = require('http-status');
+const logger = require('morgan');
 
 const routes = require('../route');
 const APIError = require('../route/error/APIError');
@@ -17,6 +18,8 @@ const { resolve } = require('path');
 const app = express();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
+
+if (isDev) app.use(logger('dev'));
 
 // parsing application/json
 app.use(bodyParser.json());

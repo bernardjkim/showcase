@@ -19,7 +19,7 @@ import saga from './saga';
 import reducer from './reducer';
 import makeSelectHomePage, { makeSelectArticle } from './selectors';
 
-import { loadArticle } from './actions';
+import { likeArticle, loadArticle } from './actions';
 
 import {
   CommentBox,
@@ -50,7 +50,7 @@ export class HomePage extends React.PureComponent {
 
   render() {
     const { article } = this.props;
-    const { handleLoadArticle } = this.props;
+    const { handleLikeArticle, handleLoadArticle } = this.props;
 
     if (!article) return null;
 
@@ -61,7 +61,9 @@ export class HomePage extends React.PureComponent {
             <Title>{article.title}</Title>
             <Button onClick={handleLoadArticle}>Next</Button>
             <ContentActions>
-              <Button variant="outlined">Like</Button>
+              <Button variant="outlined" onClick={handleLikeArticle}>
+                Like {article.likes}
+              </Button>
               <Button variant="outlined" onClick={this.openInNewTab}>
                 Visit
               </Button>
@@ -111,6 +113,7 @@ HomePage.propTypes = {
   article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 
   // dispatch functions
+  handleLikeArticle: PropTypes.func.isRequired,
   handleLoadArticle: PropTypes.func.isRequired,
 };
 
@@ -123,6 +126,9 @@ function mapDispatchToProps(dispatch) {
   return {
     handleLoadArticle: () => {
       dispatch(loadArticle());
+    },
+    handleLikeArticle: () => {
+      dispatch(likeArticle());
     },
   };
 }

@@ -1,4 +1,5 @@
 const Like = require('./like.model');
+const Article = require('../article/article.model');
 
 // function load(req, res, next, id) {}
 
@@ -16,13 +17,17 @@ function get(req, res) {
  *
  */
 function create(req, res, next) {
-  const like = new Like({
-    article: req.body.articleId,
-  });
-  like
-    .save()
+  Article.get(req.body.articleId)
     .then(() => {
-      Like.getByArticle(req.body.articleId).then(likes => res.json(likes));
+      const like = new Like({
+        article: req.body.articleId,
+      });
+      like
+        .save()
+        .then(() => {
+          Like.getByArticle(req.body.articleId).then(likes => res.json(likes));
+        })
+        .catch(e => next(e));
     })
     .catch(e => next(e));
 }
