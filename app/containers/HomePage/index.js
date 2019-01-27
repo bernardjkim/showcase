@@ -41,6 +41,8 @@ export class HomePage extends React.PureComponent {
     this.props.handleLoadArticle();
   }
 
+  componentDidUpdate() {}
+
   openInNewTab = () => {
     const win = window.open(this.props.article.uri, '_blank');
     win.focus();

@@ -1,4 +1,5 @@
 const Article = require('./article.model');
+const Like = require('../like/like.model');
 
 const { uploadFile } = require('../../util/s3');
 
@@ -18,8 +19,7 @@ function load(req, res, next, id) {
  * @returns {Article}
  */
 function get(req, res) {
-  const result = req.article.toObject();
-  return res.json(result);
+  return res.json(req.article);
 }
 
 /**
@@ -67,10 +67,17 @@ function random(req, res, next) {
       Article.findOne()
         .skip(rand)
         .exec()
-        .then(result => {
-          // Tada! random Article
-          req.article = result;
-          return next();
+        .then(article => {
+          // eslint-disable-next-line no-underscore-dangle
+          Like.getByArticle(article._id).then(likes => {
+            const obj = article.toObject();
+            obj.likes = likes;
+            req.article = obj;
+            console.log(article);
+            console.log(article.toObject());
+            console.log(obj);
+            return next();
+          });
         })
         .catch(e => next(e));
     })

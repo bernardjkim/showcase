@@ -7,8 +7,7 @@ const Like = require('./like.model');
  * @returns {Number}
  */
 function get(req, res) {
-  const result = req.article.toObject();
-  return res.json(result);
+  return res.json(req.likes);
 }
 
 /**
