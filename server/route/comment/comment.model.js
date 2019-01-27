@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
  * Comment Schema
  */
 const CommentSchema = new mongoose.Schema({
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'user',
-  // },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+  },
   article: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'article',
@@ -16,6 +16,7 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date: { type: Date, default: Date.now },
   // subcomments: [SubComment]
 });
 
