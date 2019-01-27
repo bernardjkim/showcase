@@ -1,6 +1,6 @@
 const Article = require('./article.model');
 
-const { getFile, uploadFile } = require('../../util/s3');
+const { uploadFile } = require('../../util/s3');
 
 /**
  * Load article and append to req
@@ -17,16 +17,9 @@ function load(req, res, next, id) {
  * Get article
  * @returns {Article}
  */
-function get(req, res, next) {
+function get(req, res) {
   const result = req.article.toObject();
-  getFile(result.image)
-    .then(data => {
-      result.image = data;
-      res.json(result);
-    })
-    .catch(e => {
-      next(e);
-    });
+  res.json(result);
 }
 
 /**

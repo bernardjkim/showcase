@@ -14,11 +14,12 @@ import uuid from 'uuid/v1';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Button from '@material-ui/core/Button';
-import image from 'images/ptrade.png';
 
 import saga from './saga';
 import reducer from './reducer';
-import makeSelectHomePage from './selectors';
+import makeSelectHomePage, { makeSelectArticle } from './selectors';
+
+import { loadArticle } from './actions';
 
 import {
   CommentBox,
@@ -36,33 +37,20 @@ import {
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
+  componentDidMount() {
+    this.props.handleLoadArticle();
+  }
+
   render() {
-    const comments = [
-      {
-        comment: {
-          name: 'Guest1',
-          value:
-            'Web application for trading stocks with a mock portfolio. The goal was to provide a simple platform for new investors to learn about the stock market without any risk.',
-          comment: {
-            name: 'Guest2',
-            value: 'Comment Comment Comment',
-            comment: undefined,
-          },
-        },
-      },
-      {
-        comment: {
-          name: 'Guest3',
-          value: 'Comment Comment Comment Comment',
-          comment: undefined,
-        },
-      },
-    ];
+    const { article } = this.props;
+
+    if (!article) return null;
+
     return (
       <Container>
         <Content>
           <ContentTop>
-            <Title variant="p">PTrade</Title>
+            <Title>{article.title}</Title>
             <Button>Next</Button>
             <ContentActions>
               <Button variant="outlined">Like</Button>
@@ -70,15 +58,14 @@ export class HomePage extends React.PureComponent {
             </ContentActions>
           </ContentTop>
 
-          <GitHub>https://github.com/bernardjkim/ptrade</GitHub>
+          <GitHub>{article.github || 'private'}</GitHub>
 
-          <StyledImage src={image} alt="NotFound" />
+          <StyledImage
+            src={`${process.env.S3_URI}/${article.image}`}
+            alt="NotFound"
+          />
 
-          <Description variant="p">
-            Web application for trading stocks with a mock portfolio. The goal
-            was to provide a simple platform for new investors to learn about
-            the stock market without any risk.
-          </Description>
+          <Description>{article.description}</Description>
           <CommentBox>
             <StyledTextField
               multiline
@@ -94,7 +81,7 @@ export class HomePage extends React.PureComponent {
           </CommentBox>
           <CommentList>
             <ul>
-              {comments.map(root => (
+              {article.comments.map(root => (
                 <li key={uuid()}>
                   {root.comment.name}
                   <br />
@@ -110,16 +97,23 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // state variables
+  article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+
+  // dispatch functions
+  handleLoadArticle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   homePage: makeSelectHomePage(),
+  article: makeSelectArticle(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    handleLoadArticle: () => {
+      dispatch(loadArticle());
+    },
   };
 }
 
