@@ -33,7 +33,7 @@ const ArticleSchema = new mongoose.Schema({
     required: false,
   },
 
-  imageName: {
+  image: {
     type: String,
     required: false,
   },

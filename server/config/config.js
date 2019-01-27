@@ -17,6 +17,15 @@ const envVarsSchema = Joi.object({
     .required()
     .description('Mongo DB host url'),
   MONGO_PORT: Joi.number().default(27017),
+  AWS_ACCESS_KEY_ID: Joi.string()
+    .required()
+    .description('AWS access key id'),
+  AWS_SECRET_ACCESS_KEY: Joi.string()
+    .required()
+    .description('AWS secret access key'),
+  S3_BUCKET: Joi.string()
+    .required()
+    .description('S3 bucket name'),
 })
   .unknown()
   .required();
@@ -31,6 +40,11 @@ const config = {
   mongo: {
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT,
+  },
+  aws: {
+    id: envVars.AWS_ACCESS_KEY_ID,
+    key: envVars.AWS_SECRET_ACCESS_KEY,
+    bucket: envVars.S3_BUCKET,
   },
 };
 

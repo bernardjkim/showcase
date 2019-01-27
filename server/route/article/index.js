@@ -12,17 +12,22 @@ router
   // .get(article.list)
 
   /** POST /api/article - Create new article */
-  // .post(validate(paramValidation.createArticle), article.create);
   .post(
-    multer().single('test'),
+    multer().single('file'),
     validate(paramValidation.createArticle),
     article.create,
   );
 
 router
+  .route('/random')
+
+  /** GET /api/article/random - Get random article */
+  .get(article.random, article.get);
+
+router
   .route('/:id')
 
-  /** GET /api/article/id - Get article */
+  /** GET /api/article/:id - Get article */
   .get(article.get);
 
 /** Load article when API with id route parameter is hit */
