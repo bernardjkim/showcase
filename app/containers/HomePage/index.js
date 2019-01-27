@@ -41,8 +41,14 @@ export class HomePage extends React.PureComponent {
     this.props.handleLoadArticle();
   }
 
+  openInNewTab = () => {
+    const win = window.open(this.props.article.uri, '_blank');
+    win.focus();
+  };
+
   render() {
     const { article } = this.props;
+    const { handleLoadArticle } = this.props;
 
     if (!article) return null;
 
@@ -51,10 +57,12 @@ export class HomePage extends React.PureComponent {
         <Content>
           <ContentTop>
             <Title>{article.title}</Title>
-            <Button>Next</Button>
+            <Button onClick={handleLoadArticle}>Next</Button>
             <ContentActions>
               <Button variant="outlined">Like</Button>
-              <Button variant="outlined">Visit</Button>
+              <Button variant="outlined" onClick={this.openInNewTab}>
+                Visit
+              </Button>
             </ContentActions>
           </ContentTop>
 
