@@ -12,7 +12,9 @@ router
 router
   .route('/:articleId')
 
-  /** GET /api/like - Get likes for specified article */
+  /** GET /api/like/:articleId - Get likes for specified article */
   .get(like.get);
+
+router.param('articleId', like.load);
 
 module.exports = router;

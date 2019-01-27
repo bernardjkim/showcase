@@ -2,18 +2,6 @@ const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../error/APIError');
-const Like = require('../like/like.model');
-
-/**
- * Comment Schema
- */
-const CommentSchema = new mongoose.Schema({
-  value: {
-    type: String,
-    required: true,
-  },
-  children: [this],
-});
 
 /**
  * Article Schema
@@ -43,8 +31,6 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-
-  comments: [CommentSchema],
 });
 
 /**
@@ -53,18 +39,6 @@ const ArticleSchema = new mongoose.Schema({
  * - validations
  * - virtuals
  */
-
-// eslint-disable-next-line
-ArticleSchema.pre('save', function(next) {
-  const article = this;
-
-  const like = new Like({
-    article: article._id, // eslint-disable-line no-underscore-dangle
-  });
-
-  like.save().catch(e => next(e));
-  next();
-});
 
 /**
  * Methods

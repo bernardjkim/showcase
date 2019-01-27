@@ -1,14 +1,25 @@
 const Like = require('./like.model');
 const Article = require('../article/article.model');
 
-// function load(req, res, next, id) {}
+/**
+ * Load number of likes and append to req
+ */
+function load(req, res, next, id) {
+  Like.getByArticle(id)
+    .then(likes => {
+      req.articleId = id;
+      req.likes = likes;
+      return next();
+    })
+    .catch(e => next(e));
+}
 
 /**
  * Get likes
- * @returns {Number}
+ * @returns {Likes}
  */
 function get(req, res) {
-  return res.json(req.likes);
+  return res.json({ articleId: req.articleId, likes: req.likes });
 }
 
 /**
@@ -32,4 +43,4 @@ function create(req, res, next) {
     .catch(e => next(e));
 }
 
-module.exports = { get, create };
+module.exports = { get, create, load };
