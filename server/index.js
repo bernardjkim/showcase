@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const util = require('util');
 const debug = require('debug')('showcase:index');
+const bluebird = require('bluebird'); // eslint-disable-line no-global-assign
 
 // config should be imported before importing any other file
 const config = require('./config/config');
@@ -17,11 +18,8 @@ const ngrok =
     ? require('ngrok')
     : false;
 
-// make bluebird default Promise
-Promise = require('bluebird'); // eslint-disable-line no-global-assign
-
 // plugin bluebird promise in mongoose
-mongoose.Promise = Promise;
+mongoose.Promise = bluebird;
 
 // connect to mongo db
 const mongoUri = config.mongo.host;

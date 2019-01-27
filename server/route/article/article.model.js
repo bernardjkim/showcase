@@ -84,6 +84,6 @@ ArticleSchema.statics = {
 };
 
 /**
- * @typedef Article
+ * @typedef article
  */
 module.exports = mongoose.model('article', ArticleSchema);

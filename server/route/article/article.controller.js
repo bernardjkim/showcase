@@ -19,7 +19,7 @@ function load(req, res, next, id) {
  */
 function get(req, res) {
   const result = req.article.toObject();
-  res.json(result);
+  return res.json(result);
 }
 
 /**
@@ -49,9 +49,7 @@ function create(req, res, next) {
         .then(savedArticle => res.json(savedArticle))
         .catch(e => next(e));
     })
-    .catch(e => {
-      next(e);
-    });
+    .catch(e => next(e));
 }
 
 /**
@@ -74,13 +72,9 @@ function random(req, res, next) {
           req.article = result;
           return next();
         })
-        .catch(e => {
-          next(e);
-        });
+        .catch(e => next(e));
     })
-    .catch(e => {
-      next(e);
-    });
+    .catch(e => next(e));
 }
 
 module.exports = { load, get, create, random };
