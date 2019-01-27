@@ -4,6 +4,8 @@ import qs from 'qs';
 import { urlGetArticle, urlLikeArticle } from '../../api';
 import request from '../../utils/request';
 import {
+  createCommentSuccess,
+  createCommentError,
   likeArticleSuccess,
   likeArticleError,
   loadArticleSuccess,
@@ -12,10 +14,40 @@ import {
   loadCommentsSuccess,
   loadCommentsError,
 } from './actions';
-import { LIKE_ARTICLE, LOAD_ARTICLE, LOAD_COMMENTS } from './constants';
+import {
+  CREATE_COMMENT,
+  LIKE_ARTICLE,
+  LOAD_ARTICLE,
+  LOAD_COMMENTS,
+} from './constants';
 import { makeSelectArticle } from './selectors';
 
 // Individual exports for testing
+
+/**
+ * POST comment request/response handler
+ */
+export function* createComment(action) {
+  const article = yield select(makeSelectArticle());
+
+  const url = '/api/comment';
+
+  // set request method/header/body
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: qs.stringify({ articleId: article._id, value: action.comment }), // eslint-disable-line no-underscore-dangle
+  };
+
+  try {
+    // Call our request helper (see 'utils/request')
+    const comment = yield call(request, url, options);
+
+    yield put(createCommentSuccess(comment));
+  } catch (err) {
+    yield put(createCommentError(err));
+  }
+}
 
 /**
  * POST like request/response handler
@@ -67,12 +99,12 @@ export function* loadArticle() {
 export function* loadComments() {
   const article = yield select(makeSelectArticle());
 
-  const url = `/api/comments/${article._id}`; // eslint-disable-line no-underscore-dangle
+  const url = `/api/comment/${article._id}`; // eslint-disable-line no-underscore-dangle
 
   try {
     // Call our request helper (see 'utils/request')
     const comments = yield call(request, url);
-    yield put(loadCommentsSuccess(comments));
+    yield put(loadCommentsSuccess(comments.comments));
   } catch (err) {
     yield put(loadCommentsError(err));
   }
@@ -86,6 +118,7 @@ export default function* homePageSaga() {
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
   yield all([
+    takeLatest(CREATE_COMMENT, createComment),
     takeLatest(LOAD_ARTICLE, loadArticle),
     takeLatest(LIKE_ARTICLE, likeArticle),
     takeLatest(LOAD_COMMENTS, loadComments),

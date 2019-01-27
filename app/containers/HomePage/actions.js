@@ -5,6 +5,9 @@
  */
 
 import {
+  CREATE_COMMENT,
+  CREATE_COMMENT_ERROR,
+  CREATE_COMMENT_SUCCESS,
   LIKE_ARTICLE,
   LIKE_ARTICLE_ERROR,
   LIKE_ARTICLE_SUCCESS,
@@ -15,6 +18,46 @@ import {
   LOAD_COMMENTS_ERROR,
   LOAD_COMMENTS_SUCCESS,
 } from './constants';
+
+/**
+ * Create comment, this action starts the request saga
+ *
+ * @param  {object}  comment  - The comment value
+ *
+ * @return {object}           - An action object with a type of CREATE_COMMENT
+ */
+export function createComment(comment) {
+  return {
+    type: CREATE_COMMENT,
+    comment,
+  };
+}
+
+/**
+ * Dispatched when posting the comment is acknowledged by the request saga
+ *
+ * @param  {object}  comment  - The comment data
+ *
+ * @return {object}           - An action object with a type of CREATE_COMMENT_SUCCESS
+ */
+export function createCommentSuccess(comment) {
+  return {
+    type: CREATE_COMMENT_SUCCESS,
+    comment,
+  };
+}
+
+/**
+ * Dispatched when posting the comment fails
+ *
+ * @return {object} - An action object with a type of CREATE_COMMENT_SUCCESS
+ */
+export function createCommentError(error) {
+  return {
+    type: CREATE_COMMENT_ERROR,
+    error,
+  };
+}
 
 /**
  * Like article, this action starts the request saga

@@ -6,6 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
+  CREATE_COMMENT,
+  CREATE_COMMENT_ERROR,
+  CREATE_COMMENT_SUCCESS,
   LIKE_ARTICLE,
   LIKE_ARTICLE_ERROR,
   LIKE_ARTICLE_SUCCESS,
@@ -26,14 +29,30 @@ export const initialState = fromJS({
 
 function homePageReducer(state = initialState, action) {
   switch (action.type) {
-    case LIKE_ARTICLE:
+    case CREATE_COMMENT:
       return state.set('loading', true).set('error', false);
 
-    case LIKE_ARTICLE_SUCCESS: {
+    case CREATE_COMMENT_SUCCESS: {
       const article = state.get('article');
-      article.likes += 1;
+      article.comments = [...article.comments, action.comment];
       return state.set('article', article).set('loading', false);
     }
+
+    case CREATE_COMMENT_ERROR:
+      return state.set('error', action.error).set('loading', false);
+
+    case LIKE_ARTICLE: {
+      const article = state.get('article');
+      article.likes += 1;
+      return state
+        .set('article', article)
+        .set('loading', true)
+        .set('error', false);
+    }
+
+    case LIKE_ARTICLE_SUCCESS:
+      return state.set('loading', false);
+
     case LIKE_ARTICLE_ERROR:
       return state.set('error', action.error).set('loading', false);
 

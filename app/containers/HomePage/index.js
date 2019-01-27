@@ -19,7 +19,7 @@ import saga from './saga';
 import reducer from './reducer';
 import makeSelectHomePage, { makeSelectArticle } from './selectors';
 
-import { likeArticle, loadArticle } from './actions';
+import { createComment, likeArticle, loadArticle } from './actions';
 
 import {
   CommentBox,
@@ -37,6 +37,13 @@ import {
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: '',
+    };
+  }
+
   componentDidMount() {
     this.props.handleLoadArticle();
   }
@@ -48,9 +55,17 @@ export class HomePage extends React.PureComponent {
     win.focus();
   };
 
+  handleChange = e => {
+    this.setState({ comment: e.target.value });
+  };
+
   render() {
     const { article } = this.props;
-    const { handleLikeArticle, handleLoadArticle } = this.props;
+    const {
+      handleCreateComment,
+      handleLikeArticle,
+      handleLoadArticle,
+    } = this.props;
 
     if (!article) return null;
 
@@ -86,20 +101,32 @@ export class HomePage extends React.PureComponent {
               // variant="filled"
               fullWidth
               InputProps={{ disableUnderline: true }}
+              onChange={this.handleChange}
+              value={this.state.comment}
             />
-            <Button mini variant="contained" disableRipple>
+            <Button
+              mini
+              variant="contained"
+              disableRipple
+              onClick={() => {
+                const { comment } = this.state;
+                this.setState({ comment: '' });
+                return handleCreateComment(comment);
+              }}
+            >
               Comment
             </Button>
           </CommentBox>
           <CommentList>
             <ul>
-              {article.comments.map(root => (
-                <li key={uuid()}>
-                  {root.comment.name}
-                  <br />
-                  {root.comment.value}
-                </li>
-              ))}
+              {article.comments &&
+                article.comments.map(root => (
+                  <li key={uuid()}>
+                    {/* {root.comment.name}
+                    <br /> */}
+                    {root.value}
+                  </li>
+                ))}
             </ul>
           </CommentList>
         </Content>
@@ -113,6 +140,7 @@ HomePage.propTypes = {
   article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 
   // dispatch functions
+  handleCreateComment: PropTypes.func.isRequired,
   handleLikeArticle: PropTypes.func.isRequired,
   handleLoadArticle: PropTypes.func.isRequired,
 };
@@ -124,6 +152,12 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    handleCreateComment: comment => {
+      // ignore empty comments
+      if (comment.length > 0) {
+        dispatch(createComment(comment));
+      }
+    },
     handleLoadArticle: () => {
       dispatch(loadArticle());
     },

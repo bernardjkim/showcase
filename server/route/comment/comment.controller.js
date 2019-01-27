@@ -38,11 +38,7 @@ function create(req, res, next) {
       });
       comment
         .save()
-        .then(() => {
-          Comment.getByArticle(req.body.articleId).then(comments =>
-            res.json(comments),
-          );
-        })
+        .then(savedComment => res.json(savedComment))
         .catch(e => next(e));
     })
     .catch(e => next(e));

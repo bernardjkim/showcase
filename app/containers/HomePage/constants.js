@@ -4,6 +4,10 @@
  *
  */
 
+export const CREATE_COMMENT = 'app/HomePage/CREATE_COMMENT';
+export const CREATE_COMMENT_SUCCESS = 'app/HomePage/CREATE_COMMENT_SUCCESS';
+export const CREATE_COMMENT_ERROR = 'app/HomePage/CREATE_COMMENT_ERROR';
+
 export const LIKE_ARTICLE = 'app/HomePage/LIKE_ARTICLE';
 export const LIKE_ARTICLE_SUCCESS = 'app/HomePage/LIKE_ARTICLE_SUCCESS';
 export const LIKE_ARTICLE_ERROR = 'app/HomePage/LIKE_ARTICLE_ERROR';
