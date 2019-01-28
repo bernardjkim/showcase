@@ -24,6 +24,16 @@ import {
 export const initialState = fromJS({
   loading: false,
   error: false,
+  /**
+   * article
+   * @field {string}  _id         - Article id
+   * @field {string}  uri         - Article uri
+   * @field {string}  github      - GitHub repo
+   * @field {string}  description - Article description
+   * @field {string}  image       - Article image link
+   * @field {number}  likes       - Number of likes
+   * @field {array}   comments    - Array of comments
+   */
   article: false,
 });
 
