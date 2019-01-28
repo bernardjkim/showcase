@@ -1,5 +1,6 @@
 const Comment = require('./comment.model');
 const Article = require('../article/article.model');
+const User = require('../user/user.model');
 
 /**
  * Load comments and append to req
@@ -26,17 +27,24 @@ function get(req, res) {
  * Create new comment
  * @property  {string}  req.body.articleId  - Article id
  * @property  {string}  req.body.value      - Comment value
+ * @property  {User}    req.user            - Posting user
  *
  */
 function create(req, res, next) {
-  // verify article exists
-  Article.get(req.body.articleId)
-    .then(article => {
-      Comment.create({ article, value: req.body.value })
-        .then(savedComment => res.json({ comment: savedComment }))
+  // NOTE: for now get test user, want to extract user from token
+  User.findOne({ email: 'test1@gmail.com' })
+    .then(user => {
+      Article.get(req.body.articleId) // verify article exists
+        .then(article => {
+          Comment.create({ article, value: req.body.value, user })
+            .then(savedComment => res.json({ comment: savedComment }))
+            .catch(e => next(e));
+        })
         .catch(e => next(e));
     })
-    .catch(e => next(e));
+    .catch(e => {
+      next(e);
+    });
 }
 
 module.exports = { get, create, load };

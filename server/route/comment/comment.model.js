@@ -32,10 +32,18 @@ const CommentSchema = new mongoose.Schema({
  * - virtuals
  */
 
+// eslint-disable-next-line
+// CommentSchema.pre('save', function(next) {});
+
 /**
  * Methods
  */
-CommentSchema.method({});
+CommentSchema.method({
+  /**
+   * To JSON
+   */
+  // toJSON() {},
+});
 
 /**
  * Statics
@@ -47,7 +55,7 @@ CommentSchema.statics = {
   getByArticle(id) {
     return this.find({ article: id })
       .exec()
-      .then(comments => comments);
+      .then(comments => comments.map(comment => comment.toJSON()));
   },
 };
 

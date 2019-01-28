@@ -128,6 +128,10 @@ module.exports = options => ({
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js'],
     mainFields: ['browser', 'jsnext:main', 'main'],
+
+    // moment.js fix
+    // https://github.com/moment/moment/issues/2979#issuecomment-332217206
+    alias: { moment$: `moment/moment.js` },
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window

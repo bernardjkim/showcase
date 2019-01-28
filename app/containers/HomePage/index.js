@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import uuid from 'uuid/v1';
+import * as moment from 'moment';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -122,8 +123,8 @@ export class HomePage extends React.PureComponent {
               {article.comments &&
                 article.comments.map(root => (
                   <li key={uuid()}>
-                    {/* {root.comment.name}
-                    <br /> */}
+                    {root.user.username} {moment(root.updated).fromNow()}
+                    <br />
                     {root.value}
                   </li>
                 ))}
