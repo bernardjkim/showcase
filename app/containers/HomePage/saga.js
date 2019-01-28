@@ -41,9 +41,9 @@ export function* createComment(action) {
 
   try {
     // Call our request helper (see 'utils/request')
-    const comment = yield call(request, url, options);
+    const res = yield call(request, url, options);
 
-    yield put(createCommentSuccess(comment));
+    yield put(createCommentSuccess(res.comment));
   } catch (err) {
     yield put(createCommentError(err));
   }
@@ -84,9 +84,9 @@ export function* loadArticle() {
 
   try {
     // Call our request helper (see 'utils/request')
-    const article = yield call(request, url);
+    const res = yield call(request, url);
 
-    yield put(loadArticleSuccess(article));
+    yield put(loadArticleSuccess(res.article));
     yield put(loadCommentsAction());
   } catch (err) {
     yield put(loadArticleError(err));
@@ -103,8 +103,8 @@ export function* loadComments() {
 
   try {
     // Call our request helper (see 'utils/request')
-    const comments = yield call(request, url);
-    yield put(loadCommentsSuccess(comments.comments));
+    const res = yield call(request, url);
+    yield put(loadCommentsSuccess(res.comments));
   } catch (err) {
     yield put(loadCommentsError(err));
   }

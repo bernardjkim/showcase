@@ -29,14 +29,10 @@ function get(req, res) {
  */
 function create(req, res, next) {
   Article.get(req.body.articleId)
-    .then(() => {
-      const like = new Like({
-        article: req.body.articleId,
-      });
-      like
-        .save()
+    .then(article => {
+      Like.create({ article })
         .then(() => {
-          Like.getByArticle(req.body.articleId).then(likes => res.json(likes));
+          Like.getByArticle(article).then(likes => res.json({ likes }));
         })
         .catch(e => next(e));
     })

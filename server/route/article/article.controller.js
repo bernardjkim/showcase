@@ -19,7 +19,7 @@ function load(req, res, next, id) {
  * @returns {Article}
  */
 function get(req, res) {
-  return res.json(req.article);
+  return res.json({ article: req.article });
 }
 
 /**
@@ -46,7 +46,7 @@ function create(req, res, next) {
 
       article
         .save()
-        .then(savedArticle => res.json(savedArticle))
+        .then(savedArticle => res.json({ article: savedArticle }))
         .catch(e => next(e));
     })
     .catch(e => next(e));
@@ -72,7 +72,7 @@ function random(req, res, next) {
           Like.getByArticle(article._id).then(likes => {
             const obj = article.toObject();
             obj.likes = likes;
-            return res.json(obj);
+            return res.json({ article: obj });
           });
         })
         .catch(e => next(e));

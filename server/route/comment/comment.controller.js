@@ -19,7 +19,7 @@ function load(req, res, next, id) {
  * @returns {Comments}
  */
 function get(req, res) {
-  return res.json({ articleId: req.articleId, comments: req.comments });
+  return res.json({ comments: req.comments });
 }
 
 /**
@@ -31,14 +31,9 @@ function get(req, res) {
 function create(req, res, next) {
   // verify article exists
   Article.get(req.body.articleId)
-    .then(() => {
-      const comment = new Comment({
-        article: req.body.articleId,
-        value: req.body.value,
-      });
-      comment
-        .save()
-        .then(savedComment => res.json(savedComment))
+    .then(article => {
+      Comment.create({ article, value: req.body.value })
+        .then(savedComment => res.json({ comment: savedComment }))
         .catch(e => next(e));
     })
     .catch(e => next(e));

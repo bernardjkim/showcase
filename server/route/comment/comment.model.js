@@ -7,16 +7,21 @@ const CommentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
+    required: true,
   },
   article: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'article',
+    required: true,
   },
   value: {
     type: String,
     required: true,
   },
-  date: { type: Date, default: Date.now },
+  updated: {
+    type: Date,
+    default: Date.now,
+  },
   // subcomments: [SubComment]
 });
 

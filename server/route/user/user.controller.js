@@ -16,24 +16,21 @@ function load(req, res, next, id) {
  * @returns {User}
  */
 function get(req, res) {
-  return res.json(req.user);
+  return res.json({ user: req.user });
 }
 
 /**
  * Create new user
- * @property  {string}  email                 - User email
- * @property  {string}  password              - User password
+ * @property  {string}  email     - User email
+ * @property  {string}  password  - User password
  *
  */
 function create(req, res, next) {
-  const user = new User({
+  User.create({
     email: req.body.email,
     password: req.body.password,
-  });
-
-  user
-    .save()
-    .then(savedUser => res.json(savedUser))
+  })
+    .then(savedUser => res.json({ user: savedUser }))
     .catch(e => next(e));
 }
 

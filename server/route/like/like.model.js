@@ -7,10 +7,12 @@ const LikeSchema = new mongoose.Schema({
   // user: {
   //   type: Schema.Types.ObjectId,
   //   ref: 'user',
+  //   required: true,
   // },
   article: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'article',
+    required: true,
   },
 });
 
