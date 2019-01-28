@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:8.10.0
+      - image: circleci/node:8.1j.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -17,7 +17,7 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      # - checkout
+      - checkout
 
       # Download and cache dependencies
       # - restore_cache:
