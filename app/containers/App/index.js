@@ -10,10 +10,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+/** Font Awesome Icons */
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faGitHub } from '@fortawesome/free-solid-svg-icons';
+
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
+
+library.add(faGitHub);
 
 export default function App() {
   return (
