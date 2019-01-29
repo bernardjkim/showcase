@@ -29,6 +29,7 @@ describe('homePageReducer', () => {
         description: 'Search Engine',
         image: '1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png',
         comments: [],
+        likes: 1,
       },
     });
   });
@@ -78,7 +79,7 @@ describe('homePageReducer', () => {
   });
 
   it('handles the loadCommentsSuccess action', () => {
-    expect(homePageReducer(state, loadCommentsSuccess({}))).toMatchSnapshot();
+    expect(homePageReducer(state, loadCommentsSuccess([]))).toMatchSnapshot();
   });
 
   it('handles the loadCommentsError action', () => {

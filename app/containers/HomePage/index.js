@@ -52,7 +52,7 @@ export class HomePage extends React.PureComponent {
   componentDidUpdate() {}
 
   openInNewTab = () => {
-    const win = window.open(this.props.article.uri, '_blank');
+    const win = window.open(this.props.article.get('uri'), '_blank');
     win.focus();
   };
 
@@ -74,11 +74,11 @@ export class HomePage extends React.PureComponent {
       <Container>
         <Content>
           <ContentTop>
-            <Title>{article.title}</Title>
+            <Title>{article.get('title')}</Title>
             <Button onClick={handleLoadArticle}>Next</Button>
             <ContentActions>
               <Button variant="outlined" onClick={handleLikeArticle}>
-                Like {article.likes}
+                Like {article.get('likes')}
               </Button>
               <Button variant="outlined" onClick={this.openInNewTab}>
                 Visit
@@ -86,14 +86,14 @@ export class HomePage extends React.PureComponent {
             </ContentActions>
           </ContentTop>
 
-          <GitHub>{article.github || 'private'}</GitHub>
+          <GitHub>{article.get('github') || 'private'}</GitHub>
 
           <StyledImage
-            src={`${process.env.S3_URI}/${article.image}`}
+            src={`${process.env.S3_URI}/${article.get('image')}`}
             alt="NotFound"
           />
 
-          <Description>{article.description}</Description>
+          <Description>{article.get('description')}</Description>
           <CommentBox>
             <StyledTextField
               multiline
@@ -120,12 +120,13 @@ export class HomePage extends React.PureComponent {
           </CommentBox>
           <CommentList>
             <ul>
-              {article.comments &&
-                article.comments.map(root => (
+              {article.get('comments') &&
+                article.get('comments').map(root => (
                   <li key={uuid()}>
-                    {root.user.username} {moment(root.updated).fromNow()}
+                    {root.getIn(['user', 'username'])}{' '}
+                    {moment(root.get('updated')).fromNow()}
                     <br />
-                    {root.value}
+                    {root.get('value')}
                   </li>
                 ))}
             </ul>

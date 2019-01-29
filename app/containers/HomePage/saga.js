@@ -36,7 +36,10 @@ export function* createComment(action) {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: qs.stringify({ articleId: article._id, value: action.comment }), // eslint-disable-line no-underscore-dangle
+    body: qs.stringify({
+      articleId: article.get('_id'),
+      value: action.comment,
+    }), // eslint-disable-line no-underscore-dangle
   };
 
   try {
@@ -99,7 +102,7 @@ export function* loadArticle() {
 export function* loadComments() {
   const article = yield select(makeSelectArticle());
 
-  const url = `/api/comment/${article._id}`; // eslint-disable-line no-underscore-dangle
+  const url = `/api/comment/${article.get('_id')}`;
 
   try {
     // Call our request helper (see 'utils/request')
@@ -119,8 +122,8 @@ export default function* homePageSaga() {
   // It will be cancelled automatically on component unmount
   yield all([
     takeLatest(CREATE_COMMENT, createComment),
-    takeLatest(LOAD_ARTICLE, loadArticle),
     takeLatest(LIKE_ARTICLE, likeArticle),
+    takeLatest(LOAD_ARTICLE, loadArticle),
     takeLatest(LOAD_COMMENTS, loadComments),
   ]);
 }
