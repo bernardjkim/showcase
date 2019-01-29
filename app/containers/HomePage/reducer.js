@@ -24,6 +24,16 @@ import {
 export const initialState = fromJS({
   loading: false,
   error: false,
+  /**
+   * article
+   * @field {string}  _id         - Article id
+   * @field {string}  uri         - Article uri
+   * @field {string}  github      - GitHub repo
+   * @field {string}  description - Article description
+   * @field {string}  image       - Article image link
+   * @field {number}  likes       - Number of likes
+   * @field {array}   comments    - Array of comments
+   */
   article: false,
 });
 
@@ -32,29 +42,27 @@ function homePageReducer(state = initialState, action) {
     case CREATE_COMMENT:
       return state.set('loading', true).set('error', false);
 
-    case CREATE_COMMENT_SUCCESS: {
-      const article = state.get('article');
-      article.comments = [...article.comments, action.comment];
-      return state.set('article', article).set('loading', false);
-    }
+    case CREATE_COMMENT_SUCCESS:
+      return state
+        .updateIn(['article', 'comments'], comments =>
+          comments.push(fromJS(action.comment)),
+        )
+        .set('loading', false);
 
     case CREATE_COMMENT_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state.set('error', fromJS(action.error)).set('loading', false);
 
-    case LIKE_ARTICLE: {
-      const article = state.get('article');
-      article.likes += 1;
+    case LIKE_ARTICLE:
       return state
-        .set('article', article)
+        .updateIn(['article', 'likes'], likes => likes + 1)
         .set('loading', true)
         .set('error', false);
-    }
 
     case LIKE_ARTICLE_SUCCESS:
       return state.set('loading', false);
 
     case LIKE_ARTICLE_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state.set('error', fromJS(action.error)).set('loading', false);
 
     case LOAD_ARTICLE:
       return state
@@ -63,22 +71,19 @@ function homePageReducer(state = initialState, action) {
         .set('article', false);
 
     case LOAD_ARTICLE_SUCCESS:
-      return state.set('article', action.article).set('loading', false);
+      return state.set('article', fromJS(action.article)).set('loading', false);
 
     case LOAD_ARTICLE_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state.set('error', fromJS(action.error)).set('loading', false);
 
     case LOAD_COMMENTS:
       return state.set('loading', true).set('error', false);
 
-    case LOAD_COMMENTS_SUCCESS: {
-      const article = state.get('article');
-      article.comments = action.comments;
-      return state.set('article', article).set('loading', false);
-    }
+    case LOAD_COMMENTS_SUCCESS:
+      return state.setIn(['article', 'comments'], fromJS(action.comments));
 
     case LOAD_COMMENTS_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state.set('error', fromJS(action.error)).set('loading', false);
 
     default:
       return state;
