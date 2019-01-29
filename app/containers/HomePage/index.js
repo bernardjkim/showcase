@@ -11,6 +11,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import uuid from 'uuid/v1';
 import * as moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -28,6 +30,7 @@ import {
   Container,
   Content,
   ContentActions,
+  ContentGitHub,
   ContentTop,
   Description,
   GitHub,
@@ -51,9 +54,11 @@ export class HomePage extends React.PureComponent {
 
   componentDidUpdate() {}
 
-  openInNewTab = () => {
-    const win = window.open(this.props.article.get('uri'), '_blank');
-    win.focus();
+  openInNewTab = url => {
+    if (url !== '') {
+      const win = window.open(url, '_blank');
+      win.focus();
+    }
   };
 
   handleChange = e => {
@@ -80,13 +85,24 @@ export class HomePage extends React.PureComponent {
               <Button variant="outlined" onClick={handleLikeArticle}>
                 Like {article.get('likes')}
               </Button>
-              <Button variant="outlined" onClick={this.openInNewTab}>
+              <Button
+                variant="outlined"
+                onClick={() => this.openInNewTab(article.get('uri'))}
+              >
                 Visit
               </Button>
             </ContentActions>
           </ContentTop>
 
-          <GitHub>{article.get('github') || 'private'}</GitHub>
+          <ContentGitHub>
+            <FontAwesomeIcon size="lg" icon={faGithub} />{' '}
+            <GitHub
+              onClick={() => this.openInNewTab(article.get('github'))}
+              private={article.get('github') === ''}
+            >
+              {article.get('github') || 'private'}
+            </GitHub>
+          </ContentGitHub>
 
           <StyledImage
             src={`${process.env.S3_URI}/${article.get('image')}`}

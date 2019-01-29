@@ -12,14 +12,15 @@ import { Switch, Route } from 'react-router-dom';
 
 /** Font Awesome Icons */
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faGitHub } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
-library.add(faGitHub);
+library.add(fas, fab);
 
 export default function App() {
   return (
