@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-const CommentList = styled.div`
+const CommentList = styled.ul`
   width: 100%;
-  height: 50%;
+  list-style-type: none;
+  padding-left: 0px;
 `;
 
 export default CommentList;

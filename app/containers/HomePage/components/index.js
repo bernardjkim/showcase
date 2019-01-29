@@ -1,4 +1,8 @@
 export { default as CommentBox } from './CommentBox';
+export { default as CommentDate } from './CommentDate';
+export { default as CommentInfo } from './CommentInfo';
+export { default as CommentUser } from './CommentUser';
+export { default as CommentValue } from './CommentValue';
 export { default as CommentList } from './CommentList';
 export { default as Container } from './Container';
 export { default as Content } from './Content';

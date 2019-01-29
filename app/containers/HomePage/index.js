@@ -26,7 +26,11 @@ import { createComment, likeArticle, loadArticle } from './actions';
 
 import {
   CommentBox,
+  CommentDate,
+  CommentUser,
+  CommentInfo,
   CommentList,
+  CommentValue,
   Container,
   Content,
   ContentActions,
@@ -135,17 +139,21 @@ export class HomePage extends React.PureComponent {
             </Button>
           </CommentBox>
           <CommentList>
-            <ul>
-              {article.get('comments') &&
-                article.get('comments').map(root => (
-                  <li key={uuid()}>
-                    {root.getIn(['user', 'username'])}{' '}
-                    {moment(root.get('updated')).fromNow()}
-                    <br />
-                    {root.get('value')}
-                  </li>
-                ))}
-            </ul>
+            {article.get('comments') &&
+              article.get('comments').map(root => (
+                <li key={uuid()}>
+                  <CommentInfo>
+                    <CommentUser>
+                      {root.getIn(['user', 'username'])}{' '}
+                    </CommentUser>
+                    <CommentDate>
+                      {moment(root.get('updated')).fromNow()}
+                    </CommentDate>
+                  </CommentInfo>
+                  <CommentValue>{root.get('value')}</CommentValue>
+                  <br />
+                </li>
+              ))}
           </CommentList>
         </Content>
       </Container>
