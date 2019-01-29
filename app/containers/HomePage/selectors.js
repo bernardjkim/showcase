@@ -10,6 +10,13 @@ const selectHomePageDomain = state => state.get('homePage', initialState);
 /**
  * Other specific selectors
  */
+
+const makeSelectLoading = () =>
+  createSelector(selectHomePageDomain, homeState => homeState.get('loading'));
+
+const makeSelectError = () =>
+  createSelector(selectHomePageDomain, homeState => homeState.get('error'));
+
 const makeSelectArticle = () =>
   createSelector(selectHomePageDomain, homeState => homeState.get('article'));
 
@@ -21,4 +28,9 @@ const makeSelectHomePage = () =>
   createSelector(selectHomePageDomain, substate => substate.toJS());
 
 export default makeSelectHomePage;
-export { selectHomePageDomain, makeSelectArticle };
+export {
+  selectHomePageDomain,
+  makeSelectArticle,
+  makeSelectLoading,
+  makeSelectError,
+};

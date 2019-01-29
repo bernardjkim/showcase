@@ -3,35 +3,26 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { all, takeLatest } from 'redux-saga/effects';
+import { all, takeLatest, put } from 'redux-saga/effects';
+import { fromJS } from 'immutable';
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 
 import {
   CREATE_COMMENT,
-  // CREATE_COMMENT_ERROR,
-  // CREATE_COMMENT_SUCCESS,
   LIKE_ARTICLE,
-  // LIKE_ARTICLE_ERROR,
-  // LIKE_ARTICLE_SUCCESS,
   LOAD_ARTICLE,
-  // LOAD_ARTICLE_ERROR,
-  // LOAD_ARTICLE_SUCCESS,
   LOAD_COMMENTS,
-  // LOAD_COMMENTS_ERROR,
-  // LOAD_COMMENTS_SUCCESS,
 } from '../constants';
-import // createComment,
-// createCommentError,
-// createCommentSuccess,
-// likeArticle,
-// likeArticleError,
-// likeArticleSuccess,
-// loadArticle,
-// loadArticleError,
-// loadArticleSuccess,
-// loadComments,
-// loadCommentsError,
-// loadCommentsSuccess,
-'../actions';
+import {
+  createCommentSuccess,
+  createCommentError,
+  likeArticleError,
+  likeArticleSuccess,
+  loadArticleError,
+  loadArticleSuccess,
+  loadCommentsError,
+  loadCommentsSuccess,
+} from '../actions';
 import homePageSaga, {
   createComment,
   likeArticle,
@@ -39,61 +30,106 @@ import homePageSaga, {
   loadComments,
 } from '../saga';
 
-// const generator = homePageSaga();
-// We have to test twice, once for a successful load and once for an unsuccessful one
-// so we do all the stuff that happens beforehand automatically in the beforeEach
-// beforeEach(() => {
-//   getHomePageSagaGenerator = get();
-
-//   const selectDescriptor = getReposGenerator.next().value;
-//   expect(selectDescriptor).toMatchSnapshot();
-
-//   const callDescriptor = getReposGenerator.next(username).value;
-//   expect(callDescriptor).toMatchSnapshot();
-// });
-
-const state = {
+const state = fromJS({
   loading: false,
   error: false,
   article: {
+    _id: '5c4ebe9be5346639c09786e3',
     title: 'google',
     uri: 'https://google.com',
     github: '',
     description: 'Search Engine',
     image: '1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png',
     comments: [],
+    likes: 1,
   },
-};
+});
 
 describe('createComment Saga', () => {
-  let createCommentGenerator;
+  const gen = cloneableGenerator(createComment)({});
 
-  // We have to test twice, once for a successful load and once for an unsuccessful one
-  // so we do all the stuff that happens beforehand automatically in the beforeEach
-  beforeEach(() => {
-    createCommentGenerator = createComment();
+  const selectDescriptor = gen.next().value;
+  expect(selectDescriptor).toMatchSnapshot();
 
-    const selectArticle = createCommentGenerator.next().value;
-    expect(selectArticle).toMatchSnapshot();
+  const callDescriptor = gen.next(state.get('article')).value;
+  expect(callDescriptor).toMatchSnapshot();
 
-    const callDescriptor = createCommentGenerator.next(state.article).value;
-    expect(callDescriptor).toMatchSnapshot();
-    console.log('select>>>>>>', selectArticle);
-    console.log('call>>>>>>>>>', callDescriptor);
+  it('should dispatch the createCommentSuccess action if successful', () => {
+    const comment = {};
+    const putDescriptor = gen.clone().next({ comment }).value;
+    expect(putDescriptor).toEqual(put(createCommentSuccess(comment)));
   });
 
-  // it('', () => {
-  //   const response = [
-  //     {
-  //       name: 'First repo',
-  //     },
-  //     {
-  //       name: 'Second repo',
-  //     },
-  //   ];
-  //   const putDescriptor = getReposGenerator.next(response).value;
-  //   expect(putDescriptor).toEqual(put(reposLoaded(response, username)));
-  // });
+  it('should dispatch the createCommentError action if error', () => {
+    const error = new Error('Test error');
+    const putDescriptor = gen.clone().throw(error).value;
+    expect(putDescriptor).toEqual(put(createCommentError(error)));
+  });
+});
+
+describe('likeArticle Saga', () => {
+  const gen = cloneableGenerator(likeArticle)();
+
+  const selectDescriptor = gen.next().value;
+  expect(selectDescriptor).toMatchSnapshot();
+
+  const callDescriptor = gen.next(state.get('article')).value;
+  expect(callDescriptor).toMatchSnapshot();
+
+  it('should dispatch the likeArticleSuccess action if successful', () => {
+    const putDescriptor = gen.clone().next().value;
+    expect(putDescriptor).toEqual(put(likeArticleSuccess()));
+  });
+
+  it('should dispatch the likeArticleError action if error', () => {
+    const error = new Error('Test error');
+    const putDescriptor = gen.clone().throw(error).value;
+    expect(putDescriptor).toEqual(put(likeArticleError(error)));
+  });
+});
+
+describe('loadArticle Saga', () => {
+  const gen = cloneableGenerator(loadArticle)();
+
+  // const selectDescriptor = gen.next().value;
+  // expect(selectDescriptor).toMatchSnapshot();
+
+  const callDescriptor = gen.next().value;
+  expect(callDescriptor).toMatchSnapshot();
+
+  it('should dispatch the loadArticleSuccess action if successful', () => {
+    const article = {};
+    const putDescriptor = gen.clone().next({ article }).value;
+    expect(putDescriptor).toEqual(put(loadArticleSuccess(article)));
+  });
+
+  it('should dispatch the loadArticleError action if error', () => {
+    const error = new Error('Test error');
+    const putDescriptor = gen.clone().throw(error).value;
+    expect(putDescriptor).toEqual(put(loadArticleError(error)));
+  });
+});
+
+describe('loadComments Saga', () => {
+  const gen = cloneableGenerator(loadComments)();
+
+  const selectDescriptor = gen.next().value;
+  expect(selectDescriptor).toMatchSnapshot();
+
+  const callDescriptor = gen.next(state.get('article')).value;
+  expect(callDescriptor).toMatchSnapshot();
+
+  it('should dispatch the loadCommentsSuccess action if successful', () => {
+    const comments = [];
+    const putDescriptor = gen.clone().next({ comments }).value;
+    expect(putDescriptor).toEqual(put(loadCommentsSuccess(comments)));
+  });
+
+  it('should dispatch the likeCommentsError action if error', () => {
+    const error = new Error('Test error');
+    const putDescriptor = gen.clone().throw(error).value;
+    expect(putDescriptor).toEqual(put(loadCommentsError(error)));
+  });
 });
 
 describe('homePageSaga Saga', () => {

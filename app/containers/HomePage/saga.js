@@ -65,7 +65,7 @@ export function* likeArticle() {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: qs.stringify({ articleId: article._id }), // eslint-disable-line no-underscore-dangle
+    body: qs.stringify({ articleId: article.get('_id') }), // eslint-disable-line no-underscore-dangle
   };
 
   try {

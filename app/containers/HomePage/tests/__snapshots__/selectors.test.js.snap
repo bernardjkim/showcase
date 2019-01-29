@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeSelectArticle should select the home page state 1`] = `false`;
+
+exports[`selectHomePageDomain should select the home page state 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "article": false,
+}
+`;
