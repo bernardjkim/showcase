@@ -54,8 +54,8 @@ CommentSchema.statics = {
    */
   getByArticle(id) {
     return this.find({ article: id })
-      .exec()
-      .then(comments => comments.map(comment => comment.toJSON()));
+      .populate('user')
+      .then(comments => comments);
   },
 };
 

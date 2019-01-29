@@ -1,8 +1,13 @@
 export { default as CommentBox } from './CommentBox';
+export { default as CommentDate } from './CommentDate';
+export { default as CommentInfo } from './CommentInfo';
+export { default as CommentUser } from './CommentUser';
+export { default as CommentValue } from './CommentValue';
 export { default as CommentList } from './CommentList';
 export { default as Container } from './Container';
 export { default as Content } from './Content';
 export { default as ContentActions } from './ContentActions';
+export { default as ContentGitHub } from './ContentGitHub';
 export { default as ContentTop } from './ContentTop';
 export { default as Description } from './Description';
 export { default as GitHub } from './GitHub';
