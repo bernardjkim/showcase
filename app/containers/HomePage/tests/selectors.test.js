@@ -1,5 +1,10 @@
 import { fromJS } from 'immutable';
-import { selectHomePageDomain, makeSelectArticle } from '../selectors';
+import {
+  selectHomePageDomain,
+  makeSelectArticle,
+  makeSelectLoading,
+  makeSelectError,
+} from '../selectors';
 
 const initialState = fromJS({
   loading: false,
@@ -13,9 +18,23 @@ describe('selectHomePageDomain', () => {
   });
 });
 
+describe('makeSelectLoading', () => {
+  const loadingSelector = makeSelectLoading();
+  it('should select the loading state', () => {
+    expect(loadingSelector(initialState)).toMatchSnapshot();
+  });
+});
+
+describe('makeSelectError', () => {
+  const errorSelector = makeSelectError();
+  it('should select the error state', () => {
+    expect(errorSelector(initialState)).toMatchSnapshot();
+  });
+});
+
 describe('makeSelectArticle', () => {
   const articleSelector = makeSelectArticle();
-  it('should select the home page state', () => {
+  it('should select the article state', () => {
     expect(articleSelector(initialState)).toMatchSnapshot();
   });
 });
