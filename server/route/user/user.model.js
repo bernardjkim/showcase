@@ -86,12 +86,20 @@ UserSchema.method({
    * Compare candidatePassword with stored hash.
    *
    * @param {string}    candidatePassword - Password to compare
-   * @param {CallBack}  cb
+   * @param {Promise}
    */
-  comparePassword(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-      if (err) cb(err);
-      else cb(null, isMatch);
+  comparePassword(candidatePassword) {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+        if (err) reject(err);
+        else if (isMatch) resolve(isMatch);
+
+        const passwordError = new APIError(
+          'Invalid password!',
+          httpStatus.BAD_REQUEST,
+        );
+        reject(passwordError);
+      });
     });
   },
 });
