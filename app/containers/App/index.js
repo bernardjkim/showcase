@@ -17,7 +17,11 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import HomePage from 'containers/HomePage/Loadable';
 import SubmissionPage from 'containers/SubmissionPage/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import theme from './theme';
 
 import GlobalStyle from '../../global-styles';
 
@@ -25,13 +29,14 @@ library.add(fas, fab);
 
 export default function App() {
   return (
-    <div>
+    <MuiThemeProvider theme={theme}>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/submission" component={SubmissionPage} />
+        <Route exact path="/login" component={LoginPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
-    </div>
+    </MuiThemeProvider>
   );
 }
