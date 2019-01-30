@@ -25,6 +25,9 @@ import makeSelectHomePage, { makeSelectArticle } from './selectors';
 import { createComment, likeArticle, loadArticle } from './actions';
 
 import {
+  ButtonLike,
+  ButtonNext,
+  ButtonVisit,
   CommentBox,
   CommentDate,
   CommentUser,
@@ -84,17 +87,17 @@ export class HomePage extends React.PureComponent {
         <Content>
           <ContentTop>
             <Title>{article.get('title')}</Title>
-            <Button onClick={handleLoadArticle}>Next</Button>
+            <ButtonNext onClick={handleLoadArticle}>Next</ButtonNext>
             <ContentActions>
-              <Button variant="outlined" onClick={handleLikeArticle}>
+              <ButtonLike variant="outlined" onClick={handleLikeArticle}>
                 Like {article.get('likes')}
-              </Button>
-              <Button
+              </ButtonLike>
+              <ButtonVisit
                 variant="outlined"
                 onClick={() => this.openInNewTab(article.get('uri'))}
               >
                 Visit
-              </Button>
+              </ButtonVisit>
             </ContentActions>
           </ContentTop>
 
@@ -102,7 +105,7 @@ export class HomePage extends React.PureComponent {
             <FontAwesomeIcon size="lg" icon={faGithub} />{' '}
             <GitHub
               onClick={() => this.openInNewTab(article.get('github'))}
-              private={article.get('github') === ''}
+              private={article.get('github') ? 0 : 1}
             >
               {article.get('github') || 'private'}
             </GitHub>
