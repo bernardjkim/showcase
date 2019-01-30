@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/article",
+      Object {
+        "body": FormData {
+          Symbol(impl): FormDataImpl {
+            "_entries": Array [
+              Object {
+                "name": "title",
+                "value": "title",
+              },
+              Object {
+                "name": "uri",
+                "value": "url",
+              },
+              Object {
+                "name": "github",
+                "value": "github",
+              },
+              Object {
+                "name": "description",
+                "value": "description",
+              },
+              Object {
+                "name": "file",
+                "value": "screenshot",
+              },
+            ],
+            Symbol(wrapper): [Circular],
+          },
+        },
+        "method": "POST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
