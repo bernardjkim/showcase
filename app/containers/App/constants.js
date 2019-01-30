@@ -8,3 +8,7 @@
  * Follow this format:
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
+
+export const CREATE_TOKEN = 'app/App/CREATE_TOKEN';
+export const CREATE_TOKEN_SUCCESS = 'app/App/CREATE_TOKEN_SUCCESS';
+export const CREATE_TOKEN_ERROR = 'app/App/CREATE_TOKEN_ERROR';
