@@ -11,6 +11,14 @@ const selectSubmissionPageDomain = state =>
 /**
  * Other specific selectors
  */
+const makeSelectLoading = () =>
+  createSelector(selectSubmissionPageDomain, submissionState =>
+    submissionState.get('loading'),
+  );
+const makeSelectError = () =>
+  createSelector(selectSubmissionPageDomain, submissionState =>
+    submissionState.get('error'),
+  );
 
 /**
  * Default selector used by SubmissionPage
@@ -20,4 +28,4 @@ const makeSelectSubmissionPage = () =>
   createSelector(selectSubmissionPageDomain, substate => substate.toJS());
 
 export default makeSelectSubmissionPage;
-export { selectSubmissionPageDomain };
+export { selectSubmissionPageDomain, makeSelectError, makeSelectLoading };

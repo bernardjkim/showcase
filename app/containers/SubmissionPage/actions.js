@@ -4,10 +4,28 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  SUBMIT_FORM,
+  SUBMIT_FORM_ERROR,
+  SUBMIT_FORM_SUCCESS,
+} from './constants';
 
-export function defaultAction() {
+export function submitForm(form) {
   return {
-    type: DEFAULT_ACTION,
+    type: SUBMIT_FORM,
+    form,
+  };
+}
+
+export function submitFormSuccess() {
+  return {
+    type: SUBMIT_FORM_SUCCESS,
+  };
+}
+
+export function submitFormError(error) {
+  return {
+    type: SUBMIT_FORM_ERROR,
+    error,
   };
 }

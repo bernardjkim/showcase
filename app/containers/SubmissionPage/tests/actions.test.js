@@ -1,13 +1,39 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { submitForm, submitFormError, submitFormSuccess } from '../actions';
+import {
+  SUBMIT_FORM,
+  SUBMIT_FORM_ERROR,
+  SUBMIT_FORM_SUCCESS,
+} from '../constants';
 
 describe('SubmissionPage actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('Submit Form Action', () => {
+    it('has a type of SUBMIT_FORM', () => {
+      const form = {};
       const expected = {
-        type: DEFAULT_ACTION,
+        type: SUBMIT_FORM,
+        form,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(submitForm(form)).toEqual(expected);
+    });
+  });
+
+  describe('Submit Form Success Action', () => {
+    it('has a type of SUBMIT_FORM_SUCCESS', () => {
+      const expected = {
+        type: SUBMIT_FORM_SUCCESS,
+      };
+      expect(submitFormSuccess()).toEqual(expected);
+    });
+  });
+
+  describe('Submit Form Error Action', () => {
+    it('has a type of SUBMIT_FORM_ERROR', () => {
+      const error = {};
+      const expected = {
+        type: SUBMIT_FORM_ERROR,
+        error,
+      };
+      expect(submitFormError(error)).toEqual(expected);
     });
   });
 });
