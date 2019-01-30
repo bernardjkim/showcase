@@ -16,6 +16,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import HomePage from 'containers/HomePage/Loadable';
+import SubmissionPage from 'containers/SubmissionPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
@@ -27,6 +28,7 @@ export default function App() {
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/submission" component={SubmissionPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
