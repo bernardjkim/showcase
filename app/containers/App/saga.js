@@ -2,13 +2,18 @@ import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
 
 import request from '../../utils/request';
-import { createTokenSuccess, createTokenError } from './actions';
-import { CREATE_TOKEN } from './constants';
+import {
+  createTokenSuccess,
+  createTokenError,
+  loadUserSuccess,
+  loadUserError,
+} from './actions';
+import { CREATE_TOKEN, LOAD_USER } from './constants';
 
 // Individual exports for testing
 
 /**
- * POST comment request/response handler
+ * POST auth request/response handler
  */
 export function* createToken(action) {
   const url = '/api/auth';
@@ -27,10 +32,19 @@ export function* createToken(action) {
     // Call our request helper (see 'utils/request')
     const res = yield call(request, url, options);
 
+    localStorage.setItem('jwtToken', res.token);
+
     yield put(createTokenSuccess(res.token));
   } catch (err) {
     yield put(createTokenError(err));
   }
+}
+
+/**
+ * GET user request/response handler
+ */
+export function* loadUser() {
+  const token = localStorage.getItem('jwtToken');
 }
 
 /**
@@ -40,5 +54,8 @@ export default function* appSaga() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield all([takeLatest(CREATE_TOKEN, createToken)]);
+  yield all([
+    takeLatest(CREATE_TOKEN, createToken),
+    takeLatest(LOAD_USER, loadUser),
+  ]);
 }

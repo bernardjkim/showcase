@@ -1,5 +1,6 @@
 const express = require('express');
 const validate = require('express-validation');
+const passport = require('passport');
 const paramValidation = require('../../config/param-validations');
 const user = require('./user.controller');
 
@@ -12,6 +13,12 @@ router
 
   /** POST /api/user - Create new user */
   .post(validate(paramValidation.createUser), user.create);
+
+router
+  .route('/current')
+
+  /** GET /api/user/current - Get current user */
+  .get(passport.authenticate('jwt', { session: false }), user.get);
 
 router
   .route('/:id')
