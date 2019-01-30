@@ -16,10 +16,16 @@ import makeSelectLoginPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+import LoginForm from './LoginForm';
+
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.PureComponent {
   render() {
-    return <div>Login</div>;
+    return (
+      <div>
+        <LoginForm />
+      </div>
+    );
   }
 }
 
