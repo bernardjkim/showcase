@@ -1,7 +1,9 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import qs from 'qs';
 
 import request from '../../utils/request';
+
+import { makeSelectToken } from './selectors';
 import {
   createTokenSuccess,
   createTokenError,
@@ -48,13 +50,34 @@ export function* createToken(action) {
 export function* deleteToken() {
   localStorage.removeItem('jwtToken');
   yield put(loadUserAction());
+
+  // TODO: blacklist token on serverside???
+
+  // const token = yield select(makeSelectToken());
+  // const url = '/api/auth';
+
+  // // set request method/header/body
+  // const options = {
+  //   method: 'DELETE',
+  //   headers: { Authorization: token },
+  // };
+
+  // try {
+  //   yield call(request, url, options);
+
+  //   localStorage.removeItem('jwtToken');
+  //   yield put(deleteTokenSuccess());
+  //   yield put(loadUserAction());
+  // } catch (err) {
+  //   yield put(deleteTokenError(err));
+  // }
 }
 
 /**
  * GET user request/response handler
  */
 export function* loadUser() {
-  const token = yield localStorage.getItem('jwtToken');
+  const token = yield select(makeSelectToken());
 
   if (!token) return;
 

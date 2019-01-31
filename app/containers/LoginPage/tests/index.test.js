@@ -4,7 +4,7 @@
 
 // import { LoginPage } from '../index';
 
-describe('<LoginPage />', () => {
+describe.skip('<LoginPage />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
