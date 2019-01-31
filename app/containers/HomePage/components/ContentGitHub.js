@@ -5,8 +5,9 @@ const ContentGitHub = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  margin-bottom: 10px;
+  width: 80%;
+  max-width: 1080px;
+  margin-bottom: 20px;
 `;
 
 export default ContentGitHub;
