@@ -25,7 +25,7 @@ import {
   CommentList,
   CommentValue,
   Container,
-  Content,
+  // Content,
   ContentActions,
   ContentGitHub,
   ContentTop,
