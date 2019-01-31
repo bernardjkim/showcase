@@ -61,8 +61,9 @@ export class SubmissionPage extends React.PureComponent {
     const { handleSubmitForm } = this.props;
     return (
       <Container>
-        <Header>Submit A Website!</Header>
+        <Header color="primary">Submit A Website!</Header>
         <StyledTextField
+          InputProps={{ color: '#57c1ae' }}
           label="Title"
           required
           onChange={this.handleChange('title')}
@@ -107,6 +108,7 @@ export class SubmissionPage extends React.PureComponent {
         )}
 
         <ButtonSubmit
+          color="primary"
           variant="contained"
           onClick={() => handleSubmitForm(this.state.form)}
         >

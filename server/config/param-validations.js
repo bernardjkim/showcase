@@ -1,6 +1,16 @@
 const Joi = require('joi');
 
 module.exports = {
+  // POST /api/auth
+  createAuth: {
+    body: {
+      email: Joi.string()
+        .email({ minDomainAtoms: 2 })
+        .required(),
+      password: Joi.string().required(),
+    },
+  },
+
   // POST /api/user
   createUser: {
     body: {

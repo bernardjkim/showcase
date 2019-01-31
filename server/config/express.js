@@ -8,6 +8,7 @@ const cors = require('cors');
 const expressValidation = require('express-validation');
 const httpStatus = require('http-status');
 const logger = require('morgan');
+const passport = require('passport');
 
 const routes = require('../route');
 const APIError = require('../route/error/APIError');
@@ -34,6 +35,10 @@ app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
+
+// passport config
+app.use(passport.initialize());
+require('../util/passport')(passport);
 
 app.use('/api', routes);
 

@@ -17,3 +17,5 @@ export const HomeLink = props => <StyledLink to="/" {...props} />;
 export const SubmissionLink = props => (
   <StyledLink to="/submission" {...props} />
 );
+
+export const LoginLink = props => <StyledLink to="/login" {...props} />;

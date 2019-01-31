@@ -3,6 +3,7 @@ const articleRoutes = require('./article');
 const likeRoutes = require('./like');
 const commentRoutes = require('./comment');
 const userRoutes = require('./user');
+const authRoutes = require('./auth');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -12,9 +13,11 @@ router.get('/health-check', (req, res) => {
 });
 
 // mount article routes at /article
+
 router.use('/article', articleRoutes);
 router.use('/like', likeRoutes);
 router.use('/comment', commentRoutes);
 router.use('/user', userRoutes);
+router.use('/auth', authRoutes);
 
 module.exports = router;

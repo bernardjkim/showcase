@@ -70,7 +70,7 @@ class HomeContent extends React.Component {
         <Content>
           <ContentTop>
             <Title>{article.get('title')}</Title>
-            <ButtonNext onClick={handleLoadArticle}>Next</ButtonNext>
+            <ButtonNext onClick={handleLoadArticle}>{'Next >'}</ButtonNext>
             <ContentActions>
               <ButtonLike variant="outlined" onClick={handleLikeArticle}>
                 Like {article.get('likes')}

@@ -13,7 +13,9 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { push } from 'connected-react-router/immutable';
+import { makeSelectUser } from 'containers/App/selectors';
+import { deleteToken } from 'containers/App/actions';
+
 import saga from './saga';
 import reducer from './reducer';
 import makeSelectHomePage, { makeSelectArticle } from './selectors';
@@ -32,7 +34,7 @@ export class HomePage extends React.PureComponent {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar {...this.props} />
         <HomeContent {...this.props} />;
       </div>
     );
@@ -41,23 +43,17 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   // state variables
-  // article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   // dispatch functions
-  // handleCreateComment: PropTypes.func.isRequired,
-  // handleLikeArticle: PropTypes.func.isRequired,
-  // handleLoadArticle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   homePage: makeSelectHomePage(),
   article: makeSelectArticle(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleHomePage: () => {
-      dispatch(push('/'));
-    },
     handleCreateComment: comment => {
       // ignore empty comments
       if (comment.length > 0) dispatch(createComment(comment));
@@ -67,6 +63,9 @@ function mapDispatchToProps(dispatch) {
     },
     handleLikeArticle: () => {
       dispatch(likeArticle());
+    },
+    handleLogout: () => {
+      dispatch(deleteToken());
     },
   };
 }

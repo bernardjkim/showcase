@@ -1,4 +1,3 @@
-export { default as ButtonLogin } from './ButtonLogin';
 export { default as ButtonLike } from './ButtonLike';
 export { default as ButtonNext } from './ButtonNext';
 export { default as ButtonVisit } from './ButtonVisit';
@@ -17,6 +16,7 @@ export { default as Description } from './Description';
 export { default as GitHub } from './GitHub';
 export { default as Logo } from './Logo';
 export { default as StyledAppBar } from './StyledAppBar';
+export { default as StyledButton } from './StyledButton';
 export { default as StyledImage } from './StyledImage';
 export { default as StyledTextField } from './StyledTextField';
 export { default as Title } from './Title';
