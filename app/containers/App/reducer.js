@@ -19,14 +19,17 @@ import {
 export const initialState = fromJS({
   loading: false,
   error: false,
-  token: false,
+  token: localStorage.getItem('jwtToken') || false,
   user: false,
 });
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_TOKEN:
-      return state.set('loading', true).set('error', false);
+      return state
+        .set('token', false)
+        .set('loading', true)
+        .set('error', false);
 
     case CREATE_TOKEN_SUCCESS:
       return state.set('token', action.token).set('loading', false);
@@ -38,7 +41,10 @@ function appReducer(state = initialState, action) {
       return state.set('token', false);
 
     case LOAD_USER:
-      return state.set('loading', true).set('error', false);
+      return state
+        .set('user', false)
+        .set('loading', true)
+        .set('error', false);
 
     case LOAD_USER_SUCCESS:
       return state.set('user', fromJS(action.user)).set('loading', false);

@@ -5,10 +5,11 @@ import request from '../../utils/request';
 import {
   createTokenSuccess,
   createTokenError,
+  loadUser as loadUserAction,
   loadUserSuccess,
   loadUserError,
 } from './actions';
-import { CREATE_TOKEN, LOAD_USER } from './constants';
+import { CREATE_TOKEN, DELETE_TOKEN, LOAD_USER } from './constants';
 
 // Individual exports for testing
 
@@ -35,16 +36,44 @@ export function* createToken(action) {
     localStorage.setItem('jwtToken', res.token);
 
     yield put(createTokenSuccess(res.token));
+    yield put(loadUserAction());
   } catch (err) {
     yield put(createTokenError(err));
   }
 }
 
 /**
+ * DELETE token request/response handler
+ */
+export function* deleteToken() {
+  localStorage.removeItem('jwtToken');
+  yield put(loadUserAction());
+}
+
+/**
  * GET user request/response handler
  */
 export function* loadUser() {
-  const token = localStorage.getItem('jwtToken');
+  const token = yield localStorage.getItem('jwtToken');
+
+  if (!token) return;
+
+  const url = '/api/user/current';
+
+  // set request method/header/body
+  const options = {
+    method: 'GET',
+    headers: { Authorization: token },
+  };
+
+  try {
+    // Call our request helper (see 'utils/request')
+    const res = yield call(request, url, options);
+
+    yield put(loadUserSuccess(res.user));
+  } catch (err) {
+    yield put(loadUserError(err));
+  }
 }
 
 /**
@@ -56,6 +85,7 @@ export default function* appSaga() {
   // It will be cancelled automatically on component unmount
   yield all([
     takeLatest(CREATE_TOKEN, createToken),
+    takeLatest(DELETE_TOKEN, deleteToken),
     takeLatest(LOAD_USER, loadUser),
   ]);
 }

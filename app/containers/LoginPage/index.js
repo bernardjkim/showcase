@@ -14,7 +14,7 @@ import { Redirect } from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectToken } from 'containers/App/selectors';
+import { makeSelectUser } from 'containers/App/selectors';
 import { createToken } from 'containers/App/actions';
 
 import makeSelectLoginPage from './selectors';
@@ -26,9 +26,9 @@ import LoginForm from './LoginForm';
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.PureComponent {
   render() {
-    const { token } = this.props;
+    const { user } = this.props;
 
-    if (token) return <Redirect to="/" />;
+    if (user) return <Redirect to="/" />;
 
     return (
       <div>
@@ -40,12 +40,12 @@ export class LoginPage extends React.PureComponent {
 
 LoginPage.propTypes = {
   // state variables
-  token: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
   loginPage: makeSelectLoginPage(),
-  token: makeSelectToken(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

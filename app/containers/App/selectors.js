@@ -27,6 +27,9 @@ const makeSelectError = () =>
 const makeSelectToken = () =>
   createSelector(selectGlobalDomain, globalState => globalState.get('token'));
 
+const makeSelectUser = () =>
+  createSelector(selectGlobalDomain, globalState => globalState.get('user'));
+
 /**
  * Default selector used by App
  */
@@ -39,6 +42,7 @@ export {
   makeSelectLocation,
   selectGlobalDomain,
   makeSelectToken,
+  makeSelectUser,
   makeSelectLoading,
   makeSelectError,
 };
