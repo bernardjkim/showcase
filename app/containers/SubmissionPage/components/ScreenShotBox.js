@@ -5,7 +5,7 @@ const ScreenShotBox = styled.label`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 25px;
   width: 60%;
   height: 400px;
   background-color: #e8eaea;

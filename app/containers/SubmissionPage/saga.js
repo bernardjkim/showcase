@@ -19,7 +19,7 @@ export function* submitForm(action) {
   formData.append('uri', form.url);
   formData.append('github', form.github);
   formData.append('description', form.description);
-  // formData.append('tags', form.tags)
+  formData.append('tags', form.tags);
 
   formData.append('file', form.screenshot);
 
