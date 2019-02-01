@@ -49,7 +49,7 @@ export class SubmissionPage extends React.PureComponent {
     this.state = {
       form: {
         title: '',
-        url: '',
+        uri: '',
         github: '',
         description: '',
         tag: '', // current input
@@ -94,8 +94,8 @@ export class SubmissionPage extends React.PureComponent {
         <StyledTextField
           label="URL"
           required
-          onChange={this.handleChange('url')}
-          value={this.state.form.url}
+          onChange={this.handleChange('uri')}
+          value={this.state.form.uri}
         />
         <StyledTextField
           label="GitHub"
@@ -106,7 +106,7 @@ export class SubmissionPage extends React.PureComponent {
           label="Description"
           required
           multiline
-          rows={6}
+          rowsMax={6}
           onChange={this.handleChange('description')}
           value={this.state.form.description}
         />

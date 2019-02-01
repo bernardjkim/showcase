@@ -14,6 +14,7 @@ router
   /** POST /api/article - Create new article */
   .post(
     multer().single('file'),
+    article.parse,
     validate(paramValidation.createArticle),
     article.create,
   );
