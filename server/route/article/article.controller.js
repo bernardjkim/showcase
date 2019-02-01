@@ -1,3 +1,6 @@
+const qs = require('qs');
+const httpStatus = require('http-status');
+const APIError = require('../error/APIError');
 const Article = require('./article.model');
 const Like = require('../like/like.model');
 
@@ -13,6 +16,24 @@ function load(req, res, next, id) {
       return next();
     })
     .catch(e => next(e));
+}
+
+/**
+ * Parse form and append fields to req
+ */
+function parse(req, res, next) {
+  const form = qs.parse(req.body.form);
+  if (!form) {
+    const error = new APIError('Missing form!', httpStatus.BAD_REQUEST);
+    next(error);
+  } else {
+    req.body.title = form.title;
+    req.body.uri = form.uri;
+    req.body.github = form.github;
+    req.body.description = form.description;
+    req.body.tags = form.tags;
+    next();
+  }
 }
 /**
  * Get article
@@ -31,24 +52,34 @@ function get(req, res) {
  * @property  {File}    image       - Website screenshot
  *
  */
-function create(req, res, next) {
+async function create(req, res, next) {
   const { file } = req;
 
-  uploadFile(file.buffer, file.originalname, file.mimetype)
-    .then(data => {
-      const article = new Article({
-        title: req.body.title,
-        uri: req.body.uri,
-        github: req.body.github,
-        description: req.body.description,
-        image: data.key,
-      });
-
-      article
-        .save()
-        .then(savedArticle => res.json({ article: savedArticle }))
+  const key = new Promise(resolve => {
+    if (!file) {
+      const error = new APIError('Invalid image file!', httpStatus.BAD_REQUEST);
+      next(error);
+    } else {
+      uploadFile(file.buffer, file.originalname, file.mimetype)
+        .then(data => {
+          resolve(data.key);
+        })
         .catch(e => next(e));
-    })
+    }
+  });
+
+  const article = new Article({
+    title: req.body.title,
+    uri: req.body.uri,
+    github: req.body.github,
+    description: req.body.description,
+    image: await key,
+    tags: req.body.tags,
+  });
+
+  article
+    .save()
+    .then(savedArticle => res.json({ article: savedArticle }))
     .catch(e => next(e));
 }
 
@@ -80,4 +111,4 @@ function random(req, res, next) {
     .catch(e => next(e));
 }
 
-module.exports = { load, get, create, random };
+module.exports = { load, get, create, random, parse };

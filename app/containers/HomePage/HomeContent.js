@@ -13,6 +13,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 
 import {
   ButtonLike,
@@ -52,12 +53,26 @@ const DescriptionBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 `;
 
 const ButtonComment = styled(Button)`
   color: white;
+  font-weight: 300;
+`;
+
+const Tags = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 60%;
+`;
+
+const StyledChip = styled(Chip)`
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 17px;
   font-weight: 300;
 `;
 
@@ -128,6 +143,11 @@ class HomeContent extends React.Component {
 
         <DescriptionBox>
           <Description>{article.get('description')}</Description>
+          <Tags>
+            {article.get('tags').map(tag => (
+              <StyledChip key={uuid()} label={tag} />
+            ))}
+          </Tags>
         </DescriptionBox>
 
         <CommentBox>

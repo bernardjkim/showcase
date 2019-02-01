@@ -11,20 +11,8 @@ Object {
           Symbol(impl): FormDataImpl {
             "_entries": Array [
               Object {
-                "name": "title",
-                "value": "title",
-              },
-              Object {
-                "name": "uri",
-                "value": "url",
-              },
-              Object {
-                "name": "github",
-                "value": "github",
-              },
-              Object {
-                "name": "description",
-                "value": "description",
+                "name": "form",
+                "value": "title=title&uri=uri&github=github&description=description&tags=tags&screenshot=screenshot",
               },
               Object {
                 "name": "file",

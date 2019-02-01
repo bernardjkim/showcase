@@ -41,6 +41,8 @@ module.exports = {
         .uri()
         .trim()
         .required(),
+      description: Joi.string().required(),
     },
+    file: Joi.any().required(),
   },
 };

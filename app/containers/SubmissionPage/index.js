@@ -9,12 +9,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import uuid from 'uuid/v1';
 
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Chip from '@material-ui/core/Chip';
+import styled from 'styled-components';
 import makeSelectSubmissionPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -31,6 +34,14 @@ import {
   StyledTextField,
 } from './components';
 
+const TagsList = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 60%;
+  margin-top: 25px;
+`;
+
 /* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent {
   constructor(props) {
@@ -38,10 +49,11 @@ export class SubmissionPage extends React.PureComponent {
     this.state = {
       form: {
         title: '',
-        url: '',
+        uri: '',
         github: '',
         description: '',
-        tags: '',
+        tag: '', // current input
+        tags: [],
         screenshot: false,
       },
     };
@@ -55,6 +67,16 @@ export class SubmissionPage extends React.PureComponent {
   handleFileUpload = e => {
     const { form } = this.state;
     this.setState({ form: { ...form, screenshot: e.target.files[0] } });
+  };
+
+  handleAddTag = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const { form } = this.state;
+      const { tags } = form;
+      tags.push(form.tag);
+      this.setState({ form: { ...form, tag: '', tags } });
+    }
   };
 
   render() {
@@ -72,8 +94,8 @@ export class SubmissionPage extends React.PureComponent {
         <StyledTextField
           label="URL"
           required
-          onChange={this.handleChange('url')}
-          value={this.state.form.url}
+          onChange={this.handleChange('uri')}
+          value={this.state.form.uri}
         />
         <StyledTextField
           label="GitHub"
@@ -84,15 +106,21 @@ export class SubmissionPage extends React.PureComponent {
           label="Description"
           required
           multiline
-          rows={6}
+          rowsMax={6}
           onChange={this.handleChange('description')}
           value={this.state.form.description}
         />
         <StyledTextField
           label="Tags"
-          onChange={this.handleChange('tags')}
-          value={this.state.form.tags}
+          onChange={this.handleChange('tag')}
+          onKeyPress={this.handleAddTag}
+          value={this.state.form.tag}
         />
+        <TagsList>
+          {this.state.form.tags.map(tag => (
+            <Chip key={uuid()} label={tag} />
+          ))}
+        </TagsList>
 
         {this.state.form.screenshot ? (
           <ScreenShot
@@ -129,7 +157,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleSubmitForm: form => {
+    handleSubmitForm: data => {
+      const { tag, ...form } = data;
       dispatch(submitForm(form));
     },
   };

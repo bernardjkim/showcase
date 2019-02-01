@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ScreenShot = styled.img`
-  margin-top: 40px;
+  margin-top: 25px;
   height: 400px;
 `;
 

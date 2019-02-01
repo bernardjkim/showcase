@@ -12,7 +12,7 @@ import { submitFormSuccess, submitFormError } from '../actions';
 describe('submitForm Saga', () => {
   const form = {
     title: 'title',
-    url: 'url',
+    uri: 'uri',
     github: 'github',
     description: 'description',
     tags: 'tags',
