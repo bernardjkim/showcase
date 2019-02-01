@@ -6,6 +6,8 @@ import request from '../../utils/request';
 import {
   createTokenSuccess,
   createTokenError,
+  deleteTokenError,
+  deleteTokenSuccess,
   loadUser as loadUserAction,
   loadUserSuccess,
   loadUserError,
@@ -28,7 +30,7 @@ export function* createToken(action) {
     body: qs.stringify({
       email: action.email,
       password: action.password,
-    }), // eslint-disable-line no-underscore-dangle
+    }),
   };
 
   try {
@@ -46,29 +48,23 @@ export function* createToken(action) {
  * DELETE token request/response handler
  */
 export function* deleteToken() {
-  // TODO: need to delete cookie
-  yield put(loadUserAction());
+  const url = '/api/auth';
 
-  // TODO: blacklist token on serverside???
+  // set request method/header/body
+  const options = {
+    method: 'DELETE',
+    credentials: 'same-origin', // include, *same-origin, omit
+  };
 
-  // const token = yield select(makeSelectToken());
-  // const url = '/api/auth';
+  try {
+    // Call our request helper (see 'utils/request')
+    yield call(request, url, options);
 
-  // // set request method/header/body
-  // const options = {
-  //   method: 'DELETE',
-  //   headers: { Authorization: token },
-  // };
-
-  // try {
-  //   yield call(request, url, options);
-
-  //   localStorage.removeItem('jwtToken');
-  //   yield put(deleteTokenSuccess());
-  //   yield put(loadUserAction());
-  // } catch (err) {
-  //   yield put(deleteTokenError(err));
-  // }
+    yield put(deleteTokenSuccess());
+    yield put(loadUserAction());
+  } catch (err) {
+    yield put(deleteTokenError(err));
+  }
 }
 
 /**

@@ -29,7 +29,7 @@ function create(req, res, next) {
                   signed: true, // Indicates if the cookie should be signed
                 };
                 res.cookie('jwt', token, options);
-                res.send();
+                res.status(httpStatus.NO_CONTENT).send();
               })
               .catch(e => next(e));
           })
@@ -39,7 +39,18 @@ function create(req, res, next) {
     .catch(e => next(e));
 }
 
+/**
+ * Clears jwt cookie
+ */
+function remove(req, res) {
+  res.clearCookie('jwt');
+  res.status(httpStatus.NO_CONTENT).send();
+}
+
 // TODO: handle invalid/expired tokens
+/**
+ * Authenticate JWT and append user to req
+ */
 function authenticate(req, res, next) {
   const token = req.signedCookies.jwt;
   if (token) {
@@ -57,4 +68,4 @@ function authenticate(req, res, next) {
   }
 }
 
-module.exports = { authenticate, create };
+module.exports = { authenticate, create, remove };

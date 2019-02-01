@@ -6,6 +6,8 @@ import {
   createTokenError,
   createTokenSuccess,
   deleteToken,
+  deleteTokenError,
+  deleteTokenSuccess,
   loadUser,
   loadUserError,
   loadUserSuccess,
@@ -42,6 +44,15 @@ describe('appReducer', () => {
 
   it('handle the delete token action', () => {
     expect(appReducer(state, deleteToken())).toMatchSnapshot();
+  });
+
+  it('handle the delete token success action', () => {
+    expect(appReducer(state, deleteTokenSuccess())).toMatchSnapshot();
+  });
+
+  it('handle the delete token error action', () => {
+    const error = new Error('Test error');
+    expect(appReducer(state, deleteTokenError(error))).toMatchSnapshot();
   });
 
   it('handle the load user action', () => {

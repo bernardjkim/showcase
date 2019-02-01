@@ -9,6 +9,8 @@ import {
   CREATE_TOKEN_ERROR,
   CREATE_TOKEN_SUCCESS,
   DELETE_TOKEN,
+  DELETE_TOKEN_ERROR,
+  DELETE_TOKEN_SUCCESS,
   LOAD_USER,
   LOAD_USER_ERROR,
   LOAD_USER_SUCCESS,
@@ -32,8 +34,6 @@ export function createToken(email, password) {
 
 /**
  * Dispatched when creating the token is successful
- *
- * @param   {string}  token - JWT token
  *
  * @return  {object}        - An action object with a type of CREATE_TOKEN_SUCCESSFUL
  */
@@ -65,6 +65,31 @@ export function createTokenError(error) {
 export function deleteToken() {
   return {
     type: DELETE_TOKEN,
+  };
+}
+
+/**
+ * Dispatched when deleteing token fails
+ *
+ * @return  {object}  - An action object with a type of DELETE_TOKEN_SUCCESS
+ */
+export function deleteTokenSuccess() {
+  return {
+    type: DELETE_TOKEN_SUCCESS,
+  };
+}
+
+/**
+ * Dispatched when deleteing token is successful
+ *
+ * @param   {Error} error - Error received
+ *
+ * @return  {object}      - An action object with a type of DELETE_TOKEN_SUCCESS
+ */
+export function deleteTokenError(error) {
+  return {
+    type: DELETE_TOKEN_ERROR,
+    error,
   };
 }
 

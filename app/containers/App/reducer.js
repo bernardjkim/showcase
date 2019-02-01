@@ -10,6 +10,8 @@ import {
   CREATE_TOKEN_ERROR,
   CREATE_TOKEN_SUCCESS,
   DELETE_TOKEN,
+  DELETE_TOKEN_ERROR,
+  DELETE_TOKEN_SUCCESS,
   LOAD_USER,
   LOAD_USER_ERROR,
   LOAD_USER_SUCCESS,
@@ -34,9 +36,14 @@ function appReducer(state = initialState, action) {
     case CREATE_TOKEN_ERROR:
       return state.set('error', fromJS(action.error)).set('loading', false);
 
-    // TODO: need to delete cookie
     case DELETE_TOKEN:
-      return state;
+      return state.set('loading', true).set('error', false);
+
+    case DELETE_TOKEN_SUCCESS:
+      return state.set('user', false).set('loading', false);
+
+    case DELETE_TOKEN_ERROR:
+      return state.set('error', fromJS(action.error)).set('loading', false);
 
     case LOAD_USER:
       return state

@@ -3,6 +3,8 @@ import {
   createTokenError,
   createTokenSuccess,
   deleteToken,
+  deleteTokenError,
+  deleteTokenSuccess,
   loadUser,
   loadUserError,
   loadUserSuccess,
@@ -12,6 +14,8 @@ import {
   CREATE_TOKEN_ERROR,
   CREATE_TOKEN_SUCCESS,
   DELETE_TOKEN,
+  DELETE_TOKEN_ERROR,
+  DELETE_TOKEN_SUCCESS,
   LOAD_USER,
   LOAD_USER_ERROR,
   LOAD_USER_SUCCESS,
@@ -57,6 +61,26 @@ describe('App actions', () => {
         type: DELETE_TOKEN,
       };
       expect(deleteToken()).toEqual(expected);
+    });
+  });
+
+  describe('Delete Token Success Action', () => {
+    it('has a type of DELETE_TOKEN_SUCCESS', () => {
+      const expected = {
+        type: DELETE_TOKEN_SUCCESS,
+      };
+      expect(deleteTokenSuccess()).toEqual(expected);
+    });
+  });
+
+  describe('Delete Token Error Action', () => {
+    it('has a type of DELETE_TOKEN_ERROR', () => {
+      const error = {};
+      const expected = {
+        type: DELETE_TOKEN_ERROR,
+        error,
+      };
+      expect(deleteTokenError(error)).toEqual(expected);
     });
   });
 
