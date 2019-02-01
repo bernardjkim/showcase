@@ -13,6 +13,9 @@ const envVarsSchema = Joi.object({
   JWT_SECRET: Joi.string()
     .required()
     .description('JWT Secret required to sign'),
+  COOKIE_PARSER_SECRET: Joi.string()
+    .required()
+    .description('Cookie Parser Secret required to sign'),
   MONGO_HOST: Joi.string()
     .required()
     .description('Mongo DB host url'),
@@ -46,6 +49,7 @@ const config = {
     key: envVars.AWS_SECRET_ACCESS_KEY,
     bucket: envVars.S3_BUCKET,
   },
+  cookieSecret: envVars.COOKIE_PARSER_SECRET,
 };
 
 module.exports = config;

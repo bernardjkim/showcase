@@ -33,12 +33,10 @@ describe('App actions', () => {
 
   describe('Create Token Success Action', () => {
     it('has a type of CREATE_TOKEN_SUCCESS', () => {
-      const token = 'token';
       const expected = {
         type: CREATE_TOKEN_SUCCESS,
-        token,
       };
-      expect(createTokenSuccess(token)).toEqual(expected);
+      expect(createTokenSuccess()).toEqual(expected);
     });
   });
 

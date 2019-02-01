@@ -10,6 +10,7 @@ import uuid from 'uuid/v1';
 import * as moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
 
@@ -24,7 +25,7 @@ import {
   CommentList,
   CommentValue,
   Container,
-  Content,
+  // Content,
   ContentActions,
   ContentGitHub,
   ContentTop,
@@ -34,6 +35,31 @@ import {
   StyledTextField,
   Title,
 } from './components';
+
+const Gallary = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 480px;
+  background-color: #f5f5f5;
+`;
+
+const DescriptionBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
+
+const ButtonComment = styled(Button)`
+  color: white;
+  font-weight: 300;
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 class HomeContent extends React.Component {
@@ -67,81 +93,82 @@ class HomeContent extends React.Component {
 
     return (
       <Container>
-        <Content>
-          <ContentTop>
-            <Title>{article.get('title')}</Title>
-            <ButtonNext onClick={handleLoadArticle}>{'Next >'}</ButtonNext>
-            <ContentActions>
-              <ButtonLike variant="outlined" onClick={handleLikeArticle}>
-                Like {article.get('likes')}
-              </ButtonLike>
-              <ButtonVisit
-                variant="outlined"
-                onClick={() => this.openInNewTab(article.get('uri'))}
-              >
-                Visit
-              </ButtonVisit>
-            </ContentActions>
-          </ContentTop>
-
-          <ContentGitHub>
-            <FontAwesomeIcon size="lg" icon={faGithub} />{' '}
-            <GitHub
-              onClick={() => this.openInNewTab(article.get('github'))}
-              private={article.get('github') ? 0 : 1}
+        <ContentTop>
+          <Title>{article.get('title')}</Title>
+          <ButtonNext onClick={handleLoadArticle}>{'Next >'}</ButtonNext>
+          <ContentActions>
+            <ButtonLike variant="outlined" onClick={handleLikeArticle}>
+              Like {article.get('likes')}
+            </ButtonLike>
+            <ButtonVisit
+              variant="outlined"
+              onClick={() => this.openInNewTab(article.get('uri'))}
             >
-              {article.get('github') || 'private'}
-            </GitHub>
-          </ContentGitHub>
+              Visit
+            </ButtonVisit>
+          </ContentActions>
+        </ContentTop>
 
+        <ContentGitHub>
+          <FontAwesomeIcon size="lg" icon={faGithub} />{' '}
+          <GitHub
+            onClick={() => this.openInNewTab(article.get('github'))}
+            private={article.get('github') ? 0 : 1}
+          >
+            {article.get('github') || 'private'}
+          </GitHub>
+        </ContentGitHub>
+
+        <Gallary>
           <StyledImage
             src={`${process.env.S3_URI}/${article.get('image')}`}
             alt="NotFound"
           />
+        </Gallary>
 
+        <DescriptionBox>
           <Description>{article.get('description')}</Description>
-          <CommentBox>
-            <StyledTextField
-              multiline
-              placeholder="Leave a Comment"
-              rows={6}
-              // variant="filled"
-              fullWidth
-              InputProps={{ disableUnderline: true }}
-              onChange={this.handleChange}
-              value={this.state.comment}
-            />
-            <Button
-              mini
-              variant="contained"
-              disableRipple
-              onClick={() => {
-                const { comment } = this.state;
-                this.setState({ comment: '' });
-                return handleCreateComment(comment);
-              }}
-            >
-              Comment
-            </Button>
-          </CommentBox>
-          <CommentList>
-            {article.get('comments') &&
-              article.get('comments').map(root => (
-                <li key={uuid()}>
-                  <CommentInfo>
-                    <CommentUser>
-                      {root.getIn(['user', 'username'])}{' '}
-                    </CommentUser>
-                    <CommentDate>
-                      {moment(root.get('updated')).fromNow()}
-                    </CommentDate>
-                  </CommentInfo>
-                  <CommentValue>{root.get('value')}</CommentValue>
-                  <br />
-                </li>
-              ))}
-          </CommentList>
-        </Content>
+        </DescriptionBox>
+
+        <CommentBox>
+          <StyledTextField
+            multiline
+            placeholder="Leave a Comment"
+            rows={6}
+            // variant="filled"
+            fullWidth
+            InputProps={{ disableUnderline: true }}
+            onChange={this.handleChange}
+            value={this.state.comment}
+          />
+          <ButtonComment
+            color="primary"
+            variant="contained"
+            disableRipple
+            onClick={() => {
+              const { comment } = this.state;
+              this.setState({ comment: '' });
+              return handleCreateComment(comment);
+            }}
+          >
+            Comment
+          </ButtonComment>
+        </CommentBox>
+        <CommentList>
+          {article.get('comments') &&
+            article.get('comments').map(root => (
+              <li key={uuid()}>
+                <CommentInfo>
+                  <CommentUser>{root.getIn(['user', 'username'])} </CommentUser>
+                  <CommentDate>
+                    {moment(root.get('updated')).fromNow()}
+                  </CommentDate>
+                </CommentInfo>
+                <CommentValue>{root.get('value')}</CommentValue>
+                <br />
+              </li>
+            ))}
+        </CommentList>
       </Container>
     );
   }

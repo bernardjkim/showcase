@@ -24,11 +24,13 @@ const makeSelectLoading = () =>
 const makeSelectError = () =>
   createSelector(selectGlobalDomain, globalState => globalState.get('error'));
 
-const makeSelectToken = () =>
-  createSelector(selectGlobalDomain, globalState => globalState.get('token'));
-
 const makeSelectUser = () =>
   createSelector(selectGlobalDomain, globalState => globalState.get('user'));
+
+const makeSelectValidateToken = () =>
+  createSelector(selectGlobalDomain, globalState =>
+    globalState.get('validateToken'),
+  );
 
 /**
  * Default selector used by App
@@ -41,8 +43,8 @@ export default makeSelectApp;
 export {
   makeSelectLocation,
   selectGlobalDomain,
-  makeSelectToken,
   makeSelectUser,
+  makeSelectValidateToken,
   makeSelectLoading,
   makeSelectError,
 };

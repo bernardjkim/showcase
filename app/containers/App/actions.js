@@ -37,10 +37,9 @@ export function createToken(email, password) {
  *
  * @return  {object}        - An action object with a type of CREATE_TOKEN_SUCCESSFUL
  */
-export function createTokenSuccess(token) {
+export function createTokenSuccess() {
   return {
     type: CREATE_TOKEN_SUCCESS,
-    token,
   };
 }
 

@@ -1,9 +1,8 @@
-import { all, takeLatest, call, put, select } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
 
 import request from '../../utils/request';
 
-import { makeSelectToken } from './selectors';
 import {
   createTokenSuccess,
   createTokenError,
@@ -24,6 +23,7 @@ export function* createToken(action) {
   // set request method/header/body
   const options = {
     method: 'POST',
+    credentials: 'same-origin', // include, *same-origin, omit
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: qs.stringify({
       email: action.email,
@@ -33,11 +33,9 @@ export function* createToken(action) {
 
   try {
     // Call our request helper (see 'utils/request')
-    const res = yield call(request, url, options);
+    yield call(request, url, options);
 
-    localStorage.setItem('jwtToken', res.token);
-
-    yield put(createTokenSuccess(res.token));
+    yield put(createTokenSuccess());
     yield put(loadUserAction());
   } catch (err) {
     yield put(createTokenError(err));
@@ -48,7 +46,7 @@ export function* createToken(action) {
  * DELETE token request/response handler
  */
 export function* deleteToken() {
-  localStorage.removeItem('jwtToken');
+  // TODO: need to delete cookie
   yield put(loadUserAction());
 
   // TODO: blacklist token on serverside???
@@ -77,21 +75,11 @@ export function* deleteToken() {
  * GET user request/response handler
  */
 export function* loadUser() {
-  const token = yield select(makeSelectToken());
-
-  if (!token) return;
-
   const url = '/api/user/current';
-
-  // set request method/header/body
-  const options = {
-    method: 'GET',
-    headers: { Authorization: token },
-  };
 
   try {
     // Call our request helper (see 'utils/request')
-    const res = yield call(request, url, options);
+    const res = yield call(request, url);
 
     yield put(loadUserSuccess(res.user));
   } catch (err) {

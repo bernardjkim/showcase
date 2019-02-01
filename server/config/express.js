@@ -8,8 +8,9 @@ const cors = require('cors');
 const expressValidation = require('express-validation');
 const httpStatus = require('http-status');
 const logger = require('morgan');
-const passport = require('passport');
+const cookieParser = require('cookie-parser');
 
+const config = require('../config/config');
 const routes = require('../route');
 const APIError = require('../route/error/APIError');
 
@@ -33,12 +34,10 @@ app.use(compress());
 // secure apps by setting various HTTP headers
 app.use(helmet());
 
-// enable CORS - Cross Origin Resource Sharing
-app.use(cors());
+app.use(cookieParser(config.cookieSecret));
 
-// passport config
-app.use(passport.initialize());
-require('../util/passport')(passport);
+// enable CORS - Cross Origin Resource Sharing
+app.use(cors({ credentials: true }));
 
 app.use('/api', routes);
 

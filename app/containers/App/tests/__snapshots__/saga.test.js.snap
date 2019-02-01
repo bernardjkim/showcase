@@ -8,6 +8,7 @@ Object {
       "/api/auth",
       Object {
         "body": "",
+        "credentials": "same-origin",
         "headers": Object {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -23,25 +24,9 @@ Object {
 exports[` 2`] = `
 Object {
   "@@redux-saga/IO": true,
-  "SELECT": Object {
-    "args": Array [],
-    "selector": [Function],
-  },
-}
-`;
-
-exports[` 3`] = `
-Object {
-  "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
       "/api/user/current",
-      Object {
-        "headers": Object {
-          "Authorization": "token",
-        },
-        "method": "GET",
-      },
     ],
     "context": null,
     "fn": [Function],
