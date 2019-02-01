@@ -31,7 +31,10 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { makeSelectToken, makeSelectUser } from 'containers/App/selectors';
+import {
+  makeSelectUser,
+  makeSelectValidateToken,
+} from 'containers/App/selectors';
 import { loadUser } from 'containers/App/actions';
 
 import saga from './saga';
@@ -43,10 +46,10 @@ import GlobalStyle from '../../global-styles';
 library.add(fas, fab);
 
 function App(props) {
-  const { token, user } = props;
+  const { user, validateToken } = props;
   const { handleLoadUser } = props;
 
-  if (token && !user) handleLoadUser();
+  if (!user && validateToken) handleLoadUser();
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -64,15 +67,15 @@ function App(props) {
 App.propTypes = {
   // state variables
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  token: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  validateToken: PropTypes.bool.isRequired,
 
   // dispatch functions
   handleLoadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  token: makeSelectToken(),
   user: makeSelectUser(),
+  validateToken: makeSelectValidateToken(),
 });
 
 function mapDispatchToProps(dispatch) {

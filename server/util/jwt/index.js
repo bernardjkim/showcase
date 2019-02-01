@@ -7,15 +7,29 @@ const config = require('../../config/config');
  *
  * @param   {object}  payload
  * @param   {object}  options (optional sign options)
- * @return  {Promise}         signed jwt token
+ * @returns {Promise}         signed jwt token
  */
 function sign(payload, options = { expiresIn: '7 days' }) {
   return new Promise((resolve, reject) => {
     jsonwebtoken.sign(payload, config.jwtSecret, options, (err, token) => {
       if (err) reject(err);
-      else resolve(`Bearer ${token}`);
+      else resolve(token);
     });
   });
 }
 
-module.exports = { sign };
+/**
+ *
+ * @param   {string} payload  - Token
+ * @returns {Promise}
+ */
+function decode(payload) {
+  return new Promise((resolve, reject) => {
+    jsonwebtoken.verify(payload, config.jwtSecret, (err, decoded) => {
+      if (err) reject(err);
+      else resolve(decoded);
+    });
+  });
+}
+
+module.exports = { sign, decode };
