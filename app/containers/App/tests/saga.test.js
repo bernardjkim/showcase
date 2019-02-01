@@ -26,9 +26,8 @@ describe('createToken Saga', () => {
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the createTokenSuccess action if successful', () => {
-    const token = 'token';
-    const putDescriptor = gen.clone().next({ token }).value;
-    expect(putDescriptor).toEqual(put(createTokenSuccess(token)));
+    const putDescriptor = gen.clone().next().value;
+    expect(putDescriptor).toEqual(put(createTokenSuccess()));
   });
 
   it('should dispatch the createTokenError action if error', () => {
@@ -39,13 +38,12 @@ describe('createToken Saga', () => {
 });
 
 describe('loadUser Saga', () => {
-  const token = 'token';
   const gen = cloneableGenerator(loadUser)();
 
-  const selectDescriptor = gen.next().value;
-  expect(selectDescriptor).toMatchSnapshot();
+  // const selectDescriptor = gen.next().value;
+  // expect(selectDescriptor).toMatchSnapshot();
 
-  const callDescriptor = gen.next(token).value;
+  const callDescriptor = gen.next().value;
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadUserSuccess action if successful', () => {

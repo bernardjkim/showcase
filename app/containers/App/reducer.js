@@ -26,10 +26,7 @@ export const initialState = fromJS({
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_TOKEN:
-      return state
-        .set('token', false)
-        .set('loading', true)
-        .set('error', false);
+      return state.set('loading', true).set('error', false);
 
     case CREATE_TOKEN_SUCCESS:
       return state.set('loading', false);
@@ -37,13 +34,14 @@ function appReducer(state = initialState, action) {
     case CREATE_TOKEN_ERROR:
       return state.set('error', fromJS(action.error)).set('loading', false);
 
+    // TODO: need to delete cookie
     case DELETE_TOKEN:
-      return state.set('token', false);
+      return state;
 
     case LOAD_USER:
       return state
         .set('user', false)
-        .set('validateUser', false)
+        .set('validateToken', false)
         .set('loading', true)
         .set('error', false);
 

@@ -4,15 +4,15 @@ exports[`makeSelectError should select the error state 1`] = `false`;
 
 exports[`makeSelectLoading should select the loading state 1`] = `false`;
 
-exports[`makeSelectToken should select the token state 1`] = `false`;
-
 exports[`makeSelectUser should select the user state 1`] = `false`;
+
+exports[`makeSelectValidateToken should select the token state 1`] = `true`;
 
 exports[`selectGlobalDomain should select the global state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "token": false,
   "user": false,
+  "validateToken": true,
 }
 `;

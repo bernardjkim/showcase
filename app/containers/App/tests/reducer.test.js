@@ -17,8 +17,8 @@ describe('appReducer', () => {
     state = fromJS({
       loading: false,
       error: false,
-      token: false,
       user: false,
+      validateToken: true,
     });
   });
   it('returns the initial state', () => {
@@ -32,8 +32,7 @@ describe('appReducer', () => {
   });
 
   it('handle the create token success action', () => {
-    const token = 'token';
-    expect(appReducer(state, createTokenSuccess(token))).toMatchSnapshot();
+    expect(appReducer(state, createTokenSuccess())).toMatchSnapshot();
   });
 
   it('handle the create token error action', () => {

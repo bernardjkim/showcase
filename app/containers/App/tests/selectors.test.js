@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import {
   selectGlobalDomain,
   makeSelectLocation,
-  makeSelectToken,
+  makeSelectValidateToken,
   makeSelectUser,
   makeSelectError,
   makeSelectLoading,
@@ -24,8 +24,8 @@ describe('makeSelectLocation', () => {
 const initialState = fromJS({
   loading: false,
   error: false,
-  token: false,
   user: false,
+  validateToken: true,
 });
 
 describe('selectGlobalDomain', () => {
@@ -48,10 +48,10 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectToken', () => {
-  const tokenSelector = makeSelectToken();
+describe('makeSelectValidateToken', () => {
+  const validateTokenSelector = makeSelectValidateToken();
   it('should select the token state', () => {
-    expect(tokenSelector(initialState)).toMatchSnapshot();
+    expect(validateTokenSelector(initialState)).toMatchSnapshot();
   });
 });
 

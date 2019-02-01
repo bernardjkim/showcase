@@ -4,8 +4,8 @@ exports[`appReducer handle the create token action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
-  "token": false,
   "user": false,
+  "validateToken": true,
 }
 `;
 
@@ -13,8 +13,8 @@ exports[`appReducer handle the create token error action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": [Error: Test error],
-  "token": false,
   "user": false,
+  "validateToken": true,
 }
 `;
 
@@ -22,8 +22,8 @@ exports[`appReducer handle the create token success action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "token": "token",
   "user": false,
+  "validateToken": true,
 }
 `;
 
@@ -31,8 +31,8 @@ exports[`appReducer handle the delete token action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "token": false,
   "user": false,
+  "validateToken": true,
 }
 `;
 
@@ -40,8 +40,8 @@ exports[`appReducer handle the load user action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
-  "token": false,
   "user": false,
+  "validateToken": false,
 }
 `;
 
@@ -49,8 +49,8 @@ exports[`appReducer handle the load user error action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": [Error: Test error],
-  "token": false,
   "user": false,
+  "validateToken": true,
 }
 `;
 
@@ -58,8 +58,8 @@ exports[`appReducer handle the load user success action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "token": false,
   "user": Immutable.Map {},
+  "validateToken": true,
 }
 `;
 
@@ -67,7 +67,7 @@ exports[`appReducer returns the initial state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "token": false,
   "user": false,
+  "validateToken": true,
 }
 `;
