@@ -14,8 +14,8 @@ export const CREATE_TOKEN_SUCCESS = 'app/App/CREATE_TOKEN_SUCCESS';
 export const CREATE_TOKEN_ERROR = 'app/App/CREATE_TOKEN_ERROR';
 
 export const DELETE_TOKEN = 'app/App/DELETE_TOKEN';
-// export const DELETE_TOKEN_SUCCESS = 'app/App/DELETE_TOKEN_SUCCESS';
-// export const DELETE_TOKEN_ERROR = 'app/App/DELETE_TOKEN_ERROR';
+export const DELETE_TOKEN_SUCCESS = 'app/App/DELETE_TOKEN_SUCCESS';
+export const DELETE_TOKEN_ERROR = 'app/App/DELETE_TOKEN_ERROR';
 
 export const LOAD_USER = 'app/App/LOAD_USER';
 export const LOAD_USER_SUCCESS = 'app/App/LOAD_USER_SUCCESS';

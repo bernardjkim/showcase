@@ -10,6 +10,8 @@ import { CREATE_TOKEN, DELETE_TOKEN, LOAD_USER } from '../constants';
 import {
   createTokenError,
   createTokenSuccess,
+  deleteTokenError,
+  deleteTokenSuccess,
   loadUserError,
   loadUserSuccess,
 } from '../actions';
@@ -34,6 +36,24 @@ describe('createToken Saga', () => {
     const error = new Error('Test error');
     const putDescriptor = gen.clone().throw(error).value;
     expect(putDescriptor).toEqual(put(createTokenError(error)));
+  });
+});
+
+describe('deleteToken Saga', () => {
+  const gen = cloneableGenerator(deleteToken)();
+
+  const callDescriptor = gen.next().value;
+  expect(callDescriptor).toMatchSnapshot();
+
+  it('should dispatch the deleteTokenSuccess action if successful', () => {
+    const putDescriptor = gen.clone().next().value;
+    expect(putDescriptor).toEqual(put(deleteTokenSuccess()));
+  });
+
+  it('should dispatch the deleteTokenError action if error', () => {
+    const error = new Error('Test error');
+    const putDescriptor = gen.clone().throw(error).value;
+    expect(putDescriptor).toEqual(put(deleteTokenError(error)));
   });
 });
 

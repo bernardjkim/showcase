@@ -9,6 +9,9 @@ router
   .route('/')
 
   /** POST /api/auth - authenticate user */
-  .post(validate(paramValidation.createAuth), auth.create);
+  .post(validate(paramValidation.createAuth), auth.create)
+
+  /** DELETE /api/auth  - delete cookie */
+  .delete(auth.remove);
 
 module.exports = router;

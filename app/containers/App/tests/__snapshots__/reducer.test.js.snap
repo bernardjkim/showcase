@@ -29,6 +29,24 @@ Immutable.Map {
 
 exports[`appReducer handle the delete token action 1`] = `
 Immutable.Map {
+  "loading": true,
+  "error": false,
+  "user": false,
+  "validateToken": true,
+}
+`;
+
+exports[`appReducer handle the delete token error action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": [Error: Test error],
+  "user": false,
+  "validateToken": true,
+}
+`;
+
+exports[`appReducer handle the delete token success action 1`] = `
+Immutable.Map {
   "loading": false,
   "error": false,
   "user": false,

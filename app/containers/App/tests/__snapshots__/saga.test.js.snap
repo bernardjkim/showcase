@@ -26,6 +26,23 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
+      "/api/auth",
+      Object {
+        "credentials": "same-origin",
+        "method": "DELETE",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[` 3`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
       "/api/user/current",
     ],
     "context": null,
