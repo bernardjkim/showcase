@@ -10,7 +10,9 @@ Immutable.Map {
 exports[`AuthPageReducer handle the create user error action 1`] = `
 Immutable.Map {
   "loading": false,
-  "error": [Error: Test Error],
+  "error": Immutable.Map {
+    "createUser": [Error: Test Error],
+  },
 }
 `;
 
