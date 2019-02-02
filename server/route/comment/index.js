@@ -1,5 +1,6 @@
 const express = require('express');
 const comment = require('./comment.controller');
+const auth = require('../auth/auth.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -7,7 +8,7 @@ router
   .route('/')
 
   /** POST /api/comment - Create new comment */
-  .post(comment.create);
+  .post(auth.authenticate, comment.create);
 
 router
   .route('/:articleId')

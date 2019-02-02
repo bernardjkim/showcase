@@ -32,7 +32,7 @@ function get(req, res) {
  */
 function create(req, res, next) {
   // NOTE: for now get test user, want to extract user from token
-  User.findOne({ email: 'test1@gmail.com' })
+  User.findById(req.user._id) // eslint-disable-line no-underscore-dangle
     .then(user => {
       Article.get(req.body.articleId) // verify article exists
         .then(article => {
