@@ -66,6 +66,7 @@ function mapDispatchToProps(dispatch) {
     },
     handleLogout: () => {
       dispatch(deleteToken());
+      window.location.reload(); // refresh page on logout
     },
   };
 }
