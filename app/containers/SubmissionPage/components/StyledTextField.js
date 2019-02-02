@@ -7,6 +7,7 @@ const StyledTextField = styled(TextField)`
 
   label {
     color: #57c1ae;
+    font-size: 17px;
   }
 `;
 

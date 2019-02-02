@@ -36,12 +36,21 @@ import {
 
 const TagsList = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   flex-wrap: wrap;
   width: 60%;
   margin-top: 25px;
 `;
 
+const StyledChip = styled(Chip)`
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-size: 17px;
+  font-weight: 300;
+`;
 /* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent {
   constructor(props) {
@@ -70,13 +79,23 @@ export class SubmissionPage extends React.PureComponent {
   };
 
   handleAddTag = e => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && this.state.form.tag !== '') {
       e.preventDefault();
       const { form } = this.state;
       const { tags } = form;
       tags.push(form.tag);
       this.setState({ form: { ...form, tag: '', tags } });
     }
+  };
+
+  handleDeleteTag = tag => () => {
+    this.setState(state => {
+      const tags = [...state.form.tags];
+      const tagToDelete = tags.indexOf(tag);
+      tags.splice(tagToDelete, 1);
+
+      return { form: { ...state.form, tags } };
+    });
   };
 
   render() {
@@ -118,7 +137,12 @@ export class SubmissionPage extends React.PureComponent {
         />
         <TagsList>
           {this.state.form.tags.map(tag => (
-            <Chip key={uuid()} label={tag} />
+            <StyledChip
+              variant="outlined"
+              key={uuid()}
+              label={tag}
+              onDelete={this.handleDeleteTag(tag)}
+            />
           ))}
         </TagsList>
 

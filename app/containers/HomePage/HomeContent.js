@@ -70,8 +70,10 @@ const Tags = styled.div`
 `;
 
 const StyledChip = styled(Chip)`
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   font-size: 17px;
   font-weight: 300;
 `;
@@ -145,7 +147,7 @@ class HomeContent extends React.Component {
           <Description>{article.get('description')}</Description>
           <Tags>
             {article.get('tags').map(tag => (
-              <StyledChip key={uuid()} label={tag} />
+              <StyledChip variant="outlined" key={uuid()} label={tag} />
             ))}
           </Tags>
         </DescriptionBox>
