@@ -87,7 +87,7 @@ class LoginForm extends React.PureComponent {
   };
 
   render() {
-    const { errorLogin } = this.props;
+    const { error } = this.props;
     const { handleCreateToken, handleToggle } = this.props;
 
     return (
@@ -113,7 +113,7 @@ class LoginForm extends React.PureComponent {
           type="password"
         />
 
-        <ErrorMessage hidden={!errorLogin || !errorLogin.get('createToken')}>
+        <ErrorMessage hidden={!error || !error.get('createToken')}>
           Invalid Email or Password
         </ErrorMessage>
 
@@ -144,7 +144,7 @@ class LoginForm extends React.PureComponent {
 
 LoginForm.propTypes = {
   handleToggle: PropTypes.func.isRequired,
-  errorLogin: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 
   // dispatch functions
   handleCreateToken: PropTypes.func.isRequired,

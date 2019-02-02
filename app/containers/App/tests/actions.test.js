@@ -1,7 +1,4 @@
 import {
-  createToken,
-  createTokenError,
-  createTokenSuccess,
   deleteToken,
   deleteTokenError,
   deleteTokenSuccess,
@@ -10,9 +7,6 @@ import {
   loadUserSuccess,
 } from '../actions';
 import {
-  CREATE_TOKEN,
-  CREATE_TOKEN_ERROR,
-  CREATE_TOKEN_SUCCESS,
   DELETE_TOKEN,
   DELETE_TOKEN_ERROR,
   DELETE_TOKEN_SUCCESS,
@@ -22,39 +16,6 @@ import {
 } from '../constants';
 
 describe('App actions', () => {
-  describe('Create Token Action', () => {
-    it('has a type of CREATE_TOKEN', () => {
-      const email = 'email';
-      const password = 'password';
-      const expected = {
-        type: CREATE_TOKEN,
-        email,
-        password,
-      };
-      expect(createToken(email, password)).toEqual(expected);
-    });
-  });
-
-  describe('Create Token Success Action', () => {
-    it('has a type of CREATE_TOKEN_SUCCESS', () => {
-      const expected = {
-        type: CREATE_TOKEN_SUCCESS,
-      };
-      expect(createTokenSuccess()).toEqual(expected);
-    });
-  });
-
-  describe('Create Token Error Action', () => {
-    it('has a type of CREATE_TOKEN_ERROR', () => {
-      const error = {};
-      const expected = {
-        type: CREATE_TOKEN_ERROR,
-        error,
-      };
-      expect(createTokenError(error)).toEqual(expected);
-    });
-  });
-
   describe('Delete Token Action', () => {
     it('has a type of DELETE_TOKEN', () => {
       const expected = {

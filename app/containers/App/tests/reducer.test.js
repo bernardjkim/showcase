@@ -1,10 +1,7 @@
 import { fromJS } from 'immutable';
-import appReducer from '../reducer';
+import AppReducer from '../reducer';
 
 import {
-  createToken,
-  createTokenError,
-  createTokenSuccess,
   deleteToken,
   deleteTokenError,
   deleteTokenSuccess,
@@ -13,7 +10,7 @@ import {
   loadUserSuccess,
 } from '../actions';
 
-describe('appReducer', () => {
+describe('AppReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
@@ -24,48 +21,33 @@ describe('appReducer', () => {
     });
   });
   it('returns the initial state', () => {
-    expect(appReducer(undefined, {})).toMatchSnapshot();
-  });
-
-  it('handle the create token action', () => {
-    const email = 'email';
-    const password = 'password';
-    expect(appReducer(state, createToken(email, password))).toMatchSnapshot();
-  });
-
-  it('handle the create token success action', () => {
-    expect(appReducer(state, createTokenSuccess())).toMatchSnapshot();
-  });
-
-  it('handle the create token error action', () => {
-    const error = new Error('Test error');
-    expect(appReducer(state, createTokenError(error))).toMatchSnapshot();
+    expect(AppReducer(undefined, {})).toMatchSnapshot();
   });
 
   it('handle the delete token action', () => {
-    expect(appReducer(state, deleteToken())).toMatchSnapshot();
+    expect(AppReducer(state, deleteToken())).toMatchSnapshot();
   });
 
   it('handle the delete token success action', () => {
-    expect(appReducer(state, deleteTokenSuccess())).toMatchSnapshot();
+    expect(AppReducer(state, deleteTokenSuccess())).toMatchSnapshot();
   });
 
   it('handle the delete token error action', () => {
     const error = new Error('Test error');
-    expect(appReducer(state, deleteTokenError(error))).toMatchSnapshot();
+    expect(AppReducer(state, deleteTokenError(error))).toMatchSnapshot();
   });
 
   it('handle the load user action', () => {
-    expect(appReducer(state, loadUser())).toMatchSnapshot();
+    expect(AppReducer(state, loadUser())).toMatchSnapshot();
   });
 
   it('handle the load user success action', () => {
     const user = {};
-    expect(appReducer(state, loadUserSuccess(user))).toMatchSnapshot();
+    expect(AppReducer(state, loadUserSuccess(user))).toMatchSnapshot();
   });
 
   it('handle the load user error action', () => {
     const error = new Error('Test error');
-    expect(appReducer(state, loadUserError(error))).toMatchSnapshot();
+    expect(AppReducer(state, loadUserError(error))).toMatchSnapshot();
   });
 });

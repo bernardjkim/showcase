@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`appReducer handle the create token action 1`] = `
+exports[`AppReducer handle the delete token action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
@@ -9,36 +9,7 @@ Immutable.Map {
 }
 `;
 
-exports[`appReducer handle the create token error action 1`] = `
-Immutable.Map {
-  "loading": false,
-  "error": Immutable.Map {
-    "createToken": [Error: Test error],
-  },
-  "user": false,
-  "validateToken": true,
-}
-`;
-
-exports[`appReducer handle the create token success action 1`] = `
-Immutable.Map {
-  "loading": false,
-  "error": false,
-  "user": false,
-  "validateToken": true,
-}
-`;
-
-exports[`appReducer handle the delete token action 1`] = `
-Immutable.Map {
-  "loading": true,
-  "error": false,
-  "user": false,
-  "validateToken": true,
-}
-`;
-
-exports[`appReducer handle the delete token error action 1`] = `
+exports[`AppReducer handle the delete token error action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": [Error: Test error],
@@ -47,7 +18,7 @@ Immutable.Map {
 }
 `;
 
-exports[`appReducer handle the delete token success action 1`] = `
+exports[`AppReducer handle the delete token success action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
@@ -56,7 +27,7 @@ Immutable.Map {
 }
 `;
 
-exports[`appReducer handle the load user action 1`] = `
+exports[`AppReducer handle the load user action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
@@ -65,7 +36,7 @@ Immutable.Map {
 }
 `;
 
-exports[`appReducer handle the load user error action 1`] = `
+exports[`AppReducer handle the load user error action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": Immutable.Map {
@@ -76,7 +47,7 @@ Immutable.Map {
 }
 `;
 
-exports[`appReducer handle the load user success action 1`] = `
+exports[`AppReducer handle the load user success action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
@@ -85,7 +56,7 @@ Immutable.Map {
 }
 `;
 
-exports[`appReducer returns the initial state 1`] = `
+exports[`AppReducer returns the initial state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,

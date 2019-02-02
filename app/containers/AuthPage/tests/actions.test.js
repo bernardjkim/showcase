@@ -1,11 +1,54 @@
-import { createUser, createUserSuccess, createUserError } from '../actions';
 import {
+  createToken,
+  createTokenError,
+  createTokenSuccess,
+  createUser,
+  createUserSuccess,
+  createUserError,
+} from '../actions';
+import {
+  CREATE_TOKEN,
+  CREATE_TOKEN_ERROR,
+  CREATE_TOKEN_SUCCESS,
   CREATE_USER,
   CREATE_USER_ERROR,
   CREATE_USER_SUCCESS,
 } from '../constants';
 
 describe('AuthPage actions', () => {
+  describe('Create Token Action', () => {
+    it('has a type of CREATE_TOKEN', () => {
+      const email = 'email';
+      const password = 'password';
+      const expected = {
+        type: CREATE_TOKEN,
+        email,
+        password,
+      };
+      expect(createToken(email, password)).toEqual(expected);
+    });
+  });
+
+  describe('Create Token Success Action', () => {
+    it('has a type of CREATE_TOKEN_SUCCESS', () => {
+      const expected = {
+        type: CREATE_TOKEN_SUCCESS,
+      };
+      expect(createTokenSuccess()).toEqual(expected);
+    });
+  });
+
+  describe('Create Token Error Action', () => {
+    it('has a type of CREATE_TOKEN_ERROR', () => {
+      const error = {};
+      const expected = {
+        type: CREATE_TOKEN_ERROR,
+        error,
+      };
+      expect(createTokenError(error)).toEqual(expected);
+    });
+  });
+
   describe('Create User Action', () => {
     it('has a type of CREATE_USER', () => {
       const username = 'username';

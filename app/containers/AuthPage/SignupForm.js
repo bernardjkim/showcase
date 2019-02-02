@@ -89,7 +89,7 @@ class SignupForm extends React.PureComponent {
   };
 
   render() {
-    const { errorSignup } = this.props;
+    const { error } = this.props;
     const { handleCreateUser, handleToggle } = this.props;
 
     return (
@@ -130,7 +130,7 @@ class SignupForm extends React.PureComponent {
         />
 
         {/* TODO: more specific error message */}
-        <ErrorMessage hidden={!errorSignup || !errorSignup.get('createUser')}>
+        <ErrorMessage hidden={!error || !error.get('createUser')}>
           Invalid Fields
         </ErrorMessage>
 
@@ -166,7 +166,7 @@ class SignupForm extends React.PureComponent {
 
 SignupForm.propTypes = {
   // state variables
-  errorSignup: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 
   handleToggle: PropTypes.func.isRequired,
   // dispatch functions
