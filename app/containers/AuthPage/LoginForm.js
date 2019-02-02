@@ -65,7 +65,7 @@ const ButtonLogin = styled(Button)`
 `;
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginForm extends React.PureComponent {
+class LoginForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

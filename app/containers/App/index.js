@@ -56,7 +56,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/submit" component={SubmissionPage} />
-        <Route exact path="/login" component={AuthPage} />
+        <Route exact path="/auth" component={AuthPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
