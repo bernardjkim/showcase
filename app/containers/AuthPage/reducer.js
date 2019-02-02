@@ -6,6 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
+  CREATE_TOKEN,
+  CREATE_TOKEN_ERROR,
+  CREATE_TOKEN_SUCCESS,
   CREATE_USER,
   CREATE_USER_ERROR,
   CREATE_USER_SUCCESS,
@@ -18,6 +21,18 @@ export const initialState = fromJS({
 
 function AuthPageReducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_TOKEN:
+      return state.set('loading', true).set('error', false);
+
+    case CREATE_TOKEN_SUCCESS:
+      return state.set('loading', false);
+
+    case CREATE_TOKEN_ERROR: {
+      return state
+        .set('error', fromJS({ createToken: action.error }))
+        .set('loading', false);
+    }
+
     case CREATE_USER:
       return state.set('loading', true).set('error', false);
 

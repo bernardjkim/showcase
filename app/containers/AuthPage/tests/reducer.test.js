@@ -1,6 +1,13 @@
 import { fromJS } from 'immutable';
 import AuthPageReducer from '../reducer';
-import { createUser, createUserError, createUserSuccess } from '../actions';
+import {
+  createToken,
+  createTokenError,
+  createTokenSuccess,
+  createUser,
+  createUserError,
+  createUserSuccess,
+} from '../actions';
 
 describe('AuthPageReducer', () => {
   let state;
@@ -13,6 +20,22 @@ describe('AuthPageReducer', () => {
 
   it('returns the initial state', () => {
     expect(AuthPageReducer(undefined, {})).toMatchSnapshot();
+  });
+  it('handle the create token action', () => {
+    const email = 'email';
+    const password = 'password';
+    expect(
+      AuthPageReducer(state, createToken(email, password)),
+    ).toMatchSnapshot();
+  });
+
+  it('handle the create token success action', () => {
+    expect(AuthPageReducer(state, createTokenSuccess())).toMatchSnapshot();
+  });
+
+  it('handle the create token error action', () => {
+    const error = new Error('Test error');
+    expect(AuthPageReducer(state, createTokenError(error))).toMatchSnapshot();
   });
 
   it('handle the create user action', () => {

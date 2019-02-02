@@ -6,9 +6,6 @@
 
 import { fromJS } from 'immutable';
 import {
-  CREATE_TOKEN,
-  CREATE_TOKEN_ERROR,
-  CREATE_TOKEN_SUCCESS,
   DELETE_TOKEN,
   DELETE_TOKEN_ERROR,
   DELETE_TOKEN_SUCCESS,
@@ -25,20 +22,8 @@ export const initialState = fromJS({
   validateToken: true,
 });
 
-function appReducer(state = initialState, action) {
+function AppReducer(state = initialState, action) {
   switch (action.type) {
-    case CREATE_TOKEN:
-      return state.set('loading', true).set('error', false);
-
-    case CREATE_TOKEN_SUCCESS:
-      return state.set('loading', false);
-
-    case CREATE_TOKEN_ERROR: {
-      return state
-        .set('error', fromJS({ createToken: action.error }))
-        .set('loading', false);
-    }
-
     case DELETE_TOKEN:
       return state.set('loading', true).set('error', false);
 
@@ -68,4 +53,4 @@ function appReducer(state = initialState, action) {
   }
 }
 
-export default appReducer;
+export default AppReducer;
