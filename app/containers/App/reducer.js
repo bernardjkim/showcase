@@ -40,7 +40,7 @@ function appReducer(state = initialState, action) {
       return state.set('loading', true).set('error', false);
 
     case DELETE_TOKEN_SUCCESS:
-      return state.set('user', false).set('loading', false);
+      return state.set('loading', false);
 
     case DELETE_TOKEN_ERROR:
       return state.set('error', fromJS(action.error)).set('loading', false);
