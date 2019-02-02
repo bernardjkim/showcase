@@ -1,6 +1,6 @@
 /**
  *
- * LoginPage
+ * AuthPage
  *
  */
 
@@ -17,14 +17,26 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/selectors';
 import { createToken } from 'containers/App/actions';
 
-import makeSelectLoginPage from './selectors';
+import makeSelectAuthPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginPage extends React.PureComponent {
+export class AuthPage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showLogin: true,
+    };
+  }
+
+  handleToggle = showLogin => () => {
+    this.setState({ showLogin });
+  };
+
   render() {
     const { user } = this.props;
 
@@ -32,19 +44,23 @@ export class LoginPage extends React.PureComponent {
 
     return (
       <div>
-        <LoginForm {...this.props} />
+        {this.state.showLogin ? (
+          <LoginForm {...this.props} handleToggle={this.handleToggle} />
+        ) : (
+          <SignupForm {...this.props} handleToggle={this.handleToggle} />
+        )}
       </div>
     );
   }
 }
 
-LoginPage.propTypes = {
+AuthPage.propTypes = {
   // state variables
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginPage: makeSelectLoginPage(),
+  AuthPage: makeSelectAuthPage(),
   user: makeSelectUser(),
 });
 
@@ -52,6 +68,9 @@ function mapDispatchToProps(dispatch) {
   return {
     handleCreateToken: (email, password) => {
       dispatch(createToken(email, password));
+    },
+    handleCreateUser: (username, email, password, passwordConfirm) => {
+      dispatch(createToken(username, email, password, passwordConfirm));
     },
   };
 }
@@ -61,11 +80,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'loginPage', reducer });
-const withSaga = injectSaga({ key: 'loginPage', saga });
+const withReducer = injectReducer({ key: 'AuthPage', reducer });
+const withSaga = injectSaga({ key: 'AuthPage', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(LoginPage);
+)(AuthPage);

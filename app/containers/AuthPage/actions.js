@@ -1,6 +1,6 @@
 /*
  *
- * LoginPage actions
+ * AuthPage actions
  *
  */
 

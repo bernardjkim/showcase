@@ -79,7 +79,7 @@ export class LoginForm extends React.PureComponent {
   };
 
   render() {
-    const { handleCreateToken } = this.props;
+    const { handleCreateToken, handleToggle } = this.props;
 
     return (
       <Container>
@@ -114,7 +114,12 @@ export class LoginForm extends React.PureComponent {
           >
             Login
           </ButtonLogin>
-          <Button color="primary" size="large" variant="outlined">
+          <Button
+            color="primary"
+            size="large"
+            variant="outlined"
+            onClick={handleToggle(false)}
+          >
             Sign Up
           </Button>
         </ContainerButtons>
@@ -124,6 +129,7 @@ export class LoginForm extends React.PureComponent {
 }
 
 LoginForm.propTypes = {
+  handleToggle: PropTypes.func.isRequired,
   // dispatch functions
   handleCreateToken: PropTypes.func.isRequired,
 };
