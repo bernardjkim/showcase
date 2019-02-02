@@ -52,7 +52,7 @@ const ContainerButtons = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 80%;
-  margin-top: 40px;
+  margin-top: 25px;
 
   button {
     margin-right: 20px;
@@ -62,6 +62,14 @@ const ContainerButtons = styled.div`
 
 const ButtonSignup = styled(Button)`
   color: white;
+`;
+
+const ErrorMessage = styled(Typography)`
+  color: red;
+  width: 80%;
+  margin-top: 10px;
+  font-weight: 300;
+  display: ${props => (props.hidden ? 'none' : 'block')};
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -81,6 +89,7 @@ class SignupForm extends React.PureComponent {
   };
 
   render() {
+    const { errorSignup } = this.props;
     const { handleCreateUser, handleToggle } = this.props;
 
     return (
@@ -120,6 +129,11 @@ class SignupForm extends React.PureComponent {
           type="password"
         />
 
+        {/* TODO: more specific error message */}
+        <ErrorMessage hidden={!errorSignup || !errorSignup.get('createUser')}>
+          Invalid Fields
+        </ErrorMessage>
+
         <ContainerButtons>
           <ButtonSignup
             onClick={() =>
@@ -151,6 +165,9 @@ class SignupForm extends React.PureComponent {
 }
 
 SignupForm.propTypes = {
+  // state variables
+  errorSignup: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+
   handleToggle: PropTypes.func.isRequired,
   // dispatch functions
   handleCreateUser: PropTypes.func.isRequired,

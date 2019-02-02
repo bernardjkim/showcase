@@ -14,10 +14,15 @@ import { Redirect } from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectUser } from 'containers/App/selectors';
+import {
+  makeSelectUser,
+  makeSelectError as makeSelectErrorLogin,
+} from 'containers/App/selectors';
 import { createToken } from 'containers/App/actions';
 
-import makeSelectAuthPage from './selectors';
+import makeSelectAuthPage, {
+  makeSelectError as makeSelectErrorSignup,
+} from './selectors';
 import { createUser } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -63,6 +68,8 @@ AuthPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   AuthPage: makeSelectAuthPage(),
   user: makeSelectUser(),
+  errorLogin: makeSelectErrorLogin(),
+  errorSignup: makeSelectErrorSignup(),
 });
 
 function mapDispatchToProps(dispatch) {

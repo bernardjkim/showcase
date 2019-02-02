@@ -46,13 +46,21 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
+const ErrorMessage = styled(Typography)`
+  color: red;
+  width: 80%;
+  margin-top: 10px;
+  font-weight: 300;
+  display: ${props => (props.hidden ? 'none' : 'block')};
+`;
+
 const ContainerButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   width: 80%;
-  margin-top: 40px;
+  margin-top: 25px;
 
   button {
     margin-right: 20px;
@@ -79,6 +87,7 @@ class LoginForm extends React.PureComponent {
   };
 
   render() {
+    const { errorLogin } = this.props;
     const { handleCreateToken, handleToggle } = this.props;
 
     return (
@@ -94,6 +103,7 @@ class LoginForm extends React.PureComponent {
           variant="outlined"
           label="Email Address"
           type="email"
+          autoFocus
         />
         <StyledTextField
           onChange={this.handleOnChange('password')}
@@ -102,6 +112,10 @@ class LoginForm extends React.PureComponent {
           label="Password"
           type="password"
         />
+
+        <ErrorMessage hidden={!errorLogin || !errorLogin.get('createToken')}>
+          Invalid Email or Password
+        </ErrorMessage>
 
         <ContainerButtons>
           <ButtonLogin
@@ -130,6 +144,8 @@ class LoginForm extends React.PureComponent {
 
 LoginForm.propTypes = {
   handleToggle: PropTypes.func.isRequired,
+  errorLogin: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+
   // dispatch functions
   handleCreateToken: PropTypes.func.isRequired,
 };

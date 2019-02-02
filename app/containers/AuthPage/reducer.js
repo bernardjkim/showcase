@@ -25,7 +25,9 @@ function AuthPageReducer(state = initialState, action) {
       return state.set('loading', false);
 
     case CREATE_USER_ERROR:
-      return state.set('error', fromJS(action.error)).set('loading', false);
+      return state
+        .set('error', fromJS({ createUser: action.error }))
+        .set('loading', false);
 
     default:
       return state;
