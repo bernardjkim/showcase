@@ -86,7 +86,7 @@ export class LoginForm extends React.PureComponent {
         <Title color="primary">ShowCase</Title>
 
         <Header>Show case your personal projects</Header>
-        <Welcome>Welcome Back, Please login to your account</Welcome>
+        <Welcome>Welcome Back. Please Login To Your Account</Welcome>
 
         <StyledTextField
           onChange={this.handleOnChange('email')}

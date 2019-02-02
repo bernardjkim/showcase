@@ -88,7 +88,7 @@ export class SignupForm extends React.PureComponent {
         <Title color="primary">ShowCase</Title>
 
         <Header>Show case your personal projects</Header>
-        <Welcome>Welcome to ShowCase, Please create your account</Welcome>
+        <Welcome>Welcome To ShowCase. Please Create Your Account</Welcome>
 
         <StyledTextField
           onChange={this.handleOnChange('username')}

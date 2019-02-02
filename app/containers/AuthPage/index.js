@@ -18,6 +18,7 @@ import { makeSelectUser } from 'containers/App/selectors';
 import { createToken } from 'containers/App/actions';
 
 import makeSelectAuthPage from './selectors';
+import { createUser } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -70,7 +71,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(createToken(email, password));
     },
     handleCreateUser: (username, email, password, passwordConfirm) => {
-      dispatch(createToken(username, email, password, passwordConfirm));
+      dispatch(createUser(username, email, password, passwordConfirm));
     },
   };
 }

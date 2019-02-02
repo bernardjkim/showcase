@@ -21,12 +21,15 @@ function get(req, res) {
 
 /**
  * Create new user
- * @property  {string}  email     - User email
- * @property  {string}  password  - User password
+ * @property  {string}  username      - Username
+ * @property  {string}  email         - User email
+ * @property  {string}  password      - User password
  *
  */
 function create(req, res, next) {
+  // TODO: disallow same usernames
   User.create({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
   })
