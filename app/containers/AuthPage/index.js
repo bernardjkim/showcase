@@ -17,7 +17,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/selectors';
 
 import makeSelectAuthPage, { makeSelectError } from './selectors';
-import { createToken, createUser } from './actions';
+import { createToken, createUser, clearErrors } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -34,6 +34,7 @@ export class AuthPage extends React.PureComponent {
   }
 
   handleToggle = showLogin => () => {
+    this.props.handleClearErrors();
     this.setState({ showLogin });
   };
 
@@ -72,6 +73,9 @@ function mapDispatchToProps(dispatch) {
     },
     handleCreateUser: (username, email, password, passwordConfirm) => {
       dispatch(createUser(username, email, password, passwordConfirm));
+    },
+    handleClearErrors: () => {
+      dispatch(clearErrors());
     },
   };
 }

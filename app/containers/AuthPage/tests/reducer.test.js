@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 import AuthPageReducer from '../reducer';
 import {
+  clearErrors,
   createToken,
   createTokenError,
   createTokenSuccess,
@@ -21,6 +22,11 @@ describe('AuthPageReducer', () => {
   it('returns the initial state', () => {
     expect(AuthPageReducer(undefined, {})).toMatchSnapshot();
   });
+
+  it('handle the clear errors action', () => {
+    expect(AuthPageReducer(state, clearErrors())).toMatchSnapshot();
+  });
+
   it('handle the create token action', () => {
     const email = 'email';
     const password = 'password';

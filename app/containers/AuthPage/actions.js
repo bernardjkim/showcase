@@ -5,6 +5,7 @@
  */
 
 import {
+  CLEAR_ERRORS,
   CREATE_TOKEN,
   CREATE_TOKEN_ERROR,
   CREATE_TOKEN_SUCCESS,
@@ -12,6 +13,17 @@ import {
   CREATE_USER_ERROR,
   CREATE_USER_SUCCESS,
 } from './constants';
+
+/**
+ * Clear error messages
+ *
+ * @return  {object}  - An action object with a type of CLEAR_ERRORS
+ */
+export function clearErrors() {
+  return {
+    type: CLEAR_ERRORS,
+  };
+}
 
 /**
  * Create token, this action starts the request saga
