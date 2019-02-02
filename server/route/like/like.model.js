@@ -15,6 +15,10 @@ const LikeSchema = new Schema({
     ref: 'article',
     required: true,
   },
+  updated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 /**
