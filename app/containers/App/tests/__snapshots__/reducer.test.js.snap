@@ -12,7 +12,9 @@ Immutable.Map {
 exports[`appReducer handle the create token error action 1`] = `
 Immutable.Map {
   "loading": false,
-  "error": [Error: Test error],
+  "error": Immutable.Map {
+    "createToken": [Error: Test error],
+  },
   "user": false,
   "validateToken": true,
 }
@@ -66,7 +68,9 @@ Immutable.Map {
 exports[`appReducer handle the load user error action 1`] = `
 Immutable.Map {
   "loading": false,
-  "error": [Error: Test error],
+  "error": Immutable.Map {
+    "loadUser": [Error: Test error],
+  },
   "user": false,
   "validateToken": true,
 }

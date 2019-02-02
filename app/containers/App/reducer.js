@@ -33,14 +33,17 @@ function appReducer(state = initialState, action) {
     case CREATE_TOKEN_SUCCESS:
       return state.set('loading', false);
 
-    case CREATE_TOKEN_ERROR:
-      return state.set('error', fromJS(action.error)).set('loading', false);
+    case CREATE_TOKEN_ERROR: {
+      return state
+        .set('error', fromJS({ createToken: action.error }))
+        .set('loading', false);
+    }
 
     case DELETE_TOKEN:
       return state.set('loading', true).set('error', false);
 
     case DELETE_TOKEN_SUCCESS:
-      return state.set('user', false).set('loading', false);
+      return state.set('loading', false);
 
     case DELETE_TOKEN_ERROR:
       return state.set('error', fromJS(action.error)).set('loading', false);
@@ -56,7 +59,9 @@ function appReducer(state = initialState, action) {
       return state.set('user', fromJS(action.user)).set('loading', false);
 
     case LOAD_USER_ERROR:
-      return state.set('error', fromJS(action.error)).set('loading', false);
+      return state
+        .set('error', fromJS({ loadUser: action.error }))
+        .set('loading', false);
 
     default:
       return state;

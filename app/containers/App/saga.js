@@ -61,7 +61,6 @@ export function* deleteToken() {
     yield call(request, url, options);
 
     yield put(deleteTokenSuccess());
-    yield put(loadUserAction());
   } catch (err) {
     yield put(deleteTokenError(err));
   }
