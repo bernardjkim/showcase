@@ -29,7 +29,7 @@ function create(req, res, next) {
                   signed: true, // Indicates if the cookie should be signed
                 };
                 res.cookie('jwt', token, options);
-                res.status(httpStatus.NO_CONTENT).send();
+                res.status(httpStatus.CREATED).send();
               })
               .catch(e => next(e));
           })

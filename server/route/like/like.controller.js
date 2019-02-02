@@ -1,5 +1,7 @@
+const httpStatus = require('http-status');
 const Like = require('./like.model');
 const Article = require('../article/article.model');
+const User = require('../user/user.model');
 
 /**
  * Load number of likes and append to req
@@ -28,15 +30,37 @@ function get(req, res) {
  *
  */
 function create(req, res, next) {
-  Article.get(req.body.articleId)
-    .then(article => {
-      Like.create({ article })
-        .then(() => {
-          Like.getByArticle(article).then(likes => res.json({ likes }));
+  User.findById(req.user._id) // eslint-disable-line no-underscore-dangle
+    .then(user => {
+      Article.get(req.body.articleId)
+        .then(article => {
+          Like.create({ article, user })
+            .then(() => {
+              Like.getByArticle(article).then(() => {
+                res.status(httpStatus.CREATED);
+                res.send();
+              });
+            })
+            .catch(e => next(e));
         })
         .catch(e => next(e));
+    })
+    .catch(e => {
+      next(e);
+    });
+}
+
+/**
+ * Get list of likes
+ *
+ * @returns {array} - Array of likes
+ */
+function list(req, res, next) {
+  Like.find({ user: req.user._id }) // eslint-disable-line no-underscore-dangle
+    .then(likes => {
+      res.json({ likes });
     })
     .catch(e => next(e));
 }
 
-module.exports = { get, create, load };
+module.exports = { get, create, load, list };

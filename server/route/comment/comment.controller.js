@@ -1,3 +1,4 @@
+const httpStatus = require('http-status');
 const Comment = require('./comment.model');
 const Article = require('../article/article.model');
 const User = require('../user/user.model');
@@ -31,13 +32,14 @@ function get(req, res) {
  *
  */
 function create(req, res, next) {
-  // NOTE: for now get test user, want to extract user from token
   User.findById(req.user._id) // eslint-disable-line no-underscore-dangle
     .then(user => {
       Article.get(req.body.articleId) // verify article exists
         .then(article => {
           Comment.create({ article, value: req.body.value, user })
-            .then(savedComment => res.json({ comment: savedComment }))
+            .then(savedComment =>
+              res.status(httpStatus.CREATED).json({ comment: savedComment }),
+            )
             .catch(e => next(e));
         })
         .catch(e => next(e));

@@ -1,3 +1,4 @@
+const httpStatus = require('http-status');
 const User = require('./user.model');
 
 /**
@@ -33,7 +34,7 @@ function create(req, res, next) {
     email: req.body.email,
     password: req.body.password,
   })
-    .then(savedUser => res.json({ user: savedUser }))
+    .then(savedUser => res.status(httpStatus.CREATED).json({ user: savedUser }))
     .catch(e => next(e));
 }
 

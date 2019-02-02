@@ -79,7 +79,9 @@ async function create(req, res, next) {
 
   article
     .save()
-    .then(savedArticle => res.json({ article: savedArticle }))
+    .then(savedArticle =>
+      res.status(httpStatus.CREATED).json({ article: savedArticle }),
+    )
     .catch(e => next(e));
 }
 
