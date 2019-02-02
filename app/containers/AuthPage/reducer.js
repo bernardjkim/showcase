@@ -5,7 +5,9 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
+  CLEAR_ERRORS,
   CREATE_TOKEN,
   CREATE_TOKEN_ERROR,
   CREATE_TOKEN_SUCCESS,
@@ -21,6 +23,12 @@ export const initialState = fromJS({
 
 function AuthPageReducer(state = initialState, action) {
   switch (action.type) {
+    case LOCATION_CHANGE:
+      return state.set('error', false);
+
+    case CLEAR_ERRORS:
+      return state.set('error', false);
+
     case CREATE_TOKEN:
       return state.set('loading', true).set('error', false);
 

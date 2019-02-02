@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AuthPageReducer handle the clear errors action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+}
+`;
+
 exports[`AuthPageReducer handle the create token action 1`] = `
 Immutable.Map {
   "loading": true,

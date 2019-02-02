@@ -1,4 +1,5 @@
 import {
+  clearErrors,
   createToken,
   createTokenError,
   createTokenSuccess,
@@ -7,6 +8,7 @@ import {
   createUserError,
 } from '../actions';
 import {
+  CLEAR_ERRORS,
   CREATE_TOKEN,
   CREATE_TOKEN_ERROR,
   CREATE_TOKEN_SUCCESS,
@@ -16,6 +18,15 @@ import {
 } from '../constants';
 
 describe('AuthPage actions', () => {
+  describe('Clear Errors Action', () => {
+    it('has a type of CLEAR_ERRORS', () => {
+      const expected = {
+        type: CLEAR_ERRORS,
+      };
+      expect(clearErrors()).toEqual(expected);
+    });
+  });
+
   describe('Create Token Action', () => {
     it('has a type of CREATE_TOKEN', () => {
       const email = 'email';
