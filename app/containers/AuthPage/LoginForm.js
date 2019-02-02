@@ -79,14 +79,14 @@ export class LoginForm extends React.PureComponent {
   };
 
   render() {
-    const { handleCreateToken } = this.props;
+    const { handleCreateToken, handleToggle } = this.props;
 
     return (
       <Container>
         <Title color="primary">ShowCase</Title>
 
         <Header>Show case your personal projects</Header>
-        <Welcome>Welcome Back, Please login to your account</Welcome>
+        <Welcome>Welcome Back. Please Login To Your Account</Welcome>
 
         <StyledTextField
           onChange={this.handleOnChange('email')}
@@ -114,7 +114,12 @@ export class LoginForm extends React.PureComponent {
           >
             Login
           </ButtonLogin>
-          <Button color="primary" size="large" variant="outlined">
+          <Button
+            color="primary"
+            size="large"
+            variant="outlined"
+            onClick={handleToggle(false)}
+          >
             Sign Up
           </Button>
         </ContainerButtons>
@@ -124,6 +129,7 @@ export class LoginForm extends React.PureComponent {
 }
 
 LoginForm.propTypes = {
+  handleToggle: PropTypes.func.isRequired,
   // dispatch functions
   handleCreateToken: PropTypes.func.isRequired,
 };

@@ -5,7 +5,7 @@
 /* eslint-disable redux-saga/yield-effects */
 import { takeLatest, all, put } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import appSaga, { createToken, deleteToken, loadUser } from '../saga';
+import AppSaga, { createToken, deleteToken, loadUser } from '../saga';
 import { CREATE_TOKEN, DELETE_TOKEN, LOAD_USER } from '../constants';
 import {
   createTokenError,
@@ -79,8 +79,8 @@ describe('loadUser Saga', () => {
   });
 });
 
-describe('appSaga Saga', () => {
-  const saga = appSaga();
+describe('AppSaga Saga', () => {
+  const saga = AppSaga();
 
   it('should start task to watch for api request actions', () => {
     const takeLatestDescriptor = saga.next().value;

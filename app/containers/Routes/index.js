@@ -14,8 +14,8 @@ const StyledLink = styled(Link)`
 
 export const HomeLink = props => <StyledLink to="/" {...props} />;
 
-export const SubmissionLink = props => (
-  <StyledLink to="/submission" {...props} />
-);
+export const SubmitLink = props => <StyledLink to="/submit" {...props} />;
 
-export const LoginLink = props => <StyledLink to="/login" {...props} />;
+export const AuthLink = props => <StyledLink to="/login" {...props} />;
+
+export const SignupLink = props => <StyledLink to="/signup" {...props} />;

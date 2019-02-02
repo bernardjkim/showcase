@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { StyledAppBar, Logo, StyledButton } from './components';
-import { LoginLink, SubmissionLink } from '../Routes';
+import { AuthLink, SubmitLink } from '../Routes';
 
 const Submit = styled(Typography)`
   margin-right: 5px;
@@ -29,7 +29,7 @@ class NavBar extends React.Component {
         <Toolbar>
           <Logo color="primary">ShowCase</Logo>
 
-          <StyledButton component={SubmissionLink}>
+          <StyledButton component={SubmitLink}>
             <Submit color="primary">Submit</Submit>
             <FontAwesomeIcon size="1x" color="#57c1ae" icon={faPlus} />
           </StyledButton>
@@ -38,7 +38,7 @@ class NavBar extends React.Component {
               Logout
             </StyledButton>
           ) : (
-            <StyledButton component={LoginLink} color="primary">
+            <StyledButton component={AuthLink} color="primary">
               Login
             </StyledButton>
           )}
