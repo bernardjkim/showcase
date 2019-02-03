@@ -29,7 +29,7 @@ function create(req, res, next) {
                   signed: true, // Indicates if the cookie should be signed
                 };
                 res.cookie('jwt', token, options);
-                res.status(httpStatus.CREATED).send();
+                res.status(httpStatus.NO_CONTENT).send();
               })
               .catch(e => next(e));
           })
@@ -47,13 +47,14 @@ function remove(req, res) {
   res.status(httpStatus.NO_CONTENT).send();
 }
 
-// TODO: handle invalid/expired tokens
+// TODO: handle expired tokens
 /**
- * Authenticate JWT and append user to req
+ * Decode JWT and append user to req
  */
-function authenticate(req, res, next) {
+function parse(req, res, next) {
   const token = req.signedCookies.jwt;
-  if (token) {
+  if (!token) next();
+  else {
     // verify a token symmetric - synchronous
     decode(token)
       .then(decoded => {
@@ -62,10 +63,18 @@ function authenticate(req, res, next) {
         next();
       })
       .catch(e => next(e));
-  } else {
+  }
+}
+
+/**
+ * Verify that the JWT was parsed and appened to req
+ */
+function authenticate(req, res, next) {
+  if (req.user) next();
+  else {
     const error = new APIError('Unauthorized', httpStatus.UNAUTHORIZED);
     next(error);
   }
 }
 
-module.exports = { authenticate, create, remove };
+module.exports = { authenticate, create, parse, remove };

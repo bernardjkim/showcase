@@ -53,13 +53,12 @@ function homePageReducer(state = initialState, action) {
       return state.set('error', fromJS(action.error)).set('loading', false);
 
     case LIKE_ARTICLE:
-      return state
-        .updateIn(['article', 'likes'], likes => likes + 1)
-        .set('loading', true)
-        .set('error', false);
+      return state.set('loading', true).set('error', false);
 
     case LIKE_ARTICLE_SUCCESS:
-      return state.set('loading', false);
+      return state
+        .updateIn(['article', 'likes'], likes => likes + 1)
+        .set('loading', false);
 
     case LIKE_ARTICLE_ERROR:
       return state.set('error', fromJS(action.error)).set('loading', false);

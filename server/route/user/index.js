@@ -18,7 +18,7 @@ router
   .route('/current')
 
   /** GET /api/user/current - Get current user */
-  .get(auth.authenticate, user.get);
+  .get(auth.parse, user.get);
 
 router
   .route('/:id')

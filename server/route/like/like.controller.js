@@ -37,7 +37,7 @@ function create(req, res, next) {
           Like.create({ article, user })
             .then(() => {
               Like.getByArticle(article).then(() => {
-                res.status(httpStatus.CREATED);
+                res.status(httpStatus.NO_CONTENT);
                 res.send();
               });
             })

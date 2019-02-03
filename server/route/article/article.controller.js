@@ -8,6 +8,7 @@ const { uploadFile } = require('../../util/s3');
 
 /**
  * Load article and append to req
+ *
  */
 function load(req, res, next, id) {
   Article.get(id)
@@ -20,6 +21,8 @@ function load(req, res, next, id) {
 
 /**
  * Parse form and append fields to req
+ *
+ * @property  {object}  form  - Article form
  */
 function parse(req, res, next) {
   const form = qs.parse(req.body.form);
@@ -101,6 +104,8 @@ function random(req, res, next) {
         .skip(rand)
         .exec()
         .then(article => {
+          Like.findOne({ article: article._id });
+
           // eslint-disable-next-line no-underscore-dangle
           Like.getByArticle(article._id).then(likes => {
             const obj = article.toObject();

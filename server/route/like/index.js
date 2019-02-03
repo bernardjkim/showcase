@@ -8,10 +8,10 @@ router
   .route('/')
 
   /** GET /api/like - Get all list of user's likes */
-  .get(auth.authenticate, like.list)
+  .get(auth.parse, like.list)
 
   /** POST /api/like - Create new like */
-  .post(auth.authenticate, like.create);
+  .post(auth.parse, auth.authenticate, like.create);
 
 router
   .route('/:articleId')

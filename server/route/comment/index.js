@@ -8,7 +8,7 @@ router
   .route('/')
 
   /** POST /api/comment - Create new comment */
-  .post(auth.authenticate, comment.create);
+  .post(auth.parse, auth.authenticate, comment.create);
 
 router
   .route('/:articleId')
