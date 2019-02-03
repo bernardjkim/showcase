@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const Comment = require('./comment.model');
 const Article = require('../article/article.model');
-const User = require('../user/user.model');
 
 /**
  * Load comments and append to req
