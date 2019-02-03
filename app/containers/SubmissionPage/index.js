@@ -13,22 +13,24 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/selectors';
+import { Redirect } from 'react-router-dom';
 import makeSelectSubmissionPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { submitForm } from './actions';
 
 import SubmissionForm from './SubmissionForm';
-import AuthRequiredPage from './AuthRequiredPage';
+// import AuthRequiredPage from './AuthRequiredPage';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent {
   render() {
     const { user } = this.props;
+    if (!user) return <Redirect to="/auth" />;
 
     return (
       <div>
-        {user ? <SubmissionForm {...this.props} /> : <AuthRequiredPage />}
+        <SubmissionForm {...this.props} />
       </div>
     );
   }
