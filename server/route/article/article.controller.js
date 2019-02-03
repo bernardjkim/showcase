@@ -90,32 +90,74 @@ async function create(req, res, next) {
 
 /**
  * Load random article and append to req
+ *
+ * @param   {User}  req.user  - Requesting user
+ *
+ * @returns {Article}
  */
-function random(req, res, next) {
-  // Get the count of all articles
-  Article.count()
-    .exec()
-    .then(count => {
-      // Get a random entry
-      const rand = Math.floor(Math.random() * count);
+async function random(req, res, next) {
+  const rand = new Promise(resolve => {
+    Article.count().then(count => {
+      resolve(Math.floor(Math.random() * count));
+    });
+  });
 
-      // Again query all articles but only fetch one offset by our random #
-      Article.findOne()
-        .skip(rand)
-        .exec()
-        .then(article => {
-          Like.findOne({ article: article._id });
+  // const article = new Promise(async resolve => {
+  //   Article.findOne()
+  //     .skip(await rand)
+  //     .then(randomArticle => {
+  //       resolve(randomArticle);
+  //     });
+  // });
 
-          // eslint-disable-next-line no-underscore-dangle
-          Like.getByArticle(article._id).then(likes => {
-            const obj = article.toObject();
-            obj.likes = likes;
-            return res.json({ article: obj });
-          });
-        })
-        .catch(e => next(e));
-    })
-    .catch(e => next(e));
+  const article = Article.findOne().skip(await rand);
+
+  const likedByUser = new Promise(async resolve => {
+    Like.findOne({ article: await article, user: req.user }).then(liked => {
+      resolve(!!liked);
+    });
+  });
+
+  // const likes = new Promise(async resolve => {
+  //   Like.getByArticle(await article).then(count => {
+  //     resolve(count);
+  //   });
+  // });
+
+  const likes = Like.getByArticle(await article);
+
+  const obj = (await article).toObject();
+  obj.likes = await likes;
+  obj.likedByUser = await likedByUser;
+  return res.json({ article: obj });
+
+  // // Get the count of all articles
+  // Article.count()
+  //   .then(count => {
+  //     // Get a random entry
+  //     const rand = Math.floor(Math.random() * count);
+
+  //     // Again query all articles but only fetch one offset by our random #
+  //     Article.findOne()
+  //       .skip(rand)
+  //       .exec()
+  //       .then(article => {
+  //         Like.findOne({ article, user: req.user })
+  //           .then(likedByUser => {
+  //             Like.getByArticle(article)
+  //               .then(likes => {
+  //                 const obj = article.toObject();
+  //                 obj.likes = likes;
+  //                 obj.likedByUser = !!likedByUser;
+  //                 return res.json({ article: obj });
+  //               })
+  //               .catch(e => next(e));
+  //           })
+  //           .catch(e => next(e));
+  //       })
+  //       .catch(e => next(e));
+  //   })
+  //   .catch(e => next(e));
 }
 
 module.exports = { load, get, create, random, parse };
