@@ -8,6 +8,7 @@ const { uploadFile } = require('../../util/s3');
 
 /**
  * Load article and append to req
+ *
  */
 function load(req, res, next, id) {
   Article.get(id)
@@ -20,6 +21,8 @@ function load(req, res, next, id) {
 
 /**
  * Parse form and append fields to req
+ *
+ * @property  {object}  form  - Article form
  */
 function parse(req, res, next) {
   const form = qs.parse(req.body.form);
@@ -79,36 +82,49 @@ async function create(req, res, next) {
 
   article
     .save()
-    .then(savedArticle => res.json({ article: savedArticle }))
+    .then(savedArticle =>
+      res.status(httpStatus.CREATED).json({ article: savedArticle }),
+    )
     .catch(e => next(e));
 }
 
 /**
  * Load random article and append to req
+ *
+ * @param   {User}  req.user  - Requesting user
+ *
+ * @returns {Article}
  */
-function random(req, res, next) {
-  // Get the count of all articles
-  Article.count()
-    .exec()
-    .then(count => {
-      // Get a random entry
-      const rand = Math.floor(Math.random() * count);
+async function random(req, res, next) {
+  // Count number of articles in db
+  const count = Article.count().catch(e => next(e));
+  if ((await count) === 0) {
+    const error = new APIError(
+      'No articles found',
+      httpStatus.INTERNAL_SERVER_ERROR,
+    );
+    return next(error);
+  }
 
-      // Again query all articles but only fetch one offset by our random #
-      Article.findOne()
-        .skip(rand)
-        .exec()
-        .then(article => {
-          // eslint-disable-next-line no-underscore-dangle
-          Like.getByArticle(article._id).then(likes => {
-            const obj = article.toObject();
-            obj.likes = likes;
-            return res.json({ article: obj });
-          });
-        })
-        .catch(e => next(e));
-    })
+  // Choose random article
+  const article = Article.findOne()
+    .skip(Math.floor(Math.random() * (await count)))
     .catch(e => next(e));
+
+  // Check if article has been liked by current user
+  const likedByUser = Like.findOne({
+    article: await article,
+    user: req.user,
+  }).catch(e => next(e));
+
+  // Get total number of likes for the article
+  const likes = Like.getByArticle(await article).catch(e => next(e));
+
+  // Append data and send response
+  const obj = (await article).toObject();
+  obj.likes = await likes;
+  obj.likedByUser = !!(await likedByUser);
+  return res.json({ article: obj });
 }
 
 module.exports = { load, get, create, random, parse };

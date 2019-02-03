@@ -35,6 +35,10 @@ const ArticleSchema = new mongoose.Schema({
   tags: {
     type: [String],
   },
+  updated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 /**

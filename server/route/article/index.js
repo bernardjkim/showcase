@@ -3,6 +3,7 @@ const validate = require('express-validation');
 const multer = require('multer');
 const paramValidation = require('../../config/param-validations');
 const article = require('./article.controller');
+const auth = require('../auth/auth.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -13,6 +14,8 @@ router
 
   /** POST /api/article - Create new article */
   .post(
+    auth.parse,
+    auth.authenticate,
     multer().single('file'),
     article.parse,
     validate(paramValidation.createArticle),
@@ -23,7 +26,7 @@ router
   .route('/random')
 
   /** GET /api/article/random - Get random article */
-  .get(article.random);
+  .get(auth.parse, article.random);
 
 router
   .route('/:id')
