@@ -43,38 +43,51 @@ function create(req, res, next) {
  * Clears jwt cookie
  */
 function remove(req, res) {
-  res.clearCookie('jwt');
-  res.status(httpStatus.NO_CONTENT).send();
+  res
+    .clearCookie('jwt')
+    .status(httpStatus.NO_CONTENT)
+    .send();
 }
 
 // TODO: handle expired tokens
 /**
  * Decode JWT and append user to req
  */
-function parse(req, res, next) {
+async function parse(req, res, next) {
   const token = req.signedCookies.jwt;
-  if (!token) next();
-  else {
-    // verify a token symmetric - synchronous
+  if (!token) return next();
+
+  const user = new Promise(resolve => {
     decode(token)
       .then(decoded => {
         // const { iat, exp } = decoded;
-        req.user = decoded.user;
-        next();
+
+        // TODO: skip this step and make sure to invalidate JWT when a user is removed
+
+        // validate user still exists in database
+        User.findById(decoded.user)
+          .then(result => {
+            if (result) return resolve(result);
+            const error = new APIError('Unauthorized', httpStatus.UNAUTHORIZED);
+            return next(error);
+          })
+          .catch(e => next(e));
       })
       .catch(e => next(e));
-  }
+  });
+
+  req.user = await user;
+  return next();
 }
 
 /**
  * Verify that the JWT was parsed and appened to req
  */
 function authenticate(req, res, next) {
-  if (req.user) next();
-  else {
-    const error = new APIError('Unauthorized', httpStatus.UNAUTHORIZED);
-    next(error);
-  }
+  if (req.user) return next();
+
+  const error = new APIError('Unauthorized', httpStatus.UNAUTHORIZED);
+  return next(error);
 }
 
 module.exports = { authenticate, create, parse, remove };

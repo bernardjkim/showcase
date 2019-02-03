@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const Like = require('./like.model');
 const Article = require('../article/article.model');
-const User = require('../user/user.model');
+const APIError = require('../error/APIError');
 
 /**
  * Load number of likes and append to req
@@ -29,25 +29,34 @@ function get(req, res) {
  * @property  {string}  req.body.articleId - Article id
  *
  */
-function create(req, res, next) {
-  User.findById(req.user._id) // eslint-disable-line no-underscore-dangle
-    .then(user => {
-      Article.get(req.body.articleId)
-        .then(article => {
-          Like.create({ article, user })
-            .then(() => {
-              Like.getByArticle(article).then(() => {
-                res.status(httpStatus.NO_CONTENT);
-                res.send();
-              });
-            })
-            .catch(e => next(e));
-        })
-        .catch(e => next(e));
+async function create(req, res, next) {
+  // Verify user has not already liked the article
+  const likedByUser = new Promise(resolve => {
+    Like.findOne({
+      article: req.body.articleId,
+      user: req.user,
     })
-    .catch(e => {
-      next(e);
-    });
+      .then(liked => {
+        if (!liked) return resolve(false);
+
+        const error = new APIError('Already liked', httpStatus.BAD_REQUEST);
+        return next(error);
+      })
+      .catch(e => next(e));
+  });
+
+  // Verify article exists
+  Article.get(req.body.articleId)
+    .then(async article => {
+      if (!(await likedByUser)) {
+        Like.create({ article, user: req.user })
+          .then(() => {
+            res.status(httpStatus.NO_CONTENT).send();
+          })
+          .catch(e => next(e));
+      }
+    })
+    .catch(e => next(e));
 }
 
 /**

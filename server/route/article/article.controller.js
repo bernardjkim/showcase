@@ -108,7 +108,7 @@ async function random(req, res, next) {
 
   // Choose random article
   const article = Article.findOne()
-    .skip(Math.floor(Math.random() * count))
+    .skip(Math.floor(Math.random() * (await count)))
     .catch(e => next(e));
 
   // Check if article has been liked by current user
