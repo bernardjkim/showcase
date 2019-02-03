@@ -32,21 +32,20 @@ function get(req, res) {
  *
  */
 function create(req, res, next) {
-  User.findById(req.user._id) // eslint-disable-line no-underscore-dangle
-    .then(user => {
-      Article.get(req.body.articleId) // verify article exists
-        .then(article => {
-          Comment.create({ article, value: req.body.value, user })
-            .then(savedComment =>
-              res.status(httpStatus.CREATED).json({ comment: savedComment }),
-            )
-            .catch(e => next(e));
-        })
+  // verify article exists
+  Article.get(req.body.articleId)
+    .then(article => {
+      Comment.create({
+        article: article._id, // eslint-disable-line no-underscore-dangle
+        value: req.body.value,
+        user: req.user,
+      })
+        .then(savedComment =>
+          res.status(httpStatus.CREATED).json({ comment: savedComment }),
+        )
         .catch(e => next(e));
     })
-    .catch(e => {
-      next(e);
-    });
+    .catch(e => next(e));
 }
 
 module.exports = { get, create, load };
