@@ -120,6 +120,7 @@ async function random(req, res, next) {
   // Get total number of likes for the article
   const likes = Like.getByArticle(await article).catch(e => next(e));
 
+  // Append data and send response
   const obj = (await article).toObject();
   obj.likes = await likes;
   obj.likedByUser = !!(await likedByUser);
