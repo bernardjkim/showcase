@@ -96,68 +96,34 @@ async function create(req, res, next) {
  * @returns {Article}
  */
 async function random(req, res, next) {
-  const rand = new Promise(resolve => {
-    Article.count().then(count => {
-      resolve(Math.floor(Math.random() * count));
-    });
-  });
+  // Count number of articles in db
+  const count = Article.count().catch(e => next(e));
+  if ((await count) === 0) {
+    const error = new APIError(
+      'No articles found',
+      httpStatus.INTERNAL_SERVER_ERROR,
+    );
+    return next(error);
+  }
 
-  // const article = new Promise(async resolve => {
-  //   Article.findOne()
-  //     .skip(await rand)
-  //     .then(randomArticle => {
-  //       resolve(randomArticle);
-  //     });
-  // });
+  // Choose random article
+  const article = Article.findOne()
+    .skip(Math.floor(Math.random() * count))
+    .catch(e => next(e));
 
-  const article = Article.findOne().skip(await rand);
+  // Check if article has been liked by current user
+  const likedByUser = Like.findOne({
+    article: await article,
+    user: req.user,
+  }).catch(e => next(e));
 
-  const likedByUser = new Promise(async resolve => {
-    Like.findOne({ article: await article, user: req.user }).then(liked => {
-      resolve(!!liked);
-    });
-  });
-
-  // const likes = new Promise(async resolve => {
-  //   Like.getByArticle(await article).then(count => {
-  //     resolve(count);
-  //   });
-  // });
-
-  const likes = Like.getByArticle(await article);
+  // Get total number of likes for the article
+  const likes = Like.getByArticle(await article).catch(e => next(e));
 
   const obj = (await article).toObject();
   obj.likes = await likes;
-  obj.likedByUser = await likedByUser;
+  obj.likedByUser = !!(await likedByUser);
   return res.json({ article: obj });
-
-  // // Get the count of all articles
-  // Article.count()
-  //   .then(count => {
-  //     // Get a random entry
-  //     const rand = Math.floor(Math.random() * count);
-
-  //     // Again query all articles but only fetch one offset by our random #
-  //     Article.findOne()
-  //       .skip(rand)
-  //       .exec()
-  //       .then(article => {
-  //         Like.findOne({ article, user: req.user })
-  //           .then(likedByUser => {
-  //             Like.getByArticle(article)
-  //               .then(likes => {
-  //                 const obj = article.toObject();
-  //                 obj.likes = likes;
-  //                 obj.likedByUser = !!likedByUser;
-  //                 return res.json({ article: obj });
-  //               })
-  //               .catch(e => next(e));
-  //           })
-  //           .catch(e => next(e));
-  //       })
-  //       .catch(e => next(e));
-  //   })
-  //   .catch(e => next(e));
 }
 
 module.exports = { load, get, create, random, parse };
