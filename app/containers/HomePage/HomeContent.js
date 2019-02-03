@@ -98,6 +98,10 @@ class HomeContent extends React.Component {
     this.setState({ comment: e.target.value });
   };
 
+  handleRedirectAuth = () => {
+    this.props.history.push('/auth');
+  };
+
   render() {
     const { article } = this.props;
     const {
@@ -114,7 +118,11 @@ class HomeContent extends React.Component {
           <Title>{article.get('title')}</Title>
           <ButtonNext onClick={handleLoadArticle}>{'Next >'}</ButtonNext>
           <ContentActions>
-            <ButtonLike variant="outlined" onClick={handleLikeArticle}>
+            <ButtonLike
+              disabled={article.get('likedByUser')}
+              variant="outlined"
+              onClick={handleLikeArticle}
+            >
               Like {article.get('likes')}
             </ButtonLike>
             <ButtonVisit
@@ -152,7 +160,7 @@ class HomeContent extends React.Component {
           </Tags>
         </DescriptionBox>
 
-        <CommentBox>
+        <CommentBox onClick={this.handleRedirectAuth}>
           <StyledTextField
             multiline
             placeholder="Leave a Comment"
@@ -199,6 +207,7 @@ class HomeContent extends React.Component {
 HomeContent.propTypes = {
   // state variables
   article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  history: PropTypes.object.isRequired,
 
   // dispatch functions
   handleCreateComment: PropTypes.func.isRequired,
