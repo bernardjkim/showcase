@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import {
   Card,
   CardActionArea,
-  CardActions,
   CardMedia,
   CardContent,
   Typography,
-  Button,
 } from '@material-ui/core';
 
 const StyledCard = styled(Card)`
@@ -35,6 +33,8 @@ const CardTitle = styled(Typography)`
   font-weight: 500;
 `;
 
+/* eslint-disable property-no-vendor-prefix */
+/* eslint-disable value-no-vendor-prefix */
 const CardDescription = styled(Typography)`
   font-weight: 300;
   display: -webkit-box;

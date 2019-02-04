@@ -26,6 +26,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import HomePage from 'containers/HomePage/Loadable';
 import SubmissionPage from 'containers/SubmissionPage/Loadable';
 import AuthPage from 'containers/AuthPage/Loadable';
+import SearchPage from 'containers/SearchPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import injectReducer from 'utils/injectReducer';
@@ -57,6 +58,7 @@ function App(props) {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/submit" component={SubmissionPage} />
         <Route exact path="/auth" component={AuthPage} />
+        <Route exact path="/search" component={SearchPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

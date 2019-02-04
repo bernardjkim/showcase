@@ -24,7 +24,6 @@ import { createComment, likeArticle, loadArticle } from './actions';
 
 import HomeContent from './HomeContent';
 import NavBar from './NavBar';
-import SearchContent from './SearchContent';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -35,9 +34,8 @@ export class HomePage extends React.PureComponent {
   render() {
     return (
       <div>
-        {/* <NavBar {...this.props} />
-        <HomeContent {...this.props} /> */}
-        <SearchContent />
+        <NavBar {...this.props} />
+        <HomeContent {...this.props} />
       </div>
     );
   }
