@@ -11,6 +11,7 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-top: 64px;
   padding-left: 50px;
   padding-right: 50px;
   padding-top: 50px;

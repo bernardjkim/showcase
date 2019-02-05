@@ -14,8 +14,6 @@ export { default as ContentGitHub } from './ContentGitHub';
 export { default as ContentTop } from './ContentTop';
 export { default as Description } from './Description';
 export { default as GitHub } from './GitHub';
-export { default as Logo } from './Logo';
-export { default as StyledAppBar } from './StyledAppBar';
 export { default as StyledButton } from './StyledButton';
 export { default as StyledImage } from './StyledImage';
 export { default as StyledTextField } from './StyledTextField';

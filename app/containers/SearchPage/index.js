@@ -14,6 +14,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import queryString from 'query-string';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import Nav from 'components/Nav';
+import { deleteToken } from 'containers/App/actions';
 import makeSelectSearchPage, { makeSelectArticles } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -28,8 +30,25 @@ export class SearchPage extends React.PureComponent {
     this.props.handleLoadArticles({ q });
   }
 
+  handleSubmitSearch = search => e => {
+    if (e.key === 'Enter' && search !== '') {
+      e.preventDefault();
+      this.props.history.push(`/search?q=${search}`);
+      this.props.handleLoadArticles({ q: search });
+    }
+  };
+
   render() {
-    return <SearchContent {...this.props} />;
+    return (
+      <div>
+        <Nav
+          {...this.props}
+          searchValue={queryString.parse(this.props.location.search).q}
+          handleSubmitSearch={this.handleSubmitSearch}
+        />
+        <SearchContent {...this.props} />
+      </div>
+    );
   }
 }
 
@@ -54,6 +73,10 @@ function mapDispatchToProps(dispatch) {
   return {
     handleLoadArticles: query => {
       dispatch(loadArticles(query));
+    },
+    handleLogout: () => {
+      window.location.reload(); // refresh page on logout
+      dispatch(deleteToken());
     },
   };
 }

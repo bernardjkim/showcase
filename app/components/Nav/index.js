@@ -1,19 +1,25 @@
 /**
  *
- * NavBar
+ * Nav
  *
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Toolbar from '@material-ui/core/Toolbar';
+import styled from 'styled-components';
+
+import {
+  Typography,
+  InputAdornment,
+  Toolbar,
+  TextField,
+} from '@material-ui/core';
 import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Typography, InputAdornment } from '@material-ui/core';
-import styled from 'styled-components';
-import TextField from '@material-ui/core/TextField';
+
+import { AuthLink, HomeLink, SubmitLink } from 'containers/Routes';
+
 import { StyledAppBar, Logo, StyledButton } from './components';
-import { AuthLink, SubmitLink } from '../Routes';
 
 const Submit = styled(Typography)`
   margin-right: 5px;
@@ -40,20 +46,13 @@ const Actions = styled.div`
 `;
 
 /* eslint-disable react/prefer-stateless-function */
-class NavBar extends React.Component {
+class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: '',
+      search: props.searchValue || '',
     };
   }
-
-  handleSubmitSearch = e => {
-    if (e.key === 'Enter' && this.state.search !== '') {
-      e.preventDefault();
-      this.props.history.push(`/search?q=${this.state.search}`);
-    }
-  };
 
   handleChange = e => {
     this.setState({ search: e.target.value });
@@ -61,16 +60,18 @@ class NavBar extends React.Component {
 
   render() {
     const { user } = this.props;
-    const { handleLogout } = this.props;
+    const { handleLogout, handleSubmitSearch } = this.props;
     return (
       <StyledAppBar color="inherit" position="absolute">
         <Toolbar>
-          <Logo color="primary">ShowCase</Logo>
+          <Logo component={HomeLink} color="primary">
+            ShowCase
+          </Logo>
 
           <StyledTextField
             color="primary"
             variant="outlined"
-            onKeyPress={this.handleSubmitSearch}
+            onKeyPress={handleSubmitSearch(this.state.search)}
             onChange={this.handleChange}
             value={this.state.search}
             InputProps={{
@@ -103,12 +104,13 @@ class NavBar extends React.Component {
   }
 }
 
-NavBar.propTypes = {
+Nav.propTypes = {
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  history: PropTypes.object.isRequired,
+  searchValue: PropTypes.string,
 
   // dispatch functions
   handleLogout: PropTypes.func.isRequired,
+  handleSubmitSearch: PropTypes.func.isRequired,
 };
 
-export default NavBar;
+export default Nav;

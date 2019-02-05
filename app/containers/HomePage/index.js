@@ -16,6 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/selectors';
 import { deleteToken } from 'containers/App/actions';
 
+import Nav from 'components/Nav';
 import saga from './saga';
 import reducer from './reducer';
 import makeSelectHomePage, { makeSelectArticle } from './selectors';
@@ -23,7 +24,6 @@ import makeSelectHomePage, { makeSelectArticle } from './selectors';
 import { createComment, likeArticle, loadArticle } from './actions';
 
 import HomeContent from './HomeContent';
-import NavBar from './NavBar';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -31,10 +31,17 @@ export class HomePage extends React.PureComponent {
     this.props.handleLoadArticle();
   }
 
+  handleSubmitSearch = search => e => {
+    if (e.key === 'Enter' && search !== '') {
+      e.preventDefault();
+      this.props.history.push(`/search?q=${search}`);
+    }
+  };
+
   render() {
     return (
       <div>
-        <NavBar {...this.props} />
+        <Nav {...this.props} handleSubmitSearch={this.handleSubmitSearch} />
         <HomeContent {...this.props} />
       </div>
     );
