@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeSelectArticles should select the articles state 1`] = `false`;
+
+exports[`makeSelectError should select the error state 1`] = `false`;
+
+exports[`makeSelectLoading should select the loading state 1`] = `false`;
+
+exports[`selectSearchPageDomain should select the search page state 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "articles": false,
+}
+`;

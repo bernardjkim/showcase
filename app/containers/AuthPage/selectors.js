@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the AuthPage state domain
  */
 
-const selectAuthPageDomain = state => state.get('AuthPage', initialState);
+const selectAuthPageDomain = state => state.get('authPage', initialState);
 
 /**
  * Other specific selectors

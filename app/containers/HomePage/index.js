@@ -35,7 +35,7 @@ export class HomePage extends React.PureComponent {
     return (
       <div>
         <NavBar {...this.props} />
-        <HomeContent {...this.props} />;
+        <HomeContent {...this.props} />
       </div>
     );
   }
