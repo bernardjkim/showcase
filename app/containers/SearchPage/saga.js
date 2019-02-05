@@ -5,6 +5,9 @@ import { loadArticlesSuccess, loadArticlesError } from './actions';
 
 // Individual exports for testing
 
+/**
+ * GET articles query request/response handler
+ */
 export function* loadArticles(action) {
   const { q } = action.query;
 
