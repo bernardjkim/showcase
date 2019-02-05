@@ -65,7 +65,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/article/random",
+      "/api/article/id",
     ],
     "context": null,
     "fn": [Function],

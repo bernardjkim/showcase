@@ -1,7 +1,7 @@
 import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import qs from 'qs';
 
-import { urlGetArticle, urlLikeArticle } from '../../api';
+import { urlLikeArticle } from '../../api';
 import request from '../../utils/request';
 import {
   createCommentSuccess,

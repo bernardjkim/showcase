@@ -43,7 +43,9 @@ describe('articlePageReducer', () => {
   });
 
   it('handles the createCommentSuccess action', () => {
-    expect(articlePageReducer(state, createCommentSuccess({}))).toMatchSnapshot();
+    expect(
+      articlePageReducer(state, createCommentSuccess({})),
+    ).toMatchSnapshot();
   });
 
   it('handles the createCommentError action', () => {
@@ -79,7 +81,9 @@ describe('articlePageReducer', () => {
   });
 
   it('handles the loadCommentsSuccess action', () => {
-    expect(articlePageReducer(state, loadCommentsSuccess([]))).toMatchSnapshot();
+    expect(
+      articlePageReducer(state, loadCommentsSuccess([])),
+    ).toMatchSnapshot();
   });
 
   it('handles the loadCommentsError action', () => {

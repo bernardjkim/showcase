@@ -89,7 +89,8 @@ describe('likeArticle Saga', () => {
 });
 
 describe('loadArticle Saga', () => {
-  const gen = cloneableGenerator(loadArticle)();
+  const query = { id: 'id' };
+  const gen = cloneableGenerator(loadArticle)({ query });
 
   // const selectDescriptor = gen.next().value;
   // expect(selectDescriptor).toMatchSnapshot();
