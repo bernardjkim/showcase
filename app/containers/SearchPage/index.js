@@ -38,6 +38,10 @@ export class SearchPage extends React.PureComponent {
     }
   };
 
+  handleViewComments = id => () => {
+    this.props.history.push(`/article?id=${id}`);
+  };
+
   render() {
     return (
       <div>
@@ -46,7 +50,10 @@ export class SearchPage extends React.PureComponent {
           searchValue={queryString.parse(this.props.location.search).q}
           handleSubmitSearch={this.handleSubmitSearch}
         />
-        <SearchContent {...this.props} />
+        <SearchContent
+          {...this.props}
+          handleViewComments={this.handleViewComments}
+        />
       </div>
     );
   }

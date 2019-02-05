@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import styled from 'styled-components';
@@ -57,6 +57,7 @@ class MediaCard extends React.Component {
 
   render() {
     const { article } = this.props;
+    const { handleViewComments } = this.props;
     return (
       <StyledCard>
         <StyledCardActionArea>
@@ -66,7 +67,7 @@ class MediaCard extends React.Component {
             onClick={this.openInNewTab(article.get('uri'))}
           />
         </StyledCardActionArea>
-        <StyledCardContent>
+        <StyledCardContent onClick={handleViewComments(article.get('_id'))}>
           <CardTitle gutterBottom>{article.get('title')}</CardTitle>
           <CardDescription gutterBottom>
             {article.get('description')}
@@ -81,5 +82,6 @@ MediaCard.propTypes = {
   article: ImmutablePropTypes.map.isRequired,
 
   // dispatch functions
+  handleViewComments: PropTypes.func.isRequired,
 };
 export default MediaCard;

@@ -1,6 +1,6 @@
 /**
  *
- * HomeContent
+ * ArticleContent
  *
  */
 
@@ -79,7 +79,7 @@ const StyledChip = styled(Chip)`
 `;
 
 /* eslint-disable react/prefer-stateless-function */
-class HomeContent extends React.Component {
+class ArticleContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -204,7 +204,7 @@ class HomeContent extends React.Component {
   }
 }
 
-HomeContent.propTypes = {
+ArticleContent.propTypes = {
   // state variables
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
@@ -216,4 +216,4 @@ HomeContent.propTypes = {
   handleLoadArticle: PropTypes.func.isRequired,
 };
 
-export default HomeContent;
+export default ArticleContent;
