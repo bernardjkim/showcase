@@ -1,19 +1,24 @@
-import { fromJS } from 'immutable';
-import submissionPageReducer from '../reducer';
+// import { fromJS } from 'immutable';
+import submissionPageReducer, { initialState } from '../reducer';
 
-import { submitForm, submitFormError, submitFormSuccess } from '../actions';
+import {
+  submitForm,
+  submitFormError,
+  submitFormSuccess,
+  clearState,
+} from '../actions';
 
 describe('submissionPageReducer', () => {
   let state;
   beforeEach(() => {
-    state = fromJS({
-      loading: false,
-      error: false,
-      submissionSuccess: false,
-    });
+    state = initialState;
   });
   it('returns the initial state', () => {
-    expect(submissionPageReducer(undefined, {})).toMatchSnapshot();
+    expect(submissionPageReducer(state, {})).toMatchSnapshot();
+  });
+
+  it('handle the clear state action', () => {
+    expect(submissionPageReducer(state, clearState())).toMatchSnapshot();
   });
 
   it('handle the submit form action', () => {

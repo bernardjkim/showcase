@@ -19,7 +19,7 @@ import makeSelectSubmissionPage, {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { submitForm } from './actions';
+import { submitForm, clearState } from './actions';
 
 import SubmissionForm from './SubmissionForm';
 // import AuthRequiredPage from './AuthRequiredPage';
@@ -28,10 +28,14 @@ import SubmissionForm from './SubmissionForm';
 export class SubmissionPage extends React.PureComponent {
   render() {
     const { user, loading, submissionSuccess } = this.props;
+    const { handleClearState } = this.props;
 
     if (!user && !loading) return <Redirect to="/auth" />;
 
-    if (submissionSuccess) return <Redirect to="/" />;
+    if (submissionSuccess) {
+      handleClearState();
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <SubmissionForm {...this.props} />
@@ -47,6 +51,7 @@ SubmissionPage.propTypes = {
   submissionSuccess: PropTypes.bool.isRequired,
 
   // dispatch functions
+  handleClearState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -58,6 +63,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    handleClearState: () => {
+      dispatch(clearState());
+    },
     handleSubmitForm: data => () => {
       const { tag, ...form } = data;
       dispatch(submitForm(form));

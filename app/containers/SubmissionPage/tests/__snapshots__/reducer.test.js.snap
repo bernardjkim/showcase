@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`submissionPageReducer handle the clear state action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "submissionSuccess": false,
+}
+`;
+
 exports[`submissionPageReducer handle the submit form action 1`] = `
 Immutable.Map {
   "loading": true,
