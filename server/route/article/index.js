@@ -22,11 +22,11 @@ router
     article.create,
   );
 
-router
-  .route('/search')
+// router
+//   .route('/search')
 
-  /** GET /api/article/search?q={search string} */
-  .get(article.list);
+//   /** GET /api/article/search?q={search string} */
+//   .get(auth.parse, article.list);
 
 router
   .route('/random')
@@ -38,7 +38,7 @@ router
   .route('/:id')
 
   /** GET /api/article/:id - Get article */
-  .get(article.get);
+  .get(auth.parse, article.get);
 
 /** Load article when API with id route parameter is hit */
 router.param('id', article.load);

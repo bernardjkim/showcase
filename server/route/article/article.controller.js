@@ -40,10 +40,26 @@ function parse(req, res, next) {
 }
 /**
  * Get article
+ * @param   {Article} req.article   - Requested Article
+ * @param   {User}    req.User      - Requesting User
+ *
  * @returns {Article}
  */
-function get(req, res) {
-  return res.json({ article: req.article });
+async function get(req, res, next) {
+  // Check if article has been liked by current user
+  const likedByUser = Like.findOne({
+    article: req.article,
+    user: req.user,
+  }).catch(e => next(e));
+
+  // Get total number of likes for the article
+  const likes = Like.getByArticle(req.article).catch(e => next(e));
+
+  // Append data and send response
+  const obj = req.article.toObject();
+  obj.likes = await likes;
+  obj.likedByUser = !!(await likedByUser);
+  return res.json({ article: obj });
 }
 
 /**
