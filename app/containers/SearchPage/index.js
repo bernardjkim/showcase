@@ -16,6 +16,7 @@ import queryString from 'query-string';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Nav from 'components/Nav';
 import { deleteToken } from 'containers/App/actions';
+import { makeSelectUser } from 'containers/App/selectors';
 import makeSelectSearchPage, { makeSelectArticles } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -61,6 +62,7 @@ export class SearchPage extends React.PureComponent {
 
 SearchPage.propTypes = {
   // state variables
+  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   location: PropTypes.object.isRequired,
   articles: PropTypes.oneOfType([
     ImmutablePropTypes.list.isRequired,
@@ -73,6 +75,7 @@ SearchPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   searchPage: makeSelectSearchPage(),
+  user: makeSelectUser(),
   articles: makeSelectArticles(),
 });
 
