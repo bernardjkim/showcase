@@ -14,7 +14,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/selectors';
 import { Redirect } from 'react-router-dom';
-import makeSelectSubmissionPage from './selectors';
+import makeSelectSubmissionPage, {
+  makeSelectSubmissionSuccess,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { submitForm } from './actions';
@@ -25,9 +27,10 @@ import SubmissionForm from './SubmissionForm';
 /* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent {
   render() {
-    const { user } = this.props;
+    const { user, submissionSuccess } = this.props;
     if (!user) return <Redirect to="/auth" />;
 
+    if (submissionSuccess) return <Redirect to="/" />;
     return (
       <div>
         <SubmissionForm {...this.props} />
@@ -39,6 +42,7 @@ export class SubmissionPage extends React.PureComponent {
 SubmissionPage.propTypes = {
   // state variables
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  submissionSuccess: PropTypes.bool.isRequired,
 
   // dispatch functions
 };
@@ -46,11 +50,12 @@ SubmissionPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   submissionPage: makeSelectSubmissionPage(),
   user: makeSelectUser(),
+  submissionSuccess: makeSelectSubmissionSuccess(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleSubmitForm: data => {
+    handleSubmitForm: data => () => {
       const { tag, ...form } = data;
       dispatch(submitForm(form));
     },
