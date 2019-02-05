@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import uuid from 'uuid/v1';
 
 import styled from 'styled-components';
 import MediaCard from './MediaCard';
@@ -25,44 +28,27 @@ const ContainerCard = styled.div`
 /* eslint-disable react/prefer-stateless-function */
 class SearchContent extends React.Component {
   render() {
+    const { articles } = this.props;
     return (
       <Container>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
-        <ContainerCard>
-          <MediaCard />
-        </ContainerCard>
+        {articles &&
+          articles.map(article => (
+            <ContainerCard key={uuid()}>
+              <MediaCard article={article} />
+            </ContainerCard>
+          ))}
       </Container>
     );
   }
 }
 
+SearchContent.propTypes = {
+  // state variables
+  articles: PropTypes.oneOfType([
+    ImmutablePropTypes.list.isRequired,
+    PropTypes.bool,
+  ]),
+
+  // dispatch functions
+};
 export default SearchContent;

@@ -29,10 +29,7 @@ export class SearchPage extends React.PureComponent {
   }
 
   render() {
-    const { articles } = this.props;
-
-    console.log(articles);
-    return <SearchContent />;
+    return <SearchContent {...this.props} />;
   }
 }
 

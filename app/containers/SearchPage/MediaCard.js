@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import styled from 'styled-components';
 import {
@@ -46,26 +48,38 @@ const CardDescription = styled(Typography)`
 
 /* eslint-disable react/prefer-stateless-function */
 class MediaCard extends React.Component {
+  openInNewTab = url => () => {
+    if (url !== '') {
+      const win = window.open(url, '_blank');
+      win.focus();
+    }
+  };
+
   render() {
+    const { article } = this.props;
     return (
       <StyledCard>
         <StyledCardActionArea>
           <StyledCardMedia
-            image="https://d1ia71hq4oe7pn.cloudfront.net/og/75335251-1200px.jpg"
-            title="Contemplative Reptile"
+            image={`${process.env.S3_URI}/${article.get('image')}`}
+            title={article.get('title')}
+            onClick={this.openInNewTab(article.get('uri'))}
           />
         </StyledCardActionArea>
         <StyledCardContent>
-          <CardTitle gutterBottom>Title</CardTitle>
+          <CardTitle gutterBottom>{article.get('title')}</CardTitle>
           <CardDescription gutterBottom>
-            Descrpition Descrpition Descrpition Descrpition Descrpition
-            Descrpition Descrpition Descrpition Descrpition Descrpition
-            Descrpition Descrpition Descrpition Descrpition
+            {article.get('description')}
           </CardDescription>
         </StyledCardContent>
       </StyledCard>
     );
   }
 }
+MediaCard.propTypes = {
+  // state variables
+  article: ImmutablePropTypes.map.isRequired,
 
+  // dispatch functions
+};
 export default MediaCard;

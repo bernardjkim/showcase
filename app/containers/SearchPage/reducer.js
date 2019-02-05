@@ -20,7 +20,10 @@ export const initialState = fromJS({
 function searchPageReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_ARTICLES:
-      return state.set('loading', true).set('error', false);
+      return state
+        .set('articles', false)
+        .set('loading', true)
+        .set('error', false);
 
     case LOAD_ARTICLES_SUCCESS:
       return state
