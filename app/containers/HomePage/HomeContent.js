@@ -99,7 +99,7 @@ class HomeContent extends React.Component {
   };
 
   handleRedirectAuth = () => {
-    this.props.history.push('/auth');
+    if (!this.props.user) this.props.history.push('/auth');
   };
 
   render() {
@@ -178,7 +178,7 @@ class HomeContent extends React.Component {
             onClick={() => {
               const { comment } = this.state;
               this.setState({ comment: '' });
-              return handleCreateComment(comment);
+              handleCreateComment(comment);
             }}
           >
             Comment
@@ -206,6 +206,7 @@ class HomeContent extends React.Component {
 
 HomeContent.propTypes = {
   // state variables
+  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   history: PropTypes.object.isRequired,
 
