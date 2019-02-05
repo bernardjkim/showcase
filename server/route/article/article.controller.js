@@ -127,4 +127,26 @@ async function random(req, res, next) {
   return res.json({ article: obj });
 }
 
-module.exports = { load, get, create, random, parse };
+/**
+ *
+ * @param   {string}    req.query.q  - Query string
+ *
+ * @returns {Article[]}
+ */
+function list(req, res, next) {
+  if (req.query.q) {
+    Article.find({ tags: req.query.q })
+      .then(articles => {
+        res.json({ articles });
+      })
+      .catch(e => next(e));
+  } else {
+    Article.find()
+      .then(articles => {
+        res.json({ articles });
+      })
+      .catch(e => next(e));
+  }
+}
+
+module.exports = { load, get, create, random, parse, list };

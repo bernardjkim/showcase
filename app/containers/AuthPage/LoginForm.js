@@ -64,7 +64,7 @@ const ContainerButtons = styled.div`
 
   button {
     margin-right: 20px;
-    width: 110px;
+    width: 120px;
   }
 `;
 

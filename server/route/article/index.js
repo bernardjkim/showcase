@@ -10,7 +10,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 router
   .route('/')
   /** GET /api/article - Get list of articles */
-  // .get(article.list)
+  .get(article.list)
 
   /** POST /api/article - Create new article */
   .post(
@@ -21,6 +21,12 @@ router
     validate(paramValidation.createArticle),
     article.create,
   );
+
+router
+  .route('/search')
+
+  /** GET /api/article/search?q={search string} */
+  .get(article.list);
 
 router
   .route('/random')
