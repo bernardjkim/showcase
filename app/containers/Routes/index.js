@@ -21,3 +21,5 @@ export const AuthLink = props => <StyledLink to="/auth" {...props} />;
 export const SignupLink = props => <StyledLink to="/signup" {...props} />;
 
 export const SearchLink = props => <StyledLink to="/search" {...props} />;
+
+export const ArticleLink = props => <StyledLink to="/article" {...props} />;

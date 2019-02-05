@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`homePageReducer handles the createComment action 1`] = `
+exports[`articlePageReducer handles the createComment action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
@@ -16,7 +16,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the createCommentError action 1`] = `
+exports[`articlePageReducer handles the createCommentError action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": Immutable.Map {},
@@ -32,7 +32,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the createCommentSuccess action 1`] = `
+exports[`articlePageReducer handles the createCommentSuccess action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
@@ -50,7 +50,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the likeArticle action 1`] = `
+exports[`articlePageReducer handles the likeArticle action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
@@ -66,7 +66,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the likeArticleError action 1`] = `
+exports[`articlePageReducer handles the likeArticleError action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": Immutable.Map {},
@@ -82,7 +82,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the likeArticleSuccess action 1`] = `
+exports[`articlePageReducer handles the likeArticleSuccess action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
@@ -98,7 +98,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the loadArticle action 1`] = `
+exports[`articlePageReducer handles the loadArticle action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
@@ -106,7 +106,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the loadArticleError action 1`] = `
+exports[`articlePageReducer handles the loadArticleError action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": Immutable.Map {},
@@ -122,7 +122,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the loadArticleSuccess action 1`] = `
+exports[`articlePageReducer handles the loadArticleSuccess action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
@@ -130,7 +130,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the loadComments action 1`] = `
+exports[`articlePageReducer handles the loadComments action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
@@ -146,7 +146,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the loadCommentsError action 1`] = `
+exports[`articlePageReducer handles the loadCommentsError action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": Immutable.Map {},
@@ -162,7 +162,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer handles the loadCommentsSuccess action 1`] = `
+exports[`articlePageReducer handles the loadCommentsSuccess action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
@@ -178,7 +178,7 @@ Immutable.Map {
 }
 `;
 
-exports[`homePageReducer returns the initial state 1`] = `
+exports[`articlePageReducer returns the initial state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,

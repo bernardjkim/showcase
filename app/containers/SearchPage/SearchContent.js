@@ -30,12 +30,16 @@ const ContainerCard = styled.div`
 class SearchContent extends React.Component {
   render() {
     const { articles } = this.props;
+    const { handleViewComments } = this.props;
     return (
       <Container>
         {articles &&
           articles.map(article => (
             <ContainerCard key={uuid()}>
-              <MediaCard article={article} />
+              <MediaCard
+                article={article}
+                handleViewComments={handleViewComments}
+              />
             </ContainerCard>
           ))}
       </Container>
@@ -51,5 +55,6 @@ SearchContent.propTypes = {
   ]),
 
   // dispatch functions
+  handleViewComments: PropTypes.func.isRequired,
 };
 export default SearchContent;
