@@ -13,36 +13,51 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import queryString from 'query-string';
-import makeSelectSearchPage from './selectors';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import makeSelectSearchPage, { makeSelectArticles } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 import SearchContent from './SearchContent';
+import { loadArticles } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchPage extends React.PureComponent {
   componentDidMount() {
     const { q } = queryString.parse(this.props.location.search);
-    console.log(q);
+    this.props.handleLoadArticles({ q });
   }
 
   render() {
+    const { articles } = this.props;
+
+    console.log(articles);
     return <SearchContent />;
   }
 }
 
 SearchPage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  // state variables
   location: PropTypes.object.isRequired,
+  articles: PropTypes.oneOfType([
+    ImmutablePropTypes.list.isRequired,
+    PropTypes.bool,
+  ]),
+
+  // dispatch functions
+  handleLoadArticles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   searchPage: makeSelectSearchPage(),
+  articles: makeSelectArticles(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    handleLoadArticles: query => {
+      dispatch(loadArticles(query));
+    },
   };
 }
 
