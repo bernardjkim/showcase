@@ -85,8 +85,8 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'AuthPage', reducer });
-const withSaga = injectSaga({ key: 'AuthPage', saga });
+const withReducer = injectReducer({ key: 'authPage', reducer });
+const withSaga = injectSaga({ key: 'authPage', saga });
 
 export default compose(
   withReducer,
