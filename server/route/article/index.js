@@ -25,7 +25,7 @@ router
 router
   .route('/search')
 
-  /** GET /api/article/search?q={search string} */
+  /** GET /api/article/search?q={search string} - Get list of articles */
   .get(article.list);
 
 router
@@ -38,7 +38,7 @@ router
   .route('/:id')
 
   /** GET /api/article/:id - Get article */
-  .get(article.get);
+  .get(auth.parse, article.get);
 
 /** Load article when API with id route parameter is hit */
 router.param('id', article.load);

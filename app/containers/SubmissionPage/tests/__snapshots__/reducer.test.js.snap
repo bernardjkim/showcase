@@ -4,6 +4,7 @@ exports[`submissionPageReducer handle the submit form action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
+  "submissionSuccess": false,
 }
 `;
 
@@ -11,6 +12,7 @@ exports[`submissionPageReducer handle the submit form error action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": Immutable.Map {},
+  "submissionSuccess": false,
 }
 `;
 
@@ -18,6 +20,7 @@ exports[`submissionPageReducer handle the submit form success action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
+  "submissionSuccess": true,
 }
 `;
 
@@ -25,5 +28,6 @@ exports[`submissionPageReducer returns the initial state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
+  "submissionSuccess": false,
 }
 `;

@@ -8,5 +8,6 @@ exports[`selectSubmissionPageDomain should select the submission page state 1`] 
 Immutable.Map {
   "loading": false,
   "error": false,
+  "submissionSuccess": false,
 }
 `;

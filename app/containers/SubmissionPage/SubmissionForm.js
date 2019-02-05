@@ -155,11 +155,7 @@ class SubmissionForm extends React.PureComponent {
         <ButtonSubmit
           color="primary"
           variant="contained"
-          onClick={() => {
-            handleSubmitForm(this.state.form);
-            // TODO: create submission successful page???
-            this.props.history.push('/');
-          }}
+          onClick={handleSubmitForm(this.state.form)}
         >
           Submit
         </ButtonSubmit>
@@ -170,7 +166,6 @@ class SubmissionForm extends React.PureComponent {
 
 SubmissionForm.propTypes = {
   // state variables
-  history: PropTypes.object.isRequired,
 
   // dispatch functions
   handleSubmitForm: PropTypes.func.isRequired,

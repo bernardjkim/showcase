@@ -14,18 +14,25 @@ import {
 export const initialState = fromJS({
   loading: false,
   error: false,
+  submissionSuccess: false,
 });
 
 function submissionPageReducer(state = initialState, action) {
   switch (action.type) {
     case SUBMIT_FORM:
-      return state.set('loading', true).set('error', false);
+      return state
+        .set('submissionSuccess', false)
+        .set('loading', true)
+        .set('error', false);
 
     case SUBMIT_FORM_SUCCESS:
-      return state.set('loading', false);
+      return state.set('submissionSuccess', true).set('loading', false);
 
     case SUBMIT_FORM_ERROR:
-      return state.set('error', fromJS(action.error)).set('loading', false);
+      return state
+        .set('submissionSuccess', false)
+        .set('error', fromJS(action.error))
+        .set('loading', false);
 
     default:
       return state;

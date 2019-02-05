@@ -12,6 +12,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -28,6 +29,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -46,6 +48,7 @@ Immutable.Map {
       Immutable.Map {},
     ],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -62,6 +65,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -78,6 +82,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -94,6 +99,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 2,
+    "likedByUser": true,
   },
 }
 `;
@@ -118,6 +124,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -142,6 +149,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -158,6 +166,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;
@@ -174,6 +183,7 @@ Immutable.Map {
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
     "likes": 1,
+    "likedByUser": false,
   },
 }
 `;

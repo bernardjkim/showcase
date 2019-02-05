@@ -9,6 +9,7 @@ describe('submissionPageReducer', () => {
     state = fromJS({
       loading: false,
       error: false,
+      submissionSuccess: false,
     });
   });
   it('returns the initial state', () => {

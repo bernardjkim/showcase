@@ -8,6 +8,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
+  submissionSuccess: false,
 });
 
 describe('selectSubmissionPageDomain', () => {

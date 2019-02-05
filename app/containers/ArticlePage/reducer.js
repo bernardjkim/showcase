@@ -32,6 +32,7 @@ export const initialState = fromJS({
    * @field {string}  description - Article description
    * @field {string}  image       - Article image link
    * @field {number}  likes       - Number of likes
+   * @field {bool}    likedByUser - Article is liked by user
    * @field {array}   comments    - Array of comments
    */
   article: false,
@@ -58,6 +59,7 @@ function articlePageReducer(state = initialState, action) {
     case LIKE_ARTICLE_SUCCESS:
       return state
         .updateIn(['article', 'likes'], likes => likes + 1)
+        .setIn(['article', 'likedByUser'], true)
         .set('loading', false);
 
     case LIKE_ARTICLE_ERROR:
