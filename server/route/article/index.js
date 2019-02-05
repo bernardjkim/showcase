@@ -22,11 +22,11 @@ router
     article.create,
   );
 
-// router
-//   .route('/search')
+router
+  .route('/search')
 
-//   /** GET /api/article/search?q={search string} */
-//   .get(auth.parse, article.list);
+  /** GET /api/article/search?q={search string} - Get list of articles */
+  .get(article.list);
 
 router
   .route('/random')

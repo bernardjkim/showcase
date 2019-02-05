@@ -30,6 +30,7 @@ describe('articlePageReducer', () => {
         image: '1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png',
         comments: [],
         likes: 1,
+        likedByUser: false,
       },
     });
   });
