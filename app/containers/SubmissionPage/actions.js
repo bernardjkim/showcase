@@ -5,10 +5,17 @@
  */
 
 import {
+  CLEAR_STATE,
   SUBMIT_FORM,
   SUBMIT_FORM_ERROR,
   SUBMIT_FORM_SUCCESS,
 } from './constants';
+
+export function clearState() {
+  return {
+    type: CLEAR_STATE,
+  };
+}
 
 export function submitForm(form) {
   return {

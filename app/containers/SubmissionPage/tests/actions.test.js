@@ -1,11 +1,25 @@
-import { submitForm, submitFormError, submitFormSuccess } from '../actions';
 import {
+  submitForm,
+  submitFormError,
+  submitFormSuccess,
+  clearState,
+} from '../actions';
+import {
+  CLEAR_STATE,
   SUBMIT_FORM,
   SUBMIT_FORM_ERROR,
   SUBMIT_FORM_SUCCESS,
 } from '../constants';
 
 describe('SubmissionPage actions', () => {
+  describe('Clear State Action', () => {
+    it('has a type of CLEAR_STATE', () => {
+      const expected = {
+        type: CLEAR_STATE,
+      };
+      expect(clearState()).toEqual(expected);
+    });
+  });
   describe('Submit Form Action', () => {
     it('has a type of SUBMIT_FORM', () => {
       const form = {};

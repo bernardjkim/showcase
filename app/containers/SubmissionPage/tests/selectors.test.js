@@ -1,15 +1,10 @@
-import { fromJS } from 'immutable';
+// import { fromJS } from 'immutable';
 import {
   selectSubmissionPageDomain,
   makeSelectError,
   makeSelectLoading,
 } from '../selectors';
-
-const initialState = fromJS({
-  loading: false,
-  error: false,
-  submissionSuccess: false,
-});
+import { initialState } from '../reducer';
 
 describe('selectSubmissionPageDomain', () => {
   it('should select the submission page state', () => {

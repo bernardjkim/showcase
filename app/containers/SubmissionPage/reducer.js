@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  CLEAR_STATE,
   SUBMIT_FORM,
   SUBMIT_FORM_ERROR,
   SUBMIT_FORM_SUCCESS,
@@ -33,6 +34,9 @@ function submissionPageReducer(state = initialState, action) {
         .set('submissionSuccess', false)
         .set('error', fromJS(action.error))
         .set('loading', false);
+
+    case CLEAR_STATE:
+      return initialState;
 
     default:
       return state;
