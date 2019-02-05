@@ -23,6 +23,12 @@ router
   );
 
 router
+  .route('/all')
+
+  /** GET /api/article/all - Get list of articles  */
+  .get(article.list);
+
+router
   .route('/search')
 
   /** GET /api/article/search?q={search string} - Get list of articles */

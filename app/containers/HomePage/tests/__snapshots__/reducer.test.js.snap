@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`homePageReducer handle the load articles all action 1`] = `
+Immutable.Map {
+  "loading": true,
+  "error": false,
+  "articles": false,
+}
+`;
+
+exports[`homePageReducer handle the load articles all error action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": [Error: Test Error],
+  "articles": false,
+}
+`;
+
+exports[`homePageReducer handle the load articles all success action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "articles": Immutable.List [],
+}
+`;
+
+exports[`homePageReducer returns the initial state 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "articles": false,
+}
+`;
