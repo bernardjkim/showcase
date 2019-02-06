@@ -29,6 +29,7 @@ export function* deleteToken() {
     yield call(request, url, options);
 
     yield put(deleteTokenSuccess());
+    window.location.reload(); // refresh page on logout
   } catch (err) {
     yield put(deleteTokenError(err));
   }

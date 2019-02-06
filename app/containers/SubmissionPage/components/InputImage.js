@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -57,9 +57,9 @@ const InputImage = props => {
 
 InputImage.propTypes = {
   /* state */
-  screenshot: PropType.oneOfType([PropType.object, PropType.bool]),
+  screenshot: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   /* functions */
-  handleFileUpload: PropType.func.isRequired,
+  handleFileUpload: PropTypes.func.isRequired,
 };
 
 export default InputImage;

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-
 import styled from 'styled-components';
+
+// import Typography from '@material-ui/core/Typography';
+
+import openInNewTab from 'utils/openInNewTab';
 import {
   Card,
   CardActionArea,
@@ -11,8 +14,21 @@ import {
   Typography,
 } from '@material-ui/core';
 
+const Container = styled.div`
+  width: calc(100% * (1 / 3) - 30px);
+  height: 300px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+
 const StyledCard = styled(Card)`
   box-shadow: none;
+`;
+
+const StyledCardActionArea = styled(CardActionArea)`
+  overflow: hidden;
 `;
 
 const StyledCardMedia = styled(CardMedia)`
@@ -27,16 +43,10 @@ const StyledCardContent = styled(CardContent)`
   height: 100px;
 `;
 
-const StyledCardActionArea = styled(CardActionArea)`
-  overflow: hidden;
-`;
-
 const CardTitle = styled(Typography)`
   font-weight: 500;
 `;
 
-/* eslint-disable property-no-vendor-prefix */
-/* eslint-disable value-no-vendor-prefix */
 const CardDescription = styled(Typography)`
   font-weight: 300;
   display: -webkit-box;
@@ -46,25 +56,20 @@ const CardDescription = styled(Typography)`
   text-overflow: ellipsis;
 `;
 
-/* eslint-disable react/prefer-stateless-function */
-class MediaCard extends React.Component {
-  openInNewTab = url => () => {
-    if (url !== '') {
-      const win = window.open(url, '_blank');
-      win.focus();
-    }
-  };
+const Result = props => {
+  /* state */
+  const { article } = props;
+  /* functions */
+  const { handleViewComments } = props;
 
-  render() {
-    const { article } = this.props;
-    const { handleViewComments } = this.props;
-    return (
+  return (
+    <Container>
       <StyledCard>
         <StyledCardActionArea>
           <StyledCardMedia
             image={`${process.env.S3_URI}/${article.get('image')}`}
             title={article.get('title')}
-            onClick={this.openInNewTab(article.get('uri'))}
+            onClick={openInNewTab(article.get('uri'))}
           />
         </StyledCardActionArea>
         <StyledCardContent onClick={handleViewComments(article.get('_id'))}>
@@ -74,14 +79,15 @@ class MediaCard extends React.Component {
           </CardDescription>
         </StyledCardContent>
       </StyledCard>
-    );
-  }
-}
-MediaCard.propTypes = {
-  // state variables
-  article: ImmutablePropTypes.map.isRequired,
+    </Container>
+  );
+};
 
-  // dispatch functions
+Result.propTypes = {
+  /* state */
+  article: ImmutablePropTypes.map.isRequired,
+  /* functions */
   handleViewComments: PropTypes.func.isRequired,
 };
-export default MediaCard;
+
+export default Result;
