@@ -6,42 +6,34 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v1';
-
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 
-import { Typography, CircularProgress } from '@material-ui/core';
-import {
-  ButtonSubmit,
-  Container,
-  Header,
-  InputFile,
-  ScreenShot,
-  ScreenShotBox,
-  ScreenShotLabel,
-  StyledTextField,
-} from './components';
+import TextField from '@material-ui/core/TextField';
 
-const TagsList = styled.div`
+import TagList from './components/TagList';
+import InputImage from './components/InputImage';
+import SubmitButton from './components/SubmitButton';
+
+const Container = styled.div`
+  width: 80%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  width: 60%;
-  margin-top: 25px;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 `;
 
-const StyledChip = styled(Chip)`
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  font-size: 17px;
-  font-weight: 300;
+const StyledTextField = styled(TextField)`
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+
+  label {
+    color: #57c1ae;
+    font-size: 17px;
+  }
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -75,8 +67,7 @@ class SubmissionForm extends React.PureComponent {
     if (e.key === 'Enter' && this.state.form.tag !== '') {
       e.preventDefault();
       const { form } = this.state;
-      const { tags } = form;
-      tags.push(form.tag);
+      const tags = [...form.tags, form.tag];
       this.setState({ form: { ...form, tag: '', tags } });
     }
   };
@@ -92,14 +83,14 @@ class SubmissionForm extends React.PureComponent {
   };
 
   render() {
+    /* state */
     const { loadingSubmit } = this.props;
+    /* functions */
     const { handleSubmitForm } = this.props;
 
     return (
       <Container>
-        <Header color="primary">Submit A Website!</Header>
         <StyledTextField
-          InputProps={{ color: '#57c1ae' }}
           label="Title"
           required
           onChange={this.handleChange('title')}
@@ -130,52 +121,27 @@ class SubmissionForm extends React.PureComponent {
           onKeyPress={this.handleAddTag}
           value={this.state.form.tag}
         />
-        <TagsList>
-          {this.state.form.tags.map(tag => (
-            <StyledChip
-              variant="outlined"
-              key={uuid()}
-              label={tag}
-              onDelete={this.handleDeleteTag(tag)}
-            />
-          ))}
-        </TagsList>
-
-        {this.state.form.screenshot ? (
-          <ScreenShot
-            src={URL.createObjectURL(this.state.form.screenshot)}
-            alt="ScreenShot"
-          />
-        ) : (
-          <ScreenShotBox>
-            <InputFile type="file" onChange={this.handleFileUpload} />
-            <ScreenShotLabel>Upload ScreenShot</ScreenShotLabel>
-            <FontAwesomeIcon size="3x" color="#a9caca" icon={faPlusCircle} />
-          </ScreenShotBox>
-        )}
-
-        <ButtonSubmit
-          color="primary"
-          variant="contained"
-          onClick={handleSubmitForm(this.state.form)}
-          disabled={!!loadingSubmit}
-        >
-          {loadingSubmit ? (
-            <CircularProgress size={26} thickness={8.0} />
-          ) : (
-            <Typography>Submit</Typography>
-          )}
-        </ButtonSubmit>
+        <TagList
+          tags={this.state.form.tags}
+          handleDeleteTag={this.handleDeleteTag}
+        />
+        <InputImage
+          screenshot={this.state.form.screenshot}
+          handleFileUpload={this.handleFileUpload}
+        />
+        <SubmitButton
+          loading={loadingSubmit}
+          handleSubmit={handleSubmitForm(this.state.form)}
+        />
       </Container>
     );
   }
 }
 
 SubmissionForm.propTypes = {
-  // state variables
+  /* state */
   loadingSubmit: PropTypes.bool.isRequired,
-
-  // dispatch functions
+  /* functions */
   handleSubmitForm: PropTypes.func.isRequired,
 };
 

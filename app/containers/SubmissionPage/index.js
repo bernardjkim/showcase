@@ -6,6 +6,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -16,7 +18,6 @@ import {
   makeSelectUser,
   makeSelectLoading as makeSelectLoadingGlobal,
 } from 'containers/App/selectors';
-import { Redirect } from 'react-router-dom';
 import makeSelectSubmissionPage, {
   makeSelectSubmissionSuccess,
   makeSelectLoading as makeSelectLoadingSubmit,
@@ -25,13 +26,24 @@ import reducer from './reducer';
 import saga from './saga';
 import { submitForm, clearState } from './actions';
 
+import Footer from './Footer';
+import Header from './Header';
 import SubmissionForm from './SubmissionForm';
 // import AuthRequiredPage from './AuthRequiredPage';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent {
   render() {
+    /* state */
     const { user, loadingGlobal, submissionSuccess } = this.props;
+    /* functions */
     const { handleClearState } = this.props;
 
     if (!user && !loadingGlobal) return <Redirect to="/auth" />;
@@ -41,20 +53,21 @@ export class SubmissionPage extends React.PureComponent {
       return <Redirect to="/" />;
     }
     return (
-      <div>
+      <Container>
+        <Header />
         <SubmissionForm {...this.props} />
-      </div>
+        <Footer />
+      </Container>
     );
   }
 }
 
 SubmissionPage.propTypes = {
-  // state variables
+  /* state */
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   loadingGlobal: PropTypes.bool.isRequired, // loading status for LOAD_USER
   submissionSuccess: PropTypes.bool.isRequired,
-
-  // dispatch functions
+  /* functions */
   handleClearState: PropTypes.func.isRequired,
 };
 
