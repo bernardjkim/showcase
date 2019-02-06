@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: false,
-    default: 'Guest',
+    unique: true,
   },
 
   // profile: {},
@@ -41,33 +41,55 @@ const UserSchema = new Schema({
  */
 
 // eslint-disable-next-line
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', async function(next) {
   const user = this;
 
   // only hash the password if it has been modified (or is new)
   if (!user.isModified('password')) return next();
 
-  user.constructor.findOne({ email: user.email }).then(exists => {
-    if (exists)
-      next(new APIError('This email is taken', httpStatus.BAD_REQUEST));
+  // Verify email is available
+  const emailTaken = user.constructor
+    .findOne({ email: user.email })
+    .catch(e => next(e));
 
-    // generate a salt
-    bcrypt
-      .genSalt(SALT_WORK_FACTOR)
-      .then(salt => {
-        // hash the password using our new salt
-        bcrypt
-          .hash(user.password, salt)
-          .then(hash => {
-            // override the cleartext password with the hashed one
-            user.password = hash;
-            next();
-          })
-          .catch(e => next(e));
-      })
-      .catch(e => next(e));
-  });
+  // Verify username is available
+  const usernameTaken = user.constructor
+    .findOne({ username: user.username })
+    .catch(e => next(e));
+
+  if (await emailTaken) {
+    const error = new APIError(
+      'This email is already taken',
+      httpStatus.BAD_REQUEST,
+    );
+    return next(error);
+  }
+
+  if (await usernameTaken) {
+    const error = new APIError(
+      'This username is already taken',
+      httpStatus.BAD_REQUEST,
+    );
+    return next(error);
+  }
+
+  // generate a salt
+  bcrypt
+    .genSalt(SALT_WORK_FACTOR)
+    .then(salt => {
+      // hash the password using our new salt
+      bcrypt
+        .hash(user.password, salt)
+        .then(hash => {
+          // override the cleartext password with the hashed one
+          user.password = hash;
+          next();
+        })
+        .catch(e => next(e));
+    })
+    .catch(e => next(e));
 });
+
 /**
  * Methods
  */
