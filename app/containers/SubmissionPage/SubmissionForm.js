@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 
+import { Typography, CircularProgress } from '@material-ui/core';
 import {
   ButtonSubmit,
   Container,
@@ -91,6 +92,7 @@ class SubmissionForm extends React.PureComponent {
   };
 
   render() {
+    const { loadingSubmit } = this.props;
     const { handleSubmitForm } = this.props;
 
     return (
@@ -156,8 +158,13 @@ class SubmissionForm extends React.PureComponent {
           color="primary"
           variant="contained"
           onClick={handleSubmitForm(this.state.form)}
+          disabled={!!loadingSubmit}
         >
-          Submit
+          {loadingSubmit ? (
+            <CircularProgress size={26} thickness={8.0} />
+          ) : (
+            <Typography>Submit</Typography>
+          )}
         </ButtonSubmit>
       </Container>
     );
@@ -166,6 +173,7 @@ class SubmissionForm extends React.PureComponent {
 
 SubmissionForm.propTypes = {
   // state variables
+  loadingSubmit: PropTypes.bool.isRequired,
 
   // dispatch functions
   handleSubmitForm: PropTypes.func.isRequired,

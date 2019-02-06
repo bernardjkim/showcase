@@ -7,6 +7,10 @@ const ButtonSubmit = styled(Button)`
   margin-bottom: 40px;
   color: white;
   font-weight: 400;
+
+  span {
+    height: 36px;
+  }
 `;
 
 export default ButtonSubmit;
