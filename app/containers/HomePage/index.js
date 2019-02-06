@@ -6,21 +6,28 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+// import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+/* Utils */
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Nav from 'components/Nav';
+
+/* Globals */
 import { deleteToken } from 'containers/App/actions';
 import { makeSelectUser } from 'containers/App/selectors';
-import makeSelectHomePage, { makeSelectArticles } from './selectors';
-import reducer from './reducer';
+
+/* Shard Components */
+import Nav from 'components/Nav';
+import SearchResults from 'components/SearchResults';
+
+/* Locals */
 import saga from './saga';
-import HomeContent from './HomeContent';
+import reducer from './reducer';
 import { loadArticlesAll } from './actions';
+import makeSelectHomePage, { makeSelectArticles } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -43,7 +50,7 @@ export class HomePage extends React.PureComponent {
     return (
       <div>
         <Nav {...this.props} handleSubmitSearch={this.handleSubmitSearch} />
-        <HomeContent
+        <SearchResults
           {...this.props}
           handleViewComments={this.handleViewComments}
         />
@@ -53,15 +60,9 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-  // state variables
-  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  location: PropTypes.object.isRequired,
-  articles: PropTypes.oneOfType([
-    ImmutablePropTypes.list.isRequired,
-    PropTypes.bool,
-  ]),
-
-  // dispatch functions
+  /* state */
+  history: PropTypes.object.isRequired,
+  /* functions */
   handleLoadArticles: PropTypes.func.isRequired,
 };
 

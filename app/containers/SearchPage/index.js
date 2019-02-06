@@ -16,21 +16,19 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-/* Shared Components */
-import Nav from 'components/Nav';
-
 /* Globals */
 import { deleteToken } from 'containers/App/actions';
 import { makeSelectUser } from 'containers/App/selectors';
+
+/* Shared Components */
+import Nav from 'components/Nav';
+import SearchResults from 'components/SearchResults';
 
 /* Locals */
 import saga from './saga';
 import reducer from './reducer';
 import { loadArticles } from './actions';
 import makeSelectSearchPage, { makeSelectArticles } from './selectors';
-
-/* Local Components */
-import SearchResults from './SearchResults';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchPage extends React.PureComponent {
