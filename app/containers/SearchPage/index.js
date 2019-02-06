@@ -6,23 +6,31 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+// import ImmutablePropTypes from 'react-immutable-proptypes';
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+/* Utils */
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import queryString from 'query-string';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+
+/* Shared Components */
 import Nav from 'components/Nav';
+
+/* Globals */
 import { deleteToken } from 'containers/App/actions';
 import { makeSelectUser } from 'containers/App/selectors';
-import makeSelectSearchPage, { makeSelectArticles } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
-import SearchContent from './SearchContent';
+/* Locals */
+import saga from './saga';
+import reducer from './reducer';
 import { loadArticles } from './actions';
+import makeSelectSearchPage, { makeSelectArticles } from './selectors';
+
+/* Local Components */
+import SearchResults from './SearchResults';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchPage extends React.PureComponent {
@@ -44,14 +52,16 @@ export class SearchPage extends React.PureComponent {
   };
 
   render() {
+    /* state */
+    const { location } = this.props;
     return (
       <div>
         <Nav
           {...this.props}
-          searchValue={queryString.parse(this.props.location.search).q}
+          searchValue={queryString.parse(location.search).q}
           handleSubmitSearch={this.handleSubmitSearch}
         />
-        <SearchContent
+        <SearchResults
           {...this.props}
           handleViewComments={this.handleViewComments}
         />
@@ -61,15 +71,9 @@ export class SearchPage extends React.PureComponent {
 }
 
 SearchPage.propTypes = {
-  // state variables
-  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  /* state */
   location: PropTypes.object.isRequired,
-  articles: PropTypes.oneOfType([
-    ImmutablePropTypes.list.isRequired,
-    PropTypes.bool,
-  ]),
-
-  // dispatch functions
+  /* functions */
   handleLoadArticles: PropTypes.func.isRequired,
 };
 
@@ -85,7 +89,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadArticles(query));
     },
     handleLogout: () => {
-      window.location.reload(); // refresh page on logout
       dispatch(deleteToken());
     },
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
@@ -45,9 +45,9 @@ const TagList = props => {
 
 TagList.propTypes = {
   /* state */
-  tags: PropType.array.isRequired,
+  tags: PropTypes.array.isRequired,
   /* fuctions */
-  handleDeleteTag: PropType.func.isRequired,
+  handleDeleteTag: PropTypes.func.isRequired,
 };
 
 export default TagList;

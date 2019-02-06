@@ -77,7 +77,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadArticlesAll());
     },
     handleLogout: () => {
-      window.location.reload(); // refresh page on logout
       dispatch(deleteToken());
     },
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
@@ -44,9 +44,9 @@ const SubmitButton = props => {
 
 SubmitButton.propTypes = {
   /* state */
-  loading: PropType.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   /* functions */
-  handleSubmit: PropType.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default SubmitButton;
