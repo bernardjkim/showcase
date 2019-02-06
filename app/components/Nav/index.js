@@ -8,41 +8,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import {
-  Typography,
-  InputAdornment,
-  Toolbar,
-  TextField,
-} from '@material-ui/core';
-import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
-import { AuthLink, HomeLink, SubmitLink } from 'containers/Routes';
+import Logo from './Logo';
+import SearchBar from './SearchBar';
+import NavActions from './NavActions';
 
-import { StyledAppBar, Logo, StyledButton } from './components';
-
-const Submit = styled(Typography)`
-  margin-right: 5px;
-  font-weight: 300;
-`;
-
-const StyledTextField = styled(TextField)`
-  flex-grow: 1;
-  flex-basis: 0;
-  div {
-    height: 36px;
-
-    fieldset {
-      border-radius: 30px;
-    }
-  }
-`;
-
-const Actions = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  flex-grow: 1;
-  flex-basis: 0;
+const StyledAppBar = styled(AppBar)`
+  box-shadow: none;
+  border-bottom: solid 1px;
+  border-color: #ccddda;
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -59,45 +35,22 @@ class Nav extends React.Component {
   };
 
   render() {
+    /* state */
     const { user } = this.props;
+
+    /* functions */
     const { handleLogout, handleSubmitSearch } = this.props;
+
     return (
       <StyledAppBar color="inherit" position="absolute">
         <Toolbar>
-          <Logo component={HomeLink} color="primary">
-            ShowCase
-          </Logo>
-
-          <StyledTextField
-            color="primary"
-            variant="outlined"
-            onKeyPress={handleSubmitSearch(this.state.search)}
-            onChange={this.handleChange}
+          <Logo />
+          <SearchBar
+            handleSubmit={handleSubmitSearch(this.state.search)}
+            handleChange={this.handleChange}
             value={this.state.search}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <FontAwesomeIcon color="#8dd5c7" icon={faSearch} />
-                </InputAdornment>
-              ),
-            }}
-            placeholder="Search Showcase"
           />
-          <Actions>
-            <StyledButton component={SubmitLink}>
-              <Submit color="primary">Submit</Submit>
-              <FontAwesomeIcon size="1x" color="#57c1ae" icon={faPlus} />
-            </StyledButton>
-            {user ? (
-              <StyledButton onClick={handleLogout} color="primary">
-                Logout
-              </StyledButton>
-            ) : (
-              <StyledButton component={AuthLink} color="primary">
-                Login
-              </StyledButton>
-            )}
-          </Actions>
+          <NavActions user={user} handleLogout={handleLogout} />
         </Toolbar>
       </StyledAppBar>
     );
@@ -105,10 +58,11 @@ class Nav extends React.Component {
 }
 
 Nav.propTypes = {
+  /* state */
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   searchValue: PropTypes.string,
 
-  // dispatch functions
+  /* functions */
   handleLogout: PropTypes.func.isRequired,
   handleSubmitSearch: PropTypes.func.isRequired,
 };

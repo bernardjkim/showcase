@@ -12,10 +12,14 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectUser, makeSelectLoading } from 'containers/App/selectors';
+import {
+  makeSelectUser,
+  makeSelectLoading as makeSelectLoadingGlobal,
+} from 'containers/App/selectors';
 import { Redirect } from 'react-router-dom';
 import makeSelectSubmissionPage, {
   makeSelectSubmissionSuccess,
+  makeSelectLoading as makeSelectLoadingSubmit,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -27,10 +31,10 @@ import SubmissionForm from './SubmissionForm';
 /* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent {
   render() {
-    const { user, loading, submissionSuccess } = this.props;
+    const { user, loadingGlobal, submissionSuccess } = this.props;
     const { handleClearState } = this.props;
 
-    if (!user && !loading) return <Redirect to="/auth" />;
+    if (!user && !loadingGlobal) return <Redirect to="/auth" />;
 
     if (submissionSuccess) {
       handleClearState();
@@ -47,7 +51,7 @@ export class SubmissionPage extends React.PureComponent {
 SubmissionPage.propTypes = {
   // state variables
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  loading: PropTypes.bool.isRequired, // loading status for LOAD_USER
+  loadingGlobal: PropTypes.bool.isRequired, // loading status for LOAD_USER
   submissionSuccess: PropTypes.bool.isRequired,
 
   // dispatch functions
@@ -57,7 +61,8 @@ SubmissionPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   submissionPage: makeSelectSubmissionPage(),
   user: makeSelectUser(),
-  loading: makeSelectLoading(),
+  loadingGlobal: makeSelectLoadingGlobal(),
+  loadingSubmit: makeSelectLoadingSubmit(),
   submissionSuccess: makeSelectSubmissionSuccess(),
 });
 

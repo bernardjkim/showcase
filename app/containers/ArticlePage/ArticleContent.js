@@ -17,7 +17,6 @@ import Chip from '@material-ui/core/Chip';
 
 import {
   ButtonLike,
-  ButtonNext,
   ButtonVisit,
   CommentBox,
   CommentDate,
@@ -87,7 +86,7 @@ class ArticleContent extends React.Component {
     };
   }
 
-  openInNewTab = url => {
+  openInNewTab = url => () => {
     if (url !== '') {
       const win = window.open(url, '_blank');
       win.focus();
@@ -104,11 +103,7 @@ class ArticleContent extends React.Component {
 
   render() {
     const { article } = this.props;
-    const {
-      handleCreateComment,
-      handleLikeArticle,
-      handleLoadArticle,
-    } = this.props;
+    const { handleCreateComment, handleLikeArticle } = this.props;
 
     if (!article) return null;
 
@@ -116,7 +111,6 @@ class ArticleContent extends React.Component {
       <Container>
         <ContentTop>
           <Title>{article.get('title')}</Title>
-          <ButtonNext onClick={handleLoadArticle}>{'Next >'}</ButtonNext>
           <ContentActions>
             <ButtonLike
               disabled={article.get('likedByUser')}
@@ -127,7 +121,7 @@ class ArticleContent extends React.Component {
             </ButtonLike>
             <ButtonVisit
               variant="outlined"
-              onClick={() => this.openInNewTab(article.get('uri'))}
+              onClick={this.openInNewTab(article.get('uri'))}
             >
               Visit
             </ButtonVisit>
@@ -146,6 +140,7 @@ class ArticleContent extends React.Component {
 
         <Gallary>
           <StyledImage
+            onClick={this.openInNewTab(article.get('uri'))}
             src={`${process.env.S3_URI}/${article.get('image')}`}
             alt="NotFound"
           />
@@ -213,7 +208,6 @@ ArticleContent.propTypes = {
   // dispatch functions
   handleCreateComment: PropTypes.func.isRequired,
   handleLikeArticle: PropTypes.func.isRequired,
-  handleLoadArticle: PropTypes.func.isRequired,
 };
 
 export default ArticleContent;
