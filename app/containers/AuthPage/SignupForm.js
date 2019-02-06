@@ -7,70 +7,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Title = styled(Typography)`
-  width: 80%;
-  margin-top: 80px;
-  font-size: 20px;
-`;
-
-const Header = styled(Typography)`
-  width: 80%;
-  margin-top: 80px;
-  font-size: 30px;
-  font-weight: 300;
-`;
-
-const Welcome = styled(Typography)`
-  width: 80%;
-  margin-top: 20px;
-  font-weight: 200;
-`;
-
-const StyledTextField = styled(TextField)`
-  width: 80%;
-  margin-top: 20px;
-
-  label {
-    color: #57c1ae;
-  }
-`;
-
-const ContainerButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 80%;
-  margin-top: 25px;
-
-  button {
-    margin-right: 20px;
-    width: 120px;
-  }
-`;
-
-const ButtonSignup = styled(Button)`
-  color: white;
-`;
-
-const ErrorMessage = styled(Typography)`
-  color: red;
-  width: 80%;
-  margin-top: 10px;
-  font-weight: 300;
-  display: ${props => (props.hidden ? 'none' : 'block')};
-`;
+import FormContainer from './components/FormContainer';
+import FormInput from './components/FormInput';
+import ErrorMessage from './components/ErrorMessage';
+import Actions from './components/Actions';
+import ButtonPrimary from './components/ButtonPrimary';
+import ButtonSecondary from './components/ButtonSecondary';
 
 /* eslint-disable react/prefer-stateless-function */
 class SignupForm extends React.PureComponent {
@@ -89,54 +31,51 @@ class SignupForm extends React.PureComponent {
   };
 
   render() {
+    /* state */
     const { error } = this.props;
+    /* functions */
     const { handleCreateUser, handleToggle } = this.props;
 
     return (
-      <Container>
-        <Title color="primary">ShowCase</Title>
-
-        <Header>Show case your personal projects</Header>
-        <Welcome>Welcome To ShowCase. Please Create Your Account</Welcome>
-
-        <StyledTextField
+      <FormContainer>
+        <FormInput
           onChange={this.handleOnChange('username')}
+          fullWidth
           margin="dense"
           variant="outlined"
           label="Username"
           type="username"
         />
-
-        <StyledTextField
+        <FormInput
           onChange={this.handleOnChange('email')}
+          fullWidth
           margin="dense"
           variant="outlined"
           label="Email Address"
           type="email"
+          autoFocus
         />
-        <StyledTextField
+        <FormInput
           onChange={this.handleOnChange('password')}
+          fullWidth
           margin="dense"
           variant="outlined"
           label="Password"
           type="password"
         />
-        <StyledTextField
+        <FormInput
           onChange={this.handleOnChange('passwordConfirm')}
+          fullWidth
           margin="dense"
           variant="outlined"
           label="Confirm Password"
           type="password"
         />
 
-        {/* TODO: more specific error message */}
-        <ErrorMessage hidden={!error || !error.get('createUser')}>
-          Invalid Fields
-        </ErrorMessage>
-
-        <ContainerButtons>
-          <ButtonSignup
-            onClick={() =>
+        <Actions>
+          <ButtonPrimary
+            label="Signup"
+            handleClick={() =>
               handleCreateUser(
                 this.state.username,
                 this.state.email,
@@ -144,32 +83,22 @@ class SignupForm extends React.PureComponent {
                 this.state.passwordConfirm,
               )
             }
-            color="primary"
-            size="large"
-            variant="contained"
-          >
-            Sign Up
-          </ButtonSignup>
-          <Button
-            color="primary"
-            size="large"
-            variant="outlined"
-            onClick={handleToggle(true)}
-          >
-            Login
-          </Button>
-        </ContainerButtons>
-      </Container>
+          />
+          <ButtonSecondary label="Login" handleClick={handleToggle(true)} />
+        </Actions>
+        <ErrorMessage hidden={!error || !error.get('createUser')}>
+          Invalid Fields
+        </ErrorMessage>
+      </FormContainer>
     );
   }
 }
 
 SignupForm.propTypes = {
-  // state variables
+  /* state */
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-
+  /* functions */
   handleToggle: PropTypes.func.isRequired,
-  // dispatch functions
   handleCreateUser: PropTypes.func.isRequired,
 };
 

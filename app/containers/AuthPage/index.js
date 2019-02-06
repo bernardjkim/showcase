@@ -6,23 +6,36 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 
+/* Utils */
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+/* Globals */
 import { makeSelectUser } from 'containers/App/selectors';
 
-import makeSelectAuthPage, { makeSelectError } from './selectors';
-import { createToken, createUser, clearErrors } from './actions';
-import reducer from './reducer';
+/* Locals */
 import saga from './saga';
+import reducer from './reducer';
+import { createToken, createUser, clearErrors } from './actions';
+import makeSelectAuthPage, { makeSelectError } from './selectors';
 
+/* Local Components */
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import Header from './Header';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class AuthPage extends React.PureComponent {
@@ -39,25 +52,41 @@ export class AuthPage extends React.PureComponent {
   };
 
   render() {
+    /* state */
     const { user } = this.props;
 
     if (user) return <Redirect to="/" />;
 
     return (
-      <div>
+      <Container>
         {this.state.showLogin ? (
-          <LoginForm {...this.props} handleToggle={this.handleToggle} />
+          <React.Fragment>
+            <Header
+              message="Showcase your personal projects"
+              welcome="Welcome Back. Please Login To Continue."
+            />
+
+            <LoginForm {...this.props} handleToggle={this.handleToggle} />
+          </React.Fragment>
         ) : (
-          <SignupForm {...this.props} handleToggle={this.handleToggle} />
+          <React.Fragment>
+            <Header
+              message="Showcase your personal projects"
+              welcome="Welcome to Showcase. Please Signup To Continue."
+            />
+            <SignupForm {...this.props} handleToggle={this.handleToggle} />
+          </React.Fragment>
         )}
-      </div>
+      </Container>
     );
   }
 }
 
 AuthPage.propTypes = {
-  // state variables
+  /* state */
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  /* functions */
+  handleClearErrors: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
