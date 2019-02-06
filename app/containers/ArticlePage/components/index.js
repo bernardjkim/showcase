@@ -1,5 +1,5 @@
 export { default as ButtonLike } from './ButtonLike';
-export { default as ButtonNext } from './ButtonNext';
+// export { default as ButtonNext } from './ButtonNext';
 export { default as ButtonVisit } from './ButtonVisit';
 export { default as CommentBox } from './CommentBox';
 export { default as CommentDate } from './CommentDate';
