@@ -36,9 +36,14 @@ class Comments extends React.Component {
     if (!this.props.user) this.props.history.push('/auth');
   };
 
+  handleCreateComment = () => {
+    this.props.handleCreateComment(this.state.comment);
+    this.setState({ comment: '' });
+  };
+
   render() {
+    /* state */
     const { article } = this.props;
-    const { handleCreateComment } = this.props;
 
     if (!article) return null;
 
@@ -47,7 +52,7 @@ class Comments extends React.Component {
         <CommentForm
           value={this.state.comment}
           handleChange={this.handleChange}
-          handleSubmit={handleCreateComment}
+          handleSubmit={this.handleCreateComment}
           handleUnAuthorized={this.handleRedirectAuth}
         />
         <CommentList comments={article.get('comments') || []} />
@@ -57,12 +62,11 @@ class Comments extends React.Component {
 }
 
 Comments.propTypes = {
-  // state variables
-  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  /* state */
+  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
+  article: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
   history: PropTypes.object.isRequired,
-
-  // dispatch functions
+  /* functions */
   handleCreateComment: PropTypes.func.isRequired,
 };
 
