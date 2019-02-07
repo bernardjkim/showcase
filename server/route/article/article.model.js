@@ -78,6 +78,11 @@ ArticleSchema.statics = {
 };
 
 /**
+ * Text Index
+ */
+ArticleSchema.index({ tags: 'text' });
+
+/**
  * @typedef article
  */
 module.exports = mongoose.model('article', ArticleSchema);
