@@ -12,24 +12,29 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+/* Utils */
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+
+/* Globals */
 import {
   makeSelectUser,
   makeSelectLoading as makeSelectLoadingGlobal,
 } from 'containers/App/selectors';
+
+/* Locals */
+import saga from './saga';
+import reducer from './reducer';
+import { submitForm, clearState } from './actions';
 import makeSelectSubmissionPage, {
   makeSelectSubmissionSuccess,
   makeSelectLoading as makeSelectLoadingSubmit,
 } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import { submitForm, clearState } from './actions';
 
+/* Local Components */
 import Footer from './Footer';
 import Header from './Header';
 import SubmissionForm from './SubmissionForm';
-// import AuthRequiredPage from './AuthRequiredPage';
 
 const Container = styled.div`
   display: flex;

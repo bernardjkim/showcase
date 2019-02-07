@@ -5,27 +5,42 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import queryString from 'query-string';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+/* Utils */
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+/* Globals */
 import { makeSelectUser } from 'containers/App/selectors';
 import { deleteToken } from 'containers/App/actions';
 
+/* Shared Components */
 import Nav from 'components/Nav';
-import queryString from 'query-string';
+
+/* Locals */
 import saga from './saga';
 import reducer from './reducer';
+import { createComment, likeArticle, loadArticle } from './actions';
 import makeSelectArticlePage, { makeSelectArticle } from './selectors';
 
-import { createComment, likeArticle, loadArticle } from './actions';
+/* Local Components */
+import Header from './Header';
+import Gallary from './Gallary';
+import Info from './Info';
+import Comments from './Comments';
 
-import ArticleContent from './ArticleContent';
-
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 /* eslint-disable react/prefer-stateless-function */
 export class ArticlePage extends React.PureComponent {
   componentDidMount() {
@@ -41,18 +56,30 @@ export class ArticlePage extends React.PureComponent {
   };
 
   render() {
+    const { article } = this.props;
     return (
-      <div>
+      <Container>
         <Nav {...this.props} handleSubmitSearch={this.handleSubmitSearch} />
-        <ArticleContent {...this.props} />
-      </div>
+        {article && (
+          <React.Fragment>
+            <Header {...this.props} />
+            <Gallary {...this.props} />
+            <Info {...this.props} />
+            <Comments {...this.props} />
+          </React.Fragment>
+        )}
+      </Container>
     );
   }
 }
 
 ArticlePage.propTypes = {
-  // state variables
-  // dispatch functions
+  /* state */
+  history: PropTypes.object.isRequired,
+  article: PropTypes.oneOfType([
+    ImmutablePropTypes.map.isRequired,
+    PropTypes.bool,
+  ]),
 };
 
 const mapStateToProps = createStructuredSelector({

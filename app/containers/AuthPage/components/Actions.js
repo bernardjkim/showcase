@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
-const ContentGitHub = styled.div`
+const Actions = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 80%;
-  max-width: 1080px;
-  margin-bottom: 20px;
+
+  button {
+    margin-right: 20px;
+    width: 150px;
+  }
 `;
 
-export default ContentGitHub;
+export default Actions;
