@@ -8,9 +8,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+/* MUI */
 import TextField from '@material-ui/core/TextField';
 
-import TagList from './components/TagList';
+/* Shared Components */
+import TagList from 'components/TagList';
+
+/* Local Components */
 import InputImage from './components/InputImage';
 import SubmitButton from './components/SubmitButton';
 

@@ -42,7 +42,7 @@ class Nav extends React.Component {
     const { handleLogout, handleSubmitSearch } = this.props;
 
     return (
-      <StyledAppBar color="inherit" position="absolute">
+      <StyledAppBar color="inherit" position="relative">
         <Toolbar>
           <Logo />
           <SearchBar

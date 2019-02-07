@@ -28,7 +28,7 @@ const Message = styled(Typography)`
 
 const Header = () => (
   <Container>
-    <Message color="primary">Submit Website!</Message>
+    <Message color="primary">Submit A Website!</Message>
   </Container>
 );
 

@@ -1,27 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import uuid from 'uuid/v1';
-import styled from 'styled-components';
-import Chip from '@material-ui/core/Chip';
 
-const List = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const StyledChip = styled(Chip)`
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  font-size: 17px;
-  font-weight: 300;
-`;
+import List from './components/List';
+import StyledChip from './components/StyledChip';
 
 const TagList = props => {
   /* state */
@@ -45,7 +28,10 @@ const TagList = props => {
 
 TagList.propTypes = {
   /* state */
-  tags: PropTypes.array.isRequired,
+  tags: PropTypes.oneOfType([
+    PropTypes.instanceOf(Array),
+    PropTypes.instanceOf(Immutable.Iterable),
+  ]).isRequired,
   /* fuctions */
   handleDeleteTag: PropTypes.func.isRequired,
 };
