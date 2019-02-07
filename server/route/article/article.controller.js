@@ -151,11 +151,17 @@ async function random(req, res, next) {
  */
 function list(req, res, next) {
   if (req.query.q) {
-    Article.find({ tags: req.query.q })
+    Article.find({ $text: { $search: req.query.q } })
+      .limit(10)
       .then(articles => {
         res.json({ articles });
       })
       .catch(e => next(e));
+    // Article.find({ tags: req.query.q })
+    //   .then(articles => {
+    //     res.json({ articles });
+    //   })
+    //   .catch(e => next(e));
   } else {
     Article.find()
       .then(articles => {
