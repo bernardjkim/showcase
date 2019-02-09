@@ -77,6 +77,16 @@ async function insertArticleData(articles) {
       }\n\n\n`,
     ),
   );
+
+  Promise.all(promises)
+    .then(() => {
+      console.log('Load Data Complete'); // eslint-disable-line no-console
+      process.exit(0);
+    })
+    .catch(e => {
+      console.error(e); // eslint-disable-line no-console
+      process.exit(1);
+    });
 }
 
 /** Returns a promise that uploads the bulk operations to elasticsearch */
