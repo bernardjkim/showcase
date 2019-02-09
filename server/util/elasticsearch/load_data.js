@@ -36,10 +36,7 @@ async function insertArticleData(articles) {
   for (let i = 0; i < articles.length; i += 1) {
     // Describe action
     bulkOps.push({
-      index: {
-        _index: esConnection.index,
-        _type: esConnection.type,
-      },
+      index: { _index: esConnection.index, _type: esConnection.type },
     });
 
     // Add document
