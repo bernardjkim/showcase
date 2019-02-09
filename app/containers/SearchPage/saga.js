@@ -1,7 +1,8 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { LOAD_ARTICLES } from './constants';
-import request from '../../utils/request';
 import { loadArticlesSuccess, loadArticlesError } from './actions';
+import request from '../../utils/request';
+import processSearchResults from '../../utils/processSearchResults';
 
 // Individual exports for testing
 
@@ -16,7 +17,7 @@ export function* loadArticles(action) {
   try {
     const res = yield call(request, url);
 
-    yield put(loadArticlesSuccess(res.articles));
+    yield put(loadArticlesSuccess(processSearchResults(res)));
   } catch (err) {
     yield put(loadArticlesError(err));
   }

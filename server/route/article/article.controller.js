@@ -3,6 +3,7 @@ const httpStatus = require('http-status');
 const APIError = require('../error/APIError');
 const Article = require('./article.model');
 const Like = require('../like/like.model');
+const { queryTerm, queryAll } = require('../../util/elasticsearch');
 
 const { uploadFile } = require('../../util/s3');
 
@@ -105,70 +106,33 @@ async function create(req, res, next) {
 }
 
 /**
- * Load random article and append to req
+ * Search articles with the given query
  *
- * @param   {User}  req.user  - Requesting user
+ * @param   {string}  req.query.q  - Query string
  *
- * @returns {Article}
+ * @returns {object}               -  ES search result
  */
-async function random(req, res, next) {
-  // Count number of articles in db
-  const count = Article.count().catch(e => next(e));
-  if ((await count) === 0) {
-    const error = new APIError(
-      'No articles found',
-      httpStatus.INTERNAL_SERVER_ERROR,
-    );
-    return next(error);
-  }
-
-  // Choose random article
-  const article = Article.findOne()
-    .skip(Math.floor(Math.random() * (await count)))
+async function search(req, res, next) {
+  const { q, offset } = req.query;
+  queryTerm(q, offset)
+    .then(results => {
+      res.json(results);
+    })
     .catch(e => next(e));
-
-  // Check if article has been liked by current user
-  const likedByUser = Like.findOne({
-    article: await article,
-    user: req.user,
-  }).catch(e => next(e));
-
-  // Get total number of likes for the article
-  const likes = Like.getByArticle(await article).catch(e => next(e));
-
-  // Append data and send response
-  const obj = (await article).toObject();
-  obj.likes = await likes;
-  obj.likedByUser = !!(await likedByUser);
-  return res.json({ article: obj });
 }
 
 /**
+ * Get all articles
  *
- * @param   {string}    req.query.q  - Query string
- *
- * @returns {Article[]}
+ * @returns {object}  -  ES search result
  */
-function list(req, res, next) {
-  if (req.query.q) {
-    Article.find({ $text: { $search: req.query.q } })
-      .limit(10)
-      .then(articles => {
-        res.json({ articles });
-      })
-      .catch(e => next(e));
-    // Article.find({ tags: req.query.q })
-    //   .then(articles => {
-    //     res.json({ articles });
-    //   })
-    //   .catch(e => next(e));
-  } else {
-    Article.find()
-      .then(articles => {
-        res.json({ articles });
-      })
-      .catch(e => next(e));
-  }
+async function all(req, res, next) {
+  const { offset } = req.query;
+  queryAll(offset)
+    .then(results => {
+      res.json(results);
+    })
+    .catch(e => next(e));
 }
 
-module.exports = { load, get, create, random, parse, list };
+module.exports = { load, get, create, parse, search, all };
