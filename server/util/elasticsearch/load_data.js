@@ -91,5 +91,4 @@ function bulkUpload(bulkOps, msg) {
       .catch(e => reject(e));
   });
 }
-
 insertArticles();

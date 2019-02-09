@@ -23,10 +23,33 @@ async function checkConnection() {
 
 /** Clear the index, recreate it, and add mappings */
 async function resetIndex() {
+  const settings = {
+    settings: {
+      index: {
+        analysis: {
+          analyzer: {
+            edge_ngram_analyzer: {
+              tokenizer: 'edge_ngram_tokenizer',
+              filter: 'lowercase',
+            },
+          },
+          tokenizer: {
+            edge_ngram_tokenizer: {
+              type: 'edge_ngram',
+              min_gram: 3,
+              max_gram: 9,
+              token_chars: ['letter', 'digit'],
+            },
+          },
+        },
+      },
+    },
+  };
+
   if (await client.indices.exists({ index })) {
     await client.indices.delete({ index });
   }
-  await client.indices.create({ index });
+  await client.indices.create({ index, body: settings });
   await putArticleMapping();
 }
 
@@ -39,7 +62,7 @@ async function putArticleMapping() {
     github: { type: 'keyword' },
     image: { type: 'keyword' },
     description: { type: 'text' },
-    tags: { type: 'keyword' },
+    tags: { type: 'text', analyzer: 'edge_ngram_analyzer' },
     updated: { type: 'date' },
   };
 
