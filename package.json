@@ -44,7 +44,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prettify": "prettier --write",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run build",
-    "load-data": "cross-env NODE_ENV=development node server/elasticsearch/load_data.js"
+    "load-data": "cross-env NODE_ENV=development node server/util/elasticsearch/load_data.js"
   },
   "lint-staged": {
     "*.js": [
