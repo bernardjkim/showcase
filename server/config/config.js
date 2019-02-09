@@ -29,6 +29,12 @@ const envVarsSchema = Joi.object({
   S3_BUCKET: Joi.string()
     .required()
     .description('S3 bucket name'),
+  ES_HOST: Joi.string()
+    .required()
+    .description('Elasticsearch host name'),
+  ES_PORT: Joi.number()
+    .required()
+    .description('Elasticsearch port number'),
 })
   .unknown()
   .required();
@@ -50,6 +56,10 @@ const config = {
     bucket: envVars.S3_BUCKET,
   },
   cookieSecret: envVars.COOKIE_PARSER_SECRET,
+  es: {
+    host: envVars.ES_HOST,
+    port: envVars.ES_PORT,
+  },
 };
 
 module.exports = config;

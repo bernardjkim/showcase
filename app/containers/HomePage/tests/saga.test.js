@@ -16,8 +16,9 @@ describe('loadArticlesAll Saga', () => {
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadArticlesAllSuccess action if successful', () => {
+    const searchResults = { hits: { hits: [] } };
     const articles = [];
-    const putDescriptor = gen.clone().next({ articles }).value;
+    const putDescriptor = gen.clone().next(searchResults).value;
     expect(putDescriptor).toEqual(put(loadArticlesAllSuccess(articles)));
   });
 
