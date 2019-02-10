@@ -28,17 +28,28 @@ async function resetIndex() {
       index: {
         analysis: {
           analyzer: {
-            edge_ngram_analyzer: {
-              tokenizer: 'edge_ngram_tokenizer',
-              filter: 'lowercase',
+            tag_analyzer: {
+              tokenizer: 'letter',
+              filter: ['lowercase'],
+              boost: 5,
+            },
+            description_analyzer: {
+              tokenizer: 'letter',
+              filter: ['common_words', 'unique'],
             },
           },
-          tokenizer: {
-            edge_ngram_tokenizer: {
-              type: 'edge_ngram',
-              min_gram: 3,
-              max_gram: 9,
-              token_chars: ['letter', 'digit'],
+          normalizer: {
+            title_normalizer: {
+              type: 'custom',
+              filter: 'lowercase',
+              boost: 5,
+            },
+          },
+          filter: {
+            common_words: {
+              type: 'stop',
+              ignore_case: true,
+              stopwords: '_english_',
             },
           },
         },
@@ -57,12 +68,13 @@ async function resetIndex() {
 async function putArticleMapping() {
   const schema = {
     mid: { type: 'keyword' },
-    title: { type: 'keyword' },
+    title: { type: 'keyword', normalizer: 'title_normalizer' },
     uri: { type: 'keyword' },
     github: { type: 'keyword' },
     image: { type: 'keyword' },
-    description: { type: 'text' },
-    tags: { type: 'text', analyzer: 'edge_ngram_analyzer' },
+    description: { type: 'text', analyzer: 'description_analyzer' },
+    tags: { type: 'text', analyzer: 'tag_analyzer' },
+
     updated: { type: 'date' },
   };
 

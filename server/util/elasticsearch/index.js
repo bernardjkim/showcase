@@ -8,7 +8,7 @@ module.exports = {
       query: {
         multi_match: {
           query: term,
-          fields: ['title', 'uri', 'github', 'description', 'tags'],
+          fields: ['title', 'description', 'tags'],
           fuzziness: 'auto',
         },
       },
