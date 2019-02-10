@@ -74,6 +74,7 @@ async function putArticleMapping() {
     image: { type: 'keyword' },
     description: { type: 'text', analyzer: 'description_analyzer' },
     tags: { type: 'text', analyzer: 'tag_analyzer' },
+
     updated: { type: 'date' },
   };
 
