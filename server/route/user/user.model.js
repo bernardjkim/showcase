@@ -40,12 +40,14 @@ const UserSchema = new Schema({
  * - virtuals
  */
 
-// eslint-disable-next-line
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function preSave(next) {
   const user = this;
 
   // only hash the password if it has been modified (or is new)
-  if (!user.isModified('password')) return next();
+  if (!user.isModified('password')) {
+    next();
+    return;
+  }
 
   // Verify email is available
   const emailTaken = user.constructor
@@ -62,7 +64,8 @@ UserSchema.pre('save', async function(next) {
       'This email is already taken',
       httpStatus.BAD_REQUEST,
     );
-    return next(error);
+    next(error);
+    return;
   }
 
   if (await usernameTaken) {
@@ -70,24 +73,29 @@ UserSchema.pre('save', async function(next) {
       'This username is already taken',
       httpStatus.BAD_REQUEST,
     );
-    return next(error);
+    next(error);
+    return;
   }
 
   // generate a salt
-  bcrypt
-    .genSalt(SALT_WORK_FACTOR)
-    .then(salt => {
-      // hash the password using our new salt
-      bcrypt
-        .hash(user.password, salt)
-        .then(hash => {
-          // override the cleartext password with the hashed one
-          user.password = hash;
-          next();
-        })
-        .catch(e => next(e));
-    })
-    .catch(e => next(e));
+  const hash = new Promise(resolve => {
+    bcrypt
+      .genSalt(SALT_WORK_FACTOR)
+      .then(salt => {
+        // hash the password using our new salt
+        bcrypt
+          .hash(user.password, salt)
+          .then(result => {
+            resolve(result);
+          })
+          .catch(e => next(e));
+      })
+      .catch(e => next(e));
+  });
+
+  // override the cleartext password with the hashed one
+  user.password = await hash;
+  next();
 });
 
 /**

@@ -28,7 +28,6 @@ function get(req, res) {
  *
  */
 function create(req, res, next) {
-  // TODO: disallow same usernames
   User.create({
     username: req.body.username,
     email: req.body.email,
@@ -36,6 +35,15 @@ function create(req, res, next) {
   })
     .then(savedUser => res.status(httpStatus.CREATED).json({ user: savedUser }))
     .catch(e => next(e));
+  // const user = new User({
+  //   username: req.body.username,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  // });
+  // user
+  //   .save()
+  //   .then(savedUser => res.status(httpStatus.CREATED).json({ user: savedUser }))
+  //   .catch(e => next(e));
 }
 
 module.exports = { load, get, create };
