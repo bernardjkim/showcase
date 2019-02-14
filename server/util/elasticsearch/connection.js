@@ -3,7 +3,7 @@ const config = require('../../config/config');
 
 // Core ES variables for this project
 const index = 'articles';
-const type = 'website';
+const type = 'doc';
 const client = new elasticsearch.Client({ host: config.es });
 
 /** Check the ES connection status */
