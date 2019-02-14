@@ -54,6 +54,7 @@ class SubmissionForm extends React.PureComponent {
         tags: [],
         screenshot: false,
       },
+      preview: false,
     };
   }
 
@@ -63,8 +64,17 @@ class SubmissionForm extends React.PureComponent {
   };
 
   handleFileUpload = e => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
     const { form } = this.state;
-    this.setState({ form: { ...form, screenshot: e.target.files[0] } });
+
+    reader.onloadend = () => {
+      this.setState({
+        form: { ...form, screenshot: file },
+        preview: reader.result,
+      });
+    };
+    reader.readAsDataURL(file);
   };
 
   handleAddTag = e => {
@@ -130,7 +140,7 @@ class SubmissionForm extends React.PureComponent {
           handleDeleteTag={this.handleDeleteTag}
         />
         <InputImage
-          screenshot={this.state.form.screenshot}
+          preview={this.state.preview}
           handleFileUpload={this.handleFileUpload}
         />
         <SubmitButton
