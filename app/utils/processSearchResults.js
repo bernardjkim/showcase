@@ -10,7 +10,7 @@ export default results =>
   results.hits.hits.map(article => {
     const source = article._source; // eslint-disable-line no-underscore-dangle
     return {
-      _id: source.mid,
+      _id: article._id, // eslint-disable-line no-underscore-dangle
       title: source.title,
       uri: source.uri,
       github: source.github,

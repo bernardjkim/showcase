@@ -28,7 +28,7 @@ const Gallary = props => {
     <Container>
       <StyledImage
         onClick={openInNewTab(article.get('uri'))}
-        src={`${process.env.S3_URI}/${article.get('image')}`}
+        src={article.get('image')}
         alt="NotFound"
       />
     </Container>

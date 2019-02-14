@@ -37,13 +37,15 @@ const InputFile = styled.input`
 
 const InputImage = props => {
   /* state */
-  const { screenshot } = props;
+  const { preview } = props;
   /* functions */
   const { handleFileUpload } = props;
 
-  if (screenshot) {
+  if (preview) {
     return (
-      <ScreenShot src={URL.createObjectURL(screenshot)} alt="ScreenShot" />
+      <div>
+        <ScreenShot src={preview} alt="ScreenShot" />
+      </div>
     );
   }
   return (
@@ -57,7 +59,7 @@ const InputImage = props => {
 
 InputImage.propTypes = {
   /* state */
-  screenshot: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  preview: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   /* functions */
   handleFileUpload: PropTypes.func.isRequired,
 };

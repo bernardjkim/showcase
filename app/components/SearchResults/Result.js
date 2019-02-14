@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import styled from 'styled-components';
 
-// import Typography from '@material-ui/core/Typography';
-
 import openInNewTab from 'utils/openInNewTab';
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 const Container = styled.div`
   width: calc(100% * (1 / 3) - 30px);
@@ -67,7 +63,7 @@ const Result = props => {
       <StyledCard>
         <StyledCardActionArea>
           <StyledCardMedia
-            image={`${process.env.S3_URI}/${article.get('image')}`}
+            image={article.get('image')}
             title={article.get('title')}
             onClick={openInNewTab(article.get('uri'))}
           />
