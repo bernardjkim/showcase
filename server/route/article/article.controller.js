@@ -80,9 +80,10 @@ async function create(req, res, next) {
       const error = new APIError('Invalid image file!', httpStatus.BAD_REQUEST);
       next(error);
     } else {
-      uploadFile(file.buffer, file.originalname, file.mimetype)
+      const timestamp = Date.now().toString();
+      uploadFile(file.buffer, `screenshots/${timestamp}-lg`, file.mimetype)
         .then(data => {
-          resolve(data.key);
+          resolve(data.Location);
         })
         .catch(e => next(e));
     }

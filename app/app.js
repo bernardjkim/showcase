@@ -17,7 +17,8 @@ import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
-import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
+import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
+import jssPreset from '@material-ui/core/styles/jssPreset';
 
 // Import root app
 import App from 'containers/App';
