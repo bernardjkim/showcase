@@ -17,8 +17,7 @@ import {
  * POST auth request/response handler
  */
 export function* createToken(action) {
-  const url = '/api/auth';
-
+  const url = `${window._env_.API_URL}/api/auth`;
   // set request method/header/body
   const options = {
     method: 'POST',

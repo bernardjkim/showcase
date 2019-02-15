@@ -39,7 +39,7 @@ export function* createComment(action) {
     body: qs.stringify({
       articleId: article.get('_id'),
       value: action.comment,
-    }), // eslint-disable-line no-underscore-dangle
+    }),
   };
 
   try {

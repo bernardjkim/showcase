@@ -1,49 +1,39 @@
 /* eslint consistent-return:0 import/order:0 */
 
-const mongoose = require('mongoose');
-const util = require('util');
-const debug = require('debug')('showcase:index');
-// const bluebird = require('bluebird'); // eslint-disable-line no-global-assign
-
-// config should be imported before importing any other file
-const config = require('./config/config');
-const app = require('./config/express');
-
+const express = require('express');
 const logger = require('./logger');
+
 const argv = require('./argv');
 const port = require('./port');
+const setup = require('./middlewares/frontendMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok =
   (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel
     ? require('ngrok')
     : false;
+const { resolve } = require('path');
+const app = express();
 
-// plugin bluebird promise in mongoose
-// mongoose.Promise = bluebird;
+// If you need a backend, e.g. an API, add your custom backend-specific middleware here
+// app.use('/api', myApi);
 
-// connect to mongo db
-const mongoUri = config.mongo.host;
-const mongoOptions = { keepAlive: 1 };
-mongoose.connect(
-  mongoUri,
-  mongoOptions,
-);
-mongoose.connection.on('error', () => {
-  console.log(`unable to connect to database: ${mongoUri}`);
-  // throw new Error(`unable to connect to database: ${mongoUri}`);
+// In production we need to pass these values in instead of relying on webpack
+setup(app, {
+  outputPath: resolve(process.cwd(), 'build'),
+  publicPath: '/',
 });
-
-// print mongoose logs in dev env
-if (config.mongooseDebug) {
-  mongoose.set('debug', (collectionName, method, query, doc) => {
-    debug(`${collectionName}.${method}`, util.inspect(query, false, 20), doc);
-  });
-}
 
 // get the intended host and port number, use localhost and port 3000 if not provided
 const customHost = argv.host || process.env.HOST;
 const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
+
+// use the gzipped bundle
+app.get('*.js', (req, res, next) => {
+  req.url = req.url + '.gz'; // eslint-disable-line
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 
 // Start your app.
 app.listen(port, host, async err => {
