@@ -5,23 +5,9 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "http://localhost:8080/api/article",
+      "http://<api-host>:<api-port>/api/article",
       Object {
-        "body": FormData {
-          Symbol(impl): FormDataImpl {
-            "_entries": Array [
-              Object {
-                "name": "form",
-                "value": "title=title&uri=uri&github=github&description=description&tags=tags&screenshot=screenshot",
-              },
-              Object {
-                "name": "file",
-                "value": "screenshot",
-              },
-            ],
-            Symbol(wrapper): [Circular],
-          },
-        },
+        "body": FormData {},
         "method": "POST",
       },
     ],
