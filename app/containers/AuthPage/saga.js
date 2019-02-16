@@ -17,7 +17,7 @@ import {
  * POST auth request/response handler
  */
 export function* createToken(action) {
-  const url = `${window._env_.API_URL}/api/auth`;
+  const url = `/api/auth`; // eslint-disable-line no-underscore-dangle
   // set request method/header/body
   const options = {
     method: 'POST',
