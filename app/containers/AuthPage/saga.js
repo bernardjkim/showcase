@@ -2,6 +2,8 @@ import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
 
 import { loadUser } from 'containers/App/actions';
+
+import api from '../../api';
 import request from '../../utils/request';
 
 import { CREATE_TOKEN, CREATE_USER } from './constants';
@@ -17,7 +19,8 @@ import {
  * POST auth request/response handler
  */
 export function* createToken(action) {
-  const url = `/api/auth`; // eslint-disable-line no-underscore-dangle
+  const url = api.auth.login;
+
   // set request method/header/body
   const options = {
     method: 'POST',
@@ -43,7 +46,7 @@ export function* createToken(action) {
  * POST user request/response handler
  */
 export function* createUser(action) {
-  const url = '/api/user';
+  const url = api.user.create;
 
   // set request method/header/body
   const options = {

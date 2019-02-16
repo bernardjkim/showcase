@@ -1,5 +1,7 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
+
+import api from '../../api';
 import request from '../../utils/request';
 
 import { submitFormSuccess, submitFormError } from './actions';
@@ -11,7 +13,7 @@ import { SUBMIT_FORM } from './constants';
  * POST article request/response handler
  */
 export function* submitForm(action) {
-  const url = '/api/article';
+  const url = api.article.create;
 
   const { form } = action;
 

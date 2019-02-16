@@ -5,7 +5,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/article/search?q=q",
+      "http://localhost:8080/api/article/search?q=q",
     ],
     "context": null,
     "fn": [Function],

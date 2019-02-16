@@ -1,7 +1,7 @@
 import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import qs from 'qs';
 
-import { urlLikeArticle } from '../../api';
+import api from '../../api';
 import request from '../../utils/request';
 import {
   createCommentSuccess,
@@ -30,7 +30,7 @@ import { makeSelectArticle } from './selectors';
 export function* createComment(action) {
   const article = yield select(makeSelectArticle());
 
-  const url = '/api/comment';
+  const url = api.comment.create;
 
   // set request method/header/body
   const options = {
@@ -58,8 +58,7 @@ export function* createComment(action) {
 export function* likeArticle() {
   const article = yield select(makeSelectArticle());
 
-  // get url to like article
-  const url = urlLikeArticle;
+  const url = api.like.create;
 
   // set request method/header/body
   const options = {
@@ -84,8 +83,7 @@ export function* likeArticle() {
 export function* loadArticle(action) {
   const { id } = action.query;
 
-  // get url to get article
-  const url = `/api/article/${id}`;
+  const url = api.article.getOne(id);
 
   try {
     // Call our request helper (see 'utils/request')
@@ -104,7 +102,7 @@ export function* loadArticle(action) {
 export function* loadComments() {
   const article = yield select(makeSelectArticle());
 
-  const url = `/api/comment/${article.get('_id')}`;
+  const url = api.comment.get(article.get('_id'));
 
   try {
     // Call our request helper (see 'utils/request')

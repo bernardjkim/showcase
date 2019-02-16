@@ -1,6 +1,7 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { LOAD_ARTICLES } from './constants';
 import { loadArticlesSuccess, loadArticlesError } from './actions';
+import api from '../../api';
 import request from '../../utils/request';
 import processSearchResults from '../../utils/processSearchResults';
 
@@ -12,7 +13,7 @@ import processSearchResults from '../../utils/processSearchResults';
 export function* loadArticles(action) {
   const { q } = action.query;
 
-  const url = `/api/article/search?q=${q}`;
+  const url = api.article.search(q);
 
   try {
     const res = yield call(request, url);
