@@ -1,10 +1,10 @@
 const env = window._env_; // eslint-disable-line no-underscore-dangle
 const BASE_URL = env ? `${env.API_URL}/api` : 'http://<api-host>:<api-port>';
-const ARTICLE_URL = `${BASE_URL}/api/article`;
-const AUTH_URL = `${BASE_URL}/api/auth`;
-const COMMENT_URL = `${BASE_URL}/api/comment`;
-const LIKE_URL = `${BASE_URL}/api/like`;
-const USER_URL = `${BASE_URL}/api/user`;
+const ARTICLE_URL = `${BASE_URL}/article`;
+const AUTH_URL = `${BASE_URL}/auth`;
+const COMMENT_URL = `${BASE_URL}/comment`;
+const LIKE_URL = `${BASE_URL}/like`;
+const USER_URL = `${BASE_URL}/user`;
 
 export default {
   /** Article Endpoints */
