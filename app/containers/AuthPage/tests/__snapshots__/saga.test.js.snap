@@ -5,7 +5,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "http://<api-host>:<api-port>/api/auth",
+      "http://<api-host>:<api-port>/auth",
       Object {
         "body": "",
         "credentials": "same-origin",
@@ -26,7 +26,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "http://<api-host>:<api-port>/api/user",
+      "http://<api-host>:<api-port>/user",
       Object {
         "body": "",
         "headers": Object {
