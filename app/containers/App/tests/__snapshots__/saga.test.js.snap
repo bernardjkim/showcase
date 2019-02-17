@@ -7,7 +7,7 @@ Object {
     "args": Array [
       "http://<api-host>:<api-port>/auth",
       Object {
-        "credentials": "same-origin",
+        "credentials": "include",
         "method": "DELETE",
       },
     ],
