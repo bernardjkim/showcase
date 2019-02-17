@@ -12,7 +12,7 @@ export default {
     create: `${ARTICLE_URL}`,
     getAll: `${ARTICLE_URL}`,
     getOne: id => `${ARTICLE_URL}/${id}`,
-    search: q => `${ARTICLE_URL}/search?q=${q}`, // TODO: offset
+    search: q => `${ARTICLE_URL}/search?q=${q}`, // TODO: add offset
   },
 
   /** Auth Endpoints */
