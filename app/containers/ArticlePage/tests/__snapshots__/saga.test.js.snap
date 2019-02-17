@@ -15,7 +15,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/comment",
+      "http://<api-host>:<api-port>/comment",
       Object {
         "body": "articleId=5c4ebe9be5346639c09786e3",
         "headers": Object {
@@ -45,7 +45,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/like",
+      "http://<api-host>:<api-port>/like",
       Object {
         "body": "articleId=5c4ebe9be5346639c09786e3",
         "headers": Object {
@@ -65,7 +65,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/article/id",
+      "http://<api-host>:<api-port>/article/id",
     ],
     "context": null,
     "fn": [Function],
@@ -88,7 +88,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/comment/5c4ebe9be5346639c09786e3",
+      "http://<api-host>:<api-port>/comment/5c4ebe9be5346639c09786e3",
     ],
     "context": null,
     "fn": [Function],

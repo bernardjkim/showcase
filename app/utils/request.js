@@ -38,7 +38,9 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  // NOTE: include cookies with all requests, should not be a security concern,
+  // cookie is only used to identify user
+  return fetch(url, { ...options, credentials: 'include' })
     .then(checkStatus)
     .then(parseJSON);
 }
