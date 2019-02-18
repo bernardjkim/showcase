@@ -5,9 +5,9 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "http://<api-host>:<api-port>/auth",
+      "/api/auth",
       Object {
-        "credentials": "include",
+        "credentials": "same-origin",
         "method": "DELETE",
       },
     ],
@@ -22,7 +22,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "http://<api-host>:<api-port>/user/current",
+      "/api/user/current",
     ],
     "context": null,
     "fn": [Function],
