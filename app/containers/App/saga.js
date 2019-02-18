@@ -1,5 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
+import api from '../../api';
 import request from '../../utils/request';
 
 import {
@@ -16,12 +17,12 @@ import { DELETE_TOKEN, LOAD_USER } from './constants';
  * DELETE token request/response handler
  */
 export function* deleteToken() {
-  const url = '/api/auth';
+  const url = api.auth.logout;
 
   // set request method/header/body
   const options = {
     method: 'DELETE',
-    credentials: 'same-origin', // include, *same-origin, omit
+    credentials: 'include', // *include, same-origin, omit
   };
 
   try {
@@ -39,7 +40,7 @@ export function* deleteToken() {
  * GET user request/response handler
  */
 export function* loadUser() {
-  const url = '/api/user/current';
+  const url = api.user.getCurrent;
 
   try {
     // Call our request helper (see 'utils/request')
