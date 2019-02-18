@@ -1,4 +1,3 @@
-// const env = window._env_; // eslint-disable-line no-underscore-dangle
 const BASE_URL = '/api';
 const ARTICLE_URL = `${BASE_URL}/article`;
 const AUTH_URL = `${BASE_URL}/auth`;

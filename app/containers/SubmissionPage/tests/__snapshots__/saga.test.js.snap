@@ -5,7 +5,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/article",
+      "http://<api-host>:<api-port>/article",
       Object {
         "body": FormData {},
         "method": "POST",

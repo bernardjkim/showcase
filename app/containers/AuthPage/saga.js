@@ -24,7 +24,7 @@ export function* createToken(action) {
   // set request method/header/body
   const options = {
     method: 'POST',
-    credentials: 'same-origin', // include, *same-origin, omit
+    credentials: 'include', // *include, same-origin, omit
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: qs.stringify({
       email: action.email,
