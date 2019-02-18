@@ -1,5 +1,4 @@
-const env = window._env_; // eslint-disable-line no-underscore-dangle
-const BASE_URL = env ? `${env.API_URL}/api` : 'http://<api-host>:<api-port>';
+const BASE_URL = '/api';
 const ARTICLE_URL = `${BASE_URL}/article`;
 const AUTH_URL = `${BASE_URL}/auth`;
 const COMMENT_URL = `${BASE_URL}/comment`;

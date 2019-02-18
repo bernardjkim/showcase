@@ -22,7 +22,7 @@ export function* deleteToken() {
   // set request method/header/body
   const options = {
     method: 'DELETE',
-    credentials: 'include', // *include, same-origin, omit
+    credentials: 'same-origin', // include, *same-origin, omit
   };
 
   try {
