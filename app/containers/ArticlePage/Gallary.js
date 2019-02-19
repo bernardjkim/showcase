@@ -28,8 +28,8 @@ const Gallary = props => {
     <Container>
       <StyledImage
         onClick={openInNewTab(article.get('uri'))}
-        src={article.get('image')}
-        alt="NotFound"
+        src={article.get('image') || require('../../images/not-found.gif')} // eslint-disable-line global-require
+        alt="Image Not Found"
       />
     </Container>
   );
