@@ -1,6 +1,12 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
-import { LOAD_ARTICLES } from './constants';
-import { loadArticlesSuccess, loadArticlesError } from './actions';
+import { all, takeLatest, call, put, select } from 'redux-saga/effects';
+import { LOAD_ARTICLES, LOAD_NEXT } from './constants';
+import {
+  loadArticlesSuccess,
+  loadArticlesError,
+  loadNextError,
+  loadNextSuccess,
+} from './actions';
+import { makeSelectOffset, makeSelectSearch } from './selectors';
 import api from '../../api';
 import request from '../../utils/request';
 import processSearchResults from '../../utils/processSearchResults';
@@ -10,10 +16,11 @@ import processSearchResults from '../../utils/processSearchResults';
 /**
  * GET articles query request/response handler
  */
-export function* loadArticles(action) {
-  const { q } = action.query;
+export function* loadArticles() {
+  const search = yield select(makeSelectSearch());
+  const offset = yield select(makeSelectOffset());
 
-  const url = api.article.search(q);
+  const url = api.article.search(search, offset);
 
   try {
     const res = yield call(request, url);
@@ -25,8 +32,29 @@ export function* loadArticles(action) {
 }
 
 /**
+ * GET articles next request/response handler
+ */
+export function* loadNext() {
+  const search = yield select(makeSelectSearch());
+  const offset = yield select(makeSelectOffset());
+
+  const url = api.article.search(search, offset);
+
+  try {
+    const res = yield call(request, url);
+
+    yield put(loadNextSuccess(processSearchResults(res)));
+  } catch (err) {
+    yield put(loadNextError(err));
+  }
+}
+
+/**
  * Root saga manages watcher lifecycle
  */
 export default function* searchPageSaga() {
-  yield all([takeLatest(LOAD_ARTICLES, loadArticles)]);
+  yield all([
+    takeLatest(LOAD_ARTICLES, loadArticles),
+    takeLatest(LOAD_NEXT, loadNext),
+  ]);
 }

@@ -27,21 +27,34 @@ import SearchResults from 'components/SearchResults';
 /* Locals */
 import saga from './saga';
 import reducer from './reducer';
-import { loadArticles } from './actions';
-import makeSelectSearchPage, { makeSelectArticles } from './selectors';
+import { loadArticles, setSearch, loadNext, clearState } from './actions';
+import makeSelectSearchPage, {
+  makeSelectArticles,
+  makeSelectSearch,
+} from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchPage extends React.PureComponent {
   componentDidMount() {
     const { q } = queryString.parse(this.props.location.search);
-    this.props.handleLoadArticles({ q });
+    this.props.handleSetSearch(q);
+  }
+
+  componentWillUnmount() {
+    this.props.handleClearState();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.search !== this.props.search) {
+      this.props.handleLoadArticles();
+    }
   }
 
   handleSubmitSearch = search => e => {
     if (e.key === 'Enter' && search !== '') {
       e.preventDefault();
       this.props.history.push(`/search?q=${search}`);
-      this.props.handleLoadArticles({ q: search });
+      this.props.handleSetSearch(search);
     }
   };
 
@@ -52,6 +65,8 @@ export class SearchPage extends React.PureComponent {
   render() {
     /* state */
     const { location } = this.props;
+    /* functions */
+    const { handleLoadNext } = this.props;
     return (
       <div>
         <Nav
@@ -62,6 +77,7 @@ export class SearchPage extends React.PureComponent {
         <SearchResults
           {...this.props}
           handleViewComments={this.handleViewComments}
+          handleScrollBottom={handleLoadNext}
         />
       </div>
     );
@@ -73,18 +89,29 @@ SearchPage.propTypes = {
   location: PropTypes.object.isRequired,
   /* functions */
   handleLoadArticles: PropTypes.func.isRequired,
+  handleLoadNext: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   searchPage: makeSelectSearchPage(),
   user: makeSelectUser(),
   articles: makeSelectArticles(),
+  search: makeSelectSearch(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleLoadArticles: query => {
-      dispatch(loadArticles(query));
+    handleClearState: () => {
+      dispatch(clearState());
+    },
+    handleSetSearch: search => {
+      dispatch(setSearch(search));
+    },
+    handleLoadArticles: () => {
+      dispatch(loadArticles());
+    },
+    handleLoadNext: () => {
+      dispatch(loadNext());
     },
     handleLogout: () => {
       dispatch(deleteToken());

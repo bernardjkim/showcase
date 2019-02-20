@@ -9,9 +9,9 @@ export default {
   /** Article Endpoints */
   article: {
     create: `${ARTICLE_URL}`,
-    getAll: `${ARTICLE_URL}`,
+    getAll: offset => `${ARTICLE_URL}/all?offset=${offset}`,
     getOne: id => `${ARTICLE_URL}/${id}`,
-    search: q => `${ARTICLE_URL}/search?q=${q}`, // TODO: add offset
+    search: (q, offset) => `${ARTICLE_URL}/search?q=${q}&offset=${offset}`,
   },
 
   /** Auth Endpoints */

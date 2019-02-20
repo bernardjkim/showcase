@@ -26,13 +26,20 @@ import SearchResults from 'components/SearchResults';
 /* Locals */
 import saga from './saga';
 import reducer from './reducer';
-import { loadArticlesAll } from './actions';
-import makeSelectHomePage, { makeSelectArticles } from './selectors';
+import { loadArticlesAll, clearState, loadNext } from './actions';
+import makeSelectHomePage, {
+  makeSelectArticles,
+  makeSelectOffset,
+} from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
     this.props.handleLoadArticles();
+  }
+
+  componentWillUnmount() {
+    this.props.handleClearState();
   }
 
   handleSubmitSearch = search => e => {
@@ -47,12 +54,15 @@ export class HomePage extends React.PureComponent {
   };
 
   render() {
+    /* functions */
+    const { handleLoadNext } = this.props;
     return (
       <div>
         <Nav {...this.props} handleSubmitSearch={this.handleSubmitSearch} />
         <SearchResults
           {...this.props}
           handleViewComments={this.handleViewComments}
+          handleScrollBottom={handleLoadNext}
         />
       </div>
     );
@@ -61,21 +71,27 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   /* state */
-  history: PropTypes.object.isRequired,
   /* functions */
-  handleLoadArticles: PropTypes.func.isRequired,
+  handleLoadNext: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   homePage: makeSelectHomePage(),
   user: makeSelectUser(),
   articles: makeSelectArticles(),
+  offset: makeSelectOffset(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    handleClearState: () => {
+      dispatch(clearState());
+    },
     handleLoadArticles: () => {
       dispatch(loadArticlesAll());
+    },
+    handleLoadNext: () => {
+      dispatch(loadNext());
     },
     handleLogout: () => {
       dispatch(deleteToken());

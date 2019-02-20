@@ -1,16 +1,12 @@
-import { fromJS } from 'immutable';
+import { initialState } from '../reducer';
 import {
   selectSearchPageDomain,
   makeSelectArticles,
   makeSelectError,
   makeSelectLoading,
+  makeSelectSearch,
+  makeSelectOffset,
 } from '../selectors';
-
-const initialState = fromJS({
-  loading: false,
-  error: false,
-  articles: false,
-});
 
 describe('selectSearchPageDomain', () => {
   it('should select the search page state', () => {
@@ -36,5 +32,19 @@ describe('makeSelectArticles', () => {
   const articlesSelector = makeSelectArticles();
   it('should select the articles state', () => {
     expect(articlesSelector(initialState)).toMatchSnapshot();
+  });
+});
+
+describe('makeSelectSearch', () => {
+  const searchSelector = makeSelectSearch();
+  it('should select the search state', () => {
+    expect(searchSelector(initialState)).toMatchSnapshot();
+  });
+});
+
+describe('makeSelectOffset', () => {
+  const offsetSelector = makeSelectOffset();
+  it('should select the offset state', () => {
+    expect(offsetSelector(initialState)).toMatchSnapshot();
   });
 });

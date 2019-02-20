@@ -3,12 +3,23 @@
 exports[` 1`] = `
 Object {
   "@@redux-saga/IO": true,
-  "CALL": Object {
-    "args": Array [
-      "/api/article/search?q=q",
-    ],
-    "context": null,
-    "fn": [Function],
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
   },
 }
 `;
+
+exports[` 2`] = `undefined`;
+
+exports[` 3`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[` 4`] = `undefined`;

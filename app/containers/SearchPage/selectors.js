@@ -26,6 +26,16 @@ const makeSelectArticles = () =>
     searchState.get('articles'),
   );
 
+const makeSelectOffset = () =>
+  createSelector(selectSearchPageDomain, searchState =>
+    searchState.get('offset'),
+  );
+
+const makeSelectSearch = () =>
+  createSelector(selectSearchPageDomain, searchState =>
+    searchState.get('search'),
+  );
+
 /**
  * Default selector used by SearchPage
  */
@@ -39,4 +49,6 @@ export {
   makeSelectArticles,
   makeSelectError,
   makeSelectLoading,
+  makeSelectOffset,
+  makeSelectSearch,
 };

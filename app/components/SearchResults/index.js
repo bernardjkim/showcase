@@ -20,6 +20,34 @@ const Container = styled.div`
 
 /* eslint-disable react/prefer-stateless-function */
 class SearchResults extends React.Component {
+  componentDidMount() {
+    // Binds our scroll event handler
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    // Unbind scroll event handler
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  /**
+   * Handles the scroll event
+   */
+  handleScroll = () => {
+    const { innerHeight } = window;
+    const { offsetHeight, scrollHeight, scrollTop } = document.documentElement;
+
+    // Checks that the page has scrolled to the top
+    if (innerHeight + scrollTop === offsetHeight) {
+      // this.props.handleScrollTop();
+    }
+
+    // Checks that the page has scrolled to the bottom
+    if (innerHeight + scrollTop === scrollHeight) {
+      this.props.handleScrollBottom();
+    }
+  };
+
   render() {
     /* state */
     const { articles } = this.props;
@@ -48,5 +76,7 @@ SearchResults.propTypes = {
   ]),
   /* functions */
   handleViewComments: PropTypes.func.isRequired,
+  // handleScrollTop: PropTypes.func.isRequired,
+  handleScrollBottom: PropTypes.func.isRequired,
 };
 export default SearchResults;
