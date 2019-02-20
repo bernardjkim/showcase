@@ -19,6 +19,9 @@ const makeSelectError = () =>
 const makeSelectArticles = () =>
   createSelector(selectHomePageDomain, homeState => homeState.get('articles'));
 
+const makeSelectOffset = () =>
+  createSelector(selectHomePageDomain, homeState => homeState.get('offset'));
+
 /**
  * Default selector used by HomePage
  */
@@ -32,4 +35,5 @@ export {
   makeSelectArticles,
   makeSelectError,
   makeSelectLoading,
+  makeSelectOffset,
 };

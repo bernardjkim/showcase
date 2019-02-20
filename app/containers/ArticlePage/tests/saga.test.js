@@ -47,7 +47,8 @@ const state = fromJS({
 });
 
 describe('createComment Saga', () => {
-  const gen = cloneableGenerator(createComment)({});
+  const comment = {};
+  const gen = cloneableGenerator(createComment)(comment);
 
   const selectDescriptor = gen.next().value;
   expect(selectDescriptor).toMatchSnapshot();
@@ -56,7 +57,6 @@ describe('createComment Saga', () => {
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the createCommentSuccess action if successful', () => {
-    const comment = {};
     const putDescriptor = gen.clone().next({ comment }).value;
     expect(putDescriptor).toEqual(put(createCommentSuccess(comment)));
   });

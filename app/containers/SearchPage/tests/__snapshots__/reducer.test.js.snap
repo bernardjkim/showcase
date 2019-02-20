@@ -1,10 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`searchPageReducer handle the clear state action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
+}
+`;
+
 exports[`searchPageReducer handle the load articles action 1`] = `
 Immutable.Map {
   "loading": true,
   "error": false,
-  "articles": false,
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
 }
 `;
 
@@ -12,7 +24,19 @@ exports[`searchPageReducer handle the load articles error action 1`] = `
 Immutable.Map {
   "loading": false,
   "error": [Error: Test Error],
-  "articles": false,
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
+}
+`;
+
+exports[`searchPageReducer handle the load articles error action 2`] = `
+Immutable.Map {
+  "loading": false,
+  "error": [Error: Test Error],
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
 }
 `;
 
@@ -21,6 +45,38 @@ Immutable.Map {
   "loading": false,
   "error": false,
   "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
+}
+`;
+
+exports[`searchPageReducer handle the load next action 1`] = `
+Immutable.Map {
+  "loading": true,
+  "error": false,
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
+}
+`;
+
+exports[`searchPageReducer handle the load next success action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
+}
+`;
+
+exports[`searchPageReducer handle the set search action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "articles": Immutable.List [],
+  "search": "search",
+  "offset": 0,
 }
 `;
 
@@ -28,6 +84,8 @@ exports[`searchPageReducer returns the initial state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "articles": false,
+  "articles": Immutable.List [],
+  "search": "",
+  "offset": 0,
 }
 `;

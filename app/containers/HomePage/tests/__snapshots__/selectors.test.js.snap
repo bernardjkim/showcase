@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`makeSelectArticles should select the artciles state 1`] = `false`;
+exports[`makeSelectArticles should select the artciles state 1`] = `Immutable.List []`;
 
 exports[`makeSelectError should select the error state 1`] = `false`;
 
@@ -10,6 +10,7 @@ exports[`selectHomePageDomain should select the home page state 1`] = `
 Immutable.Map {
   "loading": false,
   "error": false,
-  "articles": false,
+  "articles": Immutable.List [],
+  "offset": 0,
 }
 `;
