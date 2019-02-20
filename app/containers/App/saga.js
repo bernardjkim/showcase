@@ -46,7 +46,7 @@ export function* loadUser() {
     // Call our request helper (see 'utils/request')
     const res = yield call(request, url);
 
-    yield put(loadUserSuccess(res.user || { user: false }));
+    yield put(loadUserSuccess(res.user || false));
   } catch (err) {
     yield put(loadUserError(err));
   }
