@@ -72,6 +72,7 @@ describe('createComment Saga', () => {
 });
 
 describe('likeArticle Saga', () => {
+  const like = {};
   const gen = cloneableGenerator(likeArticle)();
 
   const selectDescriptor = gen.next().value;
@@ -81,8 +82,8 @@ describe('likeArticle Saga', () => {
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the likeArticleSuccess action if successful', () => {
-    const putDescriptor = gen.clone().next().value;
-    expect(putDescriptor).toEqual(put(likeArticleSuccess()));
+    const putDescriptor = gen.clone().next({ like }).value;
+    expect(putDescriptor).toEqual(put(likeArticleSuccess(like)));
   });
 
   it('should dispatch the likeArticleError action if error', () => {

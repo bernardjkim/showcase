@@ -11,8 +11,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -28,8 +27,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -47,8 +45,7 @@ Immutable.Map {
     "comments": Immutable.List [
       Immutable.Map {},
     ],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -64,8 +61,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -81,8 +77,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -98,8 +93,9 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 2,
-    "likedByUser": true,
+    "likes": Immutable.List [
+      undefined,
+    ],
   },
 }
 `;
@@ -123,8 +119,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -148,8 +143,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -165,8 +159,7 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
   },
 }
 `;
@@ -182,8 +175,55 @@ Immutable.Map {
     "description": "Search Engine",
     "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
     "comments": Immutable.List [],
-    "likes": 1,
-    "likedByUser": false,
+    "likes": Immutable.List [],
+  },
+}
+`;
+
+exports[`articlePageReducer handles the loadLikes action 1`] = `
+Immutable.Map {
+  "loading": true,
+  "error": false,
+  "article": Immutable.Map {
+    "title": "google",
+    "uri": "https://google.com",
+    "github": "",
+    "description": "Search Engine",
+    "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
+    "comments": Immutable.List [],
+    "likes": Immutable.List [],
+  },
+}
+`;
+
+exports[`articlePageReducer handles the loadLikesError action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": Immutable.Map {},
+  "article": Immutable.Map {
+    "title": "google",
+    "uri": "https://google.com",
+    "github": "",
+    "description": "Search Engine",
+    "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
+    "comments": Immutable.List [],
+    "likes": Immutable.List [],
+  },
+}
+`;
+
+exports[`articlePageReducer handles the loadLikesSuccess action 1`] = `
+Immutable.Map {
+  "loading": false,
+  "error": false,
+  "article": Immutable.Map {
+    "title": "google",
+    "uri": "https://google.com",
+    "github": "",
+    "description": "Search Engine",
+    "image": "1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png",
+    "comments": Immutable.List [],
+    "likes": Immutable.List [],
   },
 }
 `;
