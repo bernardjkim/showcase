@@ -17,6 +17,9 @@ import {
   LOAD_COMMENTS,
   LOAD_COMMENTS_ERROR,
   LOAD_COMMENTS_SUCCESS,
+  LOAD_LIKES,
+  LOAD_LIKES_ERROR,
+  LOAD_LIKES_SUCCESS,
 } from './constants';
 
 /**
@@ -170,6 +173,45 @@ export function loadCommentsSuccess(comments) {
 export function loadCommentsError(error) {
   return {
     type: LOAD_COMMENTS_ERROR,
+    error,
+  };
+}
+
+/**
+ * Load likes, this action starts the request saga
+ *
+ * @return {object} - An action object with a type of LOAD_LIKES
+ */
+export function loadLikes() {
+  return {
+    type: LOAD_LIKES,
+  };
+}
+
+/**
+ * Dispatched when the likes are loaded by the request saga
+ *
+ * @param  {Like[]}  likes  - The array of likes for this article
+ *
+ * @return {object}         - An action object with a type of LOAD_LIKES_SUCCESS
+ */
+export function loadLikesSuccess(likes) {
+  return {
+    type: LOAD_LIKES_SUCCESS,
+    likes,
+  };
+}
+
+/**
+ * Dispatched when loading the likes fails
+ *
+ * @param  {object} error - The error
+ *
+ * @return {object}       - An action object with a type of LOAD_LIKES_ERROR
+ */
+export function loadLikesError(error) {
+  return {
+    type: LOAD_LIKES_ERROR,
     error,
   };
 }

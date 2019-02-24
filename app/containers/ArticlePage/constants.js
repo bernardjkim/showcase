@@ -19,3 +19,7 @@ export const LOAD_ARTICLE_ERROR = 'app/ArticlePage/LOAD_ARTICLE_ERROR';
 export const LOAD_COMMENTS = 'app/ArticlePage/LOAD_COMMENTS';
 export const LOAD_COMMENTS_SUCCESS = 'app/ArticlePage/LOAD_COMMENTS_SUCCESS';
 export const LOAD_COMMENTS_ERROR = 'app/ArticlePage/LOAD_COMMENTS_ERROR';
+
+export const LOAD_LIKES = 'app/ArticlePage/LOAD_LIKES';
+export const LOAD_LIKES_SUCCESS = 'app/ArticlePage/LOAD_LIKES_SUCCESS';
+export const LOAD_LIKES_ERROR = 'app/ArticlePage/LOAD_LIKES_ERROR';

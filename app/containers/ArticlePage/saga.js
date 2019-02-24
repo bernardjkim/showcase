@@ -13,12 +13,16 @@ import {
   loadComments as loadCommentsAction,
   loadCommentsSuccess,
   loadCommentsError,
+  loadLikes as loadLikesAction,
+  loadLikesSuccess,
+  loadLikesError,
 } from './actions';
 import {
   CREATE_COMMENT,
   LIKE_ARTICLE,
   LOAD_ARTICLE,
   LOAD_COMMENTS,
+  LOAD_LIKES,
 } from './constants';
 import { makeSelectArticle } from './selectors';
 
@@ -64,7 +68,7 @@ export function* likeArticle() {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: qs.stringify({ articleId: article.get('_id') }), // eslint-disable-line no-underscore-dangle
+    body: qs.stringify({ articleId: article.get('_id') }),
   };
 
   try {
@@ -91,6 +95,7 @@ export function* loadArticle(action) {
 
     yield put(loadArticleSuccess(res.article));
     yield put(loadCommentsAction());
+    yield put(loadLikesAction());
   } catch (err) {
     yield put(loadArticleError(err));
   }
@@ -114,6 +119,22 @@ export function* loadComments() {
 }
 
 /**
+ * GET likes for article request/response handler
+ */
+export function* loadLikes() {
+  const article = yield select(makeSelectArticle());
+  const url = api.like.getByArticle(article.get('_id'));
+
+  try {
+    // Call our request helper (see 'utils/request')
+    const res = yield call(request, url);
+    yield put(loadLikesSuccess(res.likes));
+  } catch (err) {
+    yield put(loadLikesError(err));
+  }
+}
+
+/**
  * Root saga manages watcher lifecycle
  */
 export default function* articlePageSaga() {
@@ -125,5 +146,6 @@ export default function* articlePageSaga() {
     takeLatest(LIKE_ARTICLE, likeArticle),
     takeLatest(LOAD_ARTICLE, loadArticle),
     takeLatest(LOAD_COMMENTS, loadComments),
+    takeLatest(LOAD_LIKES, loadLikes),
   ]);
 }

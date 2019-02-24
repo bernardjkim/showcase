@@ -11,6 +11,9 @@ import {
   loadComments,
   loadCommentsError,
   loadCommentsSuccess,
+  loadLikes,
+  loadLikesError,
+  loadLikesSuccess,
 } from '../actions';
 
 import {
@@ -26,6 +29,9 @@ import {
   LOAD_COMMENTS,
   LOAD_COMMENTS_ERROR,
   LOAD_COMMENTS_SUCCESS,
+  LOAD_LIKES,
+  LOAD_LIKES_ERROR,
+  LOAD_LIKES_SUCCESS,
 } from '../constants';
 
 describe('ArticlePage actions', () => {
@@ -150,6 +156,37 @@ describe('ArticlePage actions', () => {
         error,
       };
       expect(loadCommentsError(error)).toEqual(expected);
+    });
+  });
+
+  describe('Load Likes Action', () => {
+    it('has a type of LOAD_LIKES', () => {
+      const expected = {
+        type: LOAD_LIKES,
+      };
+      expect(loadLikes()).toEqual(expected);
+    });
+  });
+
+  describe('Load Likes Success Action', () => {
+    it('has a type of LOAD_LIKES_SUCCESS', () => {
+      const likes = [];
+      const expected = {
+        type: LOAD_LIKES_SUCCESS,
+        likes,
+      };
+      expect(loadLikesSuccess(likes)).toEqual(expected);
+    });
+  });
+
+  describe('Load Likes Error Action', () => {
+    it('has a type of LOAD_LIKES_ERROR', () => {
+      const error = new Error('Test Error');
+      const expected = {
+        type: LOAD_LIKES_ERROR,
+        error,
+      };
+      expect(loadLikesError(error)).toEqual(expected);
     });
   });
 });

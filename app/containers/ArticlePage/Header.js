@@ -43,29 +43,35 @@ const Title = styled(Typography)`
 
 const Header = props => {
   /* state */
-  const { article } = props;
+  const { article, user } = props;
   /* functions */
   const { handleLikeArticle } = props;
+
+  const title = article.get('title');
+  const github = article.get('github');
+  const uri = article.get('uri');
+  const likes = article.get('likes');
+  const likedByUser =
+    likes && user
+      ? likes.filter(like => like.get('user') === user.get('_id')).size > 0
+      : false;
 
   return (
     <Container>
       <ContainerLeft>
-        <Title>{article.get('title')}</Title>
-        <GitHub
-          github={article.get('github')}
-          handleOpenRepo={openInNewTab(article.get('github'))}
-        />
+        <Title>{title}</Title>
+        <GitHub github={github} handleOpenRepo={openInNewTab(github)} />
       </ContainerLeft>
       <ContainerRight>
         <ButtonAction
-          disabled={article.get('likedByUser')}
-          label={`Like ${article.get('likes')}`}
+          disabled={likedByUser}
+          label={`Like ${likes ? likes.size : 0}`}
           handleClick={handleLikeArticle}
         />
         <ButtonAction
           disabled={false}
           label="Visit"
-          handleClick={openInNewTab(article.get('uri'))}
+          handleClick={openInNewTab(uri)}
         />
       </ContainerRight>
     </Container>
@@ -74,10 +80,11 @@ const Header = props => {
 
 Header.propTypes = {
   /* state */
+  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
   article: PropTypes.oneOfType([
     ImmutablePropTypes.map.isRequired,
     PropTypes.bool,
-  ]),
+  ]).isRequired,
   /* functions */
   handleLikeArticle: PropTypes.func.isRequired,
 };

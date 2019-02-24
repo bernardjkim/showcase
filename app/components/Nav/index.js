@@ -59,7 +59,7 @@ class Nav extends React.Component {
 
 Nav.propTypes = {
   /* state */
-  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
   searchValue: PropTypes.string,
 
   /* functions */
