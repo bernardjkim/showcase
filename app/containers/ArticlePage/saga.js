@@ -73,9 +73,9 @@ export function* likeArticle() {
 
   try {
     // Call our request helper (see 'utils/request')
-    yield call(request, url, options);
+    const res = yield call(request, url, options);
 
-    yield put(likeArticleSuccess());
+    yield put(likeArticleSuccess(res.like));
   } catch (err) {
     yield put(likeArticleError(err));
   }

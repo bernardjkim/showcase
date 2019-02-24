@@ -79,10 +79,12 @@ describe('ArticlePage actions', () => {
 
   describe('Like Article Success Action', () => {
     it('has a type of LIKE_ARTICLE_SUCCESS', () => {
+      const like = {};
       const expected = {
         type: LIKE_ARTICLE_SUCCESS,
+        like,
       };
-      expect(likeArticleSuccess()).toEqual(expected);
+      expect(likeArticleSuccess(like)).toEqual(expected);
     });
   });
 

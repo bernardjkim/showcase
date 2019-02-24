@@ -75,12 +75,14 @@ export function likeArticle() {
 
 /**
  * Dispatched when posting the like is acknowledged by the request saga
+ * @param   {Like}    like  - Like object
  *
- * @return {object} - An action object with a type of LIKE_ARTICLE_SUCCESS
+ * @returns {object}        - An action object with a type of LIKE_ARTICLE_SUCCESS
  */
-export function likeArticleSuccess() {
+export function likeArticleSuccess(like) {
   return {
     type: LIKE_ARTICLE_SUCCESS,
+    like,
   };
 }
 
