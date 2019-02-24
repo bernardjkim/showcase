@@ -12,6 +12,7 @@ import {
   LIKE_ARTICLE,
   LOAD_ARTICLE,
   LOAD_COMMENTS,
+  LOAD_LIKES,
 } from '../constants';
 import {
   createCommentSuccess,
@@ -22,12 +23,15 @@ import {
   loadArticleSuccess,
   loadCommentsError,
   loadCommentsSuccess,
+  loadLikesError,
+  loadLikesSuccess,
 } from '../actions';
 import articlePageSaga, {
   createComment,
   likeArticle,
   loadArticle,
   loadComments,
+  loadLikes,
 } from '../saga';
 
 const state = fromJS({
@@ -41,8 +45,7 @@ const state = fromJS({
     description: 'Search Engine',
     image: '1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png',
     comments: [],
-    likes: 1,
-    likedByUser: false,
+    likes: [],
   },
 });
 
@@ -69,6 +72,7 @@ describe('createComment Saga', () => {
 });
 
 describe('likeArticle Saga', () => {
+  const like = {};
   const gen = cloneableGenerator(likeArticle)();
 
   const selectDescriptor = gen.next().value;
@@ -78,8 +82,8 @@ describe('likeArticle Saga', () => {
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the likeArticleSuccess action if successful', () => {
-    const putDescriptor = gen.clone().next().value;
-    expect(putDescriptor).toEqual(put(likeArticleSuccess()));
+    const putDescriptor = gen.clone().next({ like }).value;
+    expect(putDescriptor).toEqual(put(likeArticleSuccess(like)));
   });
 
   it('should dispatch the likeArticleError action if error', () => {
@@ -127,10 +131,32 @@ describe('loadComments Saga', () => {
     expect(putDescriptor).toEqual(put(loadCommentsSuccess(comments)));
   });
 
-  it('should dispatch the likeCommentsError action if error', () => {
+  it('should dispatch the loadCommentsError action if error', () => {
     const error = new Error('Test error');
     const putDescriptor = gen.clone().throw(error).value;
     expect(putDescriptor).toEqual(put(loadCommentsError(error)));
+  });
+});
+
+describe('loadLikes Saga', () => {
+  const gen = cloneableGenerator(loadLikes)();
+
+  const selectDescriptor = gen.next().value;
+  expect(selectDescriptor).toMatchSnapshot();
+
+  const callDescriptor = gen.next(state.get('article')).value;
+  expect(callDescriptor).toMatchSnapshot();
+
+  it('should dispatch the loadLikesSuccess action if successful', () => {
+    const likes = [];
+    const putDescriptor = gen.clone().next({ likes }).value;
+    expect(putDescriptor).toEqual(put(loadLikesSuccess(likes)));
+  });
+
+  it('should dispatch the loadLikesError action if error', () => {
+    const error = new Error('Test error');
+    const putDescriptor = gen.clone().throw(error).value;
+    expect(putDescriptor).toEqual(put(loadLikesError(error)));
   });
 });
 
@@ -145,6 +171,7 @@ describe('articlePageSaga Saga', () => {
         takeLatest(LIKE_ARTICLE, likeArticle),
         takeLatest(LOAD_ARTICLE, loadArticle),
         takeLatest(LOAD_COMMENTS, loadComments),
+        takeLatest(LOAD_LIKES, loadLikes),
       ]),
     );
   });

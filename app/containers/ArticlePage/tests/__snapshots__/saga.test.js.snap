@@ -95,3 +95,26 @@ Object {
   },
 }
 `;
+
+exports[` 8`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[` 9`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/like/5c4ebe9be5346639c09786e3",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

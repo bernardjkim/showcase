@@ -30,7 +30,7 @@ export default {
   like: {
     getAll: `${LIKE_URL}`,
     create: `${LIKE_URL}`,
-    getOne: id => `${LIKE_URL}/${id}`,
+    getByArticle: id => `${LIKE_URL}/${id}`,
   },
 
   /** User Endpoints */

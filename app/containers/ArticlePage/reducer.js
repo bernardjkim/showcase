@@ -18,6 +18,9 @@ import {
   LOAD_COMMENTS,
   LOAD_COMMENTS_ERROR,
   LOAD_COMMENTS_SUCCESS,
+  LOAD_LIKES,
+  LOAD_LIKES_ERROR,
+  LOAD_LIKES_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -26,14 +29,13 @@ export const initialState = fromJS({
   error: false,
   /**
    * article
-   * @field {string}  _id         - Article id
-   * @field {string}  uri         - Article uri
-   * @field {string}  github      - GitHub repo
-   * @field {string}  description - Article description
-   * @field {string}  image       - Article image link
-   * @field {number}  likes       - Number of likes
-   * @field {bool}    likedByUser - Article is liked by user
-   * @field {array}   comments    - Array of comments
+   * @field {string}      _id         - Article id
+   * @field {string}      uri         - Article uri
+   * @field {string}      github      - GitHub repo
+   * @field {string}      description - Article description
+   * @field {string}      image       - Article image link
+   * @field {Likes[]}     likes       - Array of likes
+   * @field {Comments[]}  comments    - Array of comments
    */
   article: false,
 });
@@ -58,8 +60,9 @@ function articlePageReducer(state = initialState, action) {
 
     case LIKE_ARTICLE_SUCCESS:
       return state
-        .updateIn(['article', 'likes'], likes => likes + 1)
-        .setIn(['article', 'likedByUser'], true)
+        .updateIn(['article', 'likes'], likes =>
+          likes.push(fromJS(action.like)),
+        )
         .set('loading', false);
 
     case LIKE_ARTICLE_ERROR:
@@ -81,9 +84,22 @@ function articlePageReducer(state = initialState, action) {
       return state.set('loading', true).set('error', false);
 
     case LOAD_COMMENTS_SUCCESS:
-      return state.setIn(['article', 'comments'], fromJS(action.comments));
+      return state
+        .setIn(['article', 'comments'], fromJS(action.comments))
+        .set('loading', false);
 
     case LOAD_COMMENTS_ERROR:
+      return state.set('error', fromJS(action.error)).set('loading', false);
+
+    case LOAD_LIKES:
+      return state.set('loading', true).set('error', false);
+
+    case LOAD_LIKES_SUCCESS:
+      return state
+        .setIn(['article', 'likes'], fromJS(action.likes))
+        .set('loading', false);
+
+    case LOAD_LIKES_ERROR:
       return state.set('error', fromJS(action.error)).set('loading', false);
 
     default:

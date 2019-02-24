@@ -21,8 +21,7 @@ describe('loadArticlesAll Saga', () => {
   const selectDescriptor = gen.next().value;
   expect(selectDescriptor).toMatchSnapshot();
 
-  gen.next(offset);
-  const callDescriptor = gen.value;
+  const callDescriptor = gen.next(offset).value;
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadArticlesAllSuccess action if successful', () => {
@@ -46,8 +45,7 @@ describe('loadNext Saga', () => {
   const selectDescriptor = gen.next().value;
   expect(selectDescriptor).toMatchSnapshot();
 
-  gen.next(offset);
-  const callDescriptor = gen.value;
+  const callDescriptor = gen.next(offset).value;
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadNextSuccess action if successful', () => {

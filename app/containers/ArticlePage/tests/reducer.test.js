@@ -14,6 +14,9 @@ import {
   loadComments,
   loadCommentsError,
   loadCommentsSuccess,
+  loadLikes,
+  loadLikesError,
+  loadLikesSuccess,
 } from '../actions';
 
 describe('articlePageReducer', () => {
@@ -29,8 +32,7 @@ describe('articlePageReducer', () => {
         description: 'Search Engine',
         image: '1548552844157-Screen Shot 2019-01-26 at 5.32.10 PM.png',
         comments: [],
-        likes: 1,
-        likedByUser: false,
+        likes: [],
       },
     });
   });
@@ -89,5 +91,17 @@ describe('articlePageReducer', () => {
 
   it('handles the loadCommentsError action', () => {
     expect(articlePageReducer(state, loadCommentsError({}))).toMatchSnapshot();
+  });
+
+  it('handles the loadLikes action', () => {
+    expect(articlePageReducer(state, loadLikes())).toMatchSnapshot();
+  });
+
+  it('handles the loadLikesSuccess action', () => {
+    expect(articlePageReducer(state, loadLikesSuccess([]))).toMatchSnapshot();
+  });
+
+  it('handles the loadLikesError action', () => {
+    expect(articlePageReducer(state, loadLikesError({}))).toMatchSnapshot();
   });
 });
