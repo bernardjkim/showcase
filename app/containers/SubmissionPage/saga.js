@@ -15,11 +15,11 @@ import { SUBMIT_FORM } from './constants';
 export function* submitForm(action) {
   const url = api.article.create;
 
-  const { form } = action;
+  const { screenshot, ...form } = action.form;
 
   const formData = new FormData();
   formData.append('form', qs.stringify(form));
-  formData.append('file', form.screenshot);
+  formData.append('file', screenshot);
 
   // set request method/header/body
   const options = {

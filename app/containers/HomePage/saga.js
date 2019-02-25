@@ -34,6 +34,9 @@ export function* loadArticlesAll() {
  */
 export function* loadNext() {
   const offset = yield select(makeSelectOffset());
+  // NOTE: prevent loadall & loadnext at the same time. Might want to think of a
+  // better way to handle this later...
+  if (offset <= 0) return;
 
   const url = api.article.getAll(offset);
 
