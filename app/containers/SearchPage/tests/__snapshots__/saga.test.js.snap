@@ -38,7 +38,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/article/search?q=search&offset=0",
+      "/api/article/search?q=search&offset=10",
     ],
     "context": null,
     "fn": [Function],

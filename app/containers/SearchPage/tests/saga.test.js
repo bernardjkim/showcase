@@ -44,7 +44,7 @@ describe('loadArticles Saga', () => {
 describe('loadNext Saga', () => {
   const gen = cloneableGenerator(loadNext)();
   const search = 'search';
-  const offset = '0';
+  const offset = 10;
 
   const selectDescriptor = gen.next().value;
   expect(selectDescriptor).toMatchSnapshot();

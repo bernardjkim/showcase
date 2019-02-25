@@ -38,7 +38,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/article/all?offset=0",
+      "/api/article/all?offset=10",
     ],
     "context": null,
     "fn": [Function],
