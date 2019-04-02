@@ -3,4 +3,6 @@ node_modules
 
 # Dev environment
 .*
-env-config.js
+
+# Build
+build
