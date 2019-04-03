@@ -4,8 +4,9 @@ import { initialState } from './reducer';
 const selectRouter = state => state.get('router');
 
 const makeSelectLocation = () =>
-  createSelector(selectRouter, routerState =>
-    routerState.get('location').toJS(),
+  createSelector(
+    selectRouter,
+    routerState => routerState.get('location').toJS(),
   );
 
 /**
@@ -19,17 +20,27 @@ const selectGlobalDomain = state => state.get('global', initialState);
  */
 
 const makeSelectLoading = () =>
-  createSelector(selectGlobalDomain, globalState => globalState.get('loading'));
+  createSelector(
+    selectGlobalDomain,
+    globalState => globalState.get('loading'),
+  );
 
 const makeSelectError = () =>
-  createSelector(selectGlobalDomain, globalState => globalState.get('error'));
+  createSelector(
+    selectGlobalDomain,
+    globalState => globalState.get('error'),
+  );
 
 const makeSelectUser = () =>
-  createSelector(selectGlobalDomain, globalState => globalState.get('user'));
+  createSelector(
+    selectGlobalDomain,
+    globalState => globalState.get('user'),
+  );
 
 const makeSelectValidateToken = () =>
-  createSelector(selectGlobalDomain, globalState =>
-    globalState.get('validateToken'),
+  createSelector(
+    selectGlobalDomain,
+    globalState => globalState.get('validateToken'),
   );
 
 /**
@@ -37,7 +48,10 @@ const makeSelectValidateToken = () =>
  */
 
 const makeSelectApp = () =>
-  createSelector(selectGlobalDomain, substate => substate.toJS());
+  createSelector(
+    selectGlobalDomain,
+    substate => substate.toJS(),
+  );
 
 export default makeSelectApp;
 export {

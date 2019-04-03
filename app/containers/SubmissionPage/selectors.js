@@ -12,16 +12,19 @@ const selectSubmissionPageDomain = state =>
  * Other specific selectors
  */
 const makeSelectLoading = () =>
-  createSelector(selectSubmissionPageDomain, submissionState =>
-    submissionState.get('loading'),
+  createSelector(
+    selectSubmissionPageDomain,
+    submissionState => submissionState.get('loading'),
   );
 const makeSelectError = () =>
-  createSelector(selectSubmissionPageDomain, submissionState =>
-    submissionState.get('error'),
+  createSelector(
+    selectSubmissionPageDomain,
+    submissionState => submissionState.get('error'),
   );
 const makeSelectSubmissionSuccess = () =>
-  createSelector(selectSubmissionPageDomain, submissionState =>
-    submissionState.get('submissionSuccess'),
+  createSelector(
+    selectSubmissionPageDomain,
+    submissionState => submissionState.get('submissionSuccess'),
   );
 
 /**
@@ -29,7 +32,10 @@ const makeSelectSubmissionSuccess = () =>
  */
 
 const makeSelectSubmissionPage = () =>
-  createSelector(selectSubmissionPageDomain, substate => substate.toJS());
+  createSelector(
+    selectSubmissionPageDomain,
+    substate => substate.toJS(),
+  );
 
 export default makeSelectSubmissionPage;
 export {

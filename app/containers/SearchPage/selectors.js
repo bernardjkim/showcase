@@ -12,28 +12,33 @@ const selectSearchPageDomain = state => state.get('searchPage', initialState);
  */
 
 const makeSelectLoading = () =>
-  createSelector(selectSearchPageDomain, searchState =>
-    searchState.get('loading'),
+  createSelector(
+    selectSearchPageDomain,
+    searchState => searchState.get('loading'),
   );
 
 const makeSelectError = () =>
-  createSelector(selectSearchPageDomain, searchState =>
-    searchState.get('error'),
+  createSelector(
+    selectSearchPageDomain,
+    searchState => searchState.get('error'),
   );
 
 const makeSelectArticles = () =>
-  createSelector(selectSearchPageDomain, searchState =>
-    searchState.get('articles'),
+  createSelector(
+    selectSearchPageDomain,
+    searchState => searchState.get('articles'),
   );
 
 const makeSelectOffset = () =>
-  createSelector(selectSearchPageDomain, searchState =>
-    searchState.get('offset'),
+  createSelector(
+    selectSearchPageDomain,
+    searchState => searchState.get('offset'),
   );
 
 const makeSelectSearch = () =>
-  createSelector(selectSearchPageDomain, searchState =>
-    searchState.get('search'),
+  createSelector(
+    selectSearchPageDomain,
+    searchState => searchState.get('search'),
   );
 
 /**
@@ -41,7 +46,10 @@ const makeSelectSearch = () =>
  */
 
 const makeSelectSearchPage = () =>
-  createSelector(selectSearchPageDomain, substate => substate.toJS());
+  createSelector(
+    selectSearchPageDomain,
+    substate => substate.toJS(),
+  );
 
 export default makeSelectSearchPage;
 export {

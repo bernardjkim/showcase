@@ -71,8 +71,11 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   /* state */
+  history: PropTypes.object.isRequired,
   /* functions */
   handleLoadNext: PropTypes.func.isRequired,
+  handleLoadArticles: PropTypes.func.isRequired,
+  handleClearState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
