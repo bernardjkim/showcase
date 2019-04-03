@@ -75,11 +75,14 @@ export class ArticlePage extends React.PureComponent {
 
 ArticlePage.propTypes = {
   /* state */
+  location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   article: PropTypes.oneOfType([
     ImmutablePropTypes.map.isRequired,
     PropTypes.bool,
   ]),
+  /* function */
+  handleLoadArticle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

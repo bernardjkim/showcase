@@ -1,9 +1,8 @@
-# Build folder
-build
-
 # Dependency directories
 node_modules
 
 # Dev environment
 .*
-env-config.js
+
+# Build
+build

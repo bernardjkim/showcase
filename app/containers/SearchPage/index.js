@@ -87,9 +87,13 @@ export class SearchPage extends React.PureComponent {
 SearchPage.propTypes = {
   /* state */
   location: PropTypes.object.isRequired,
+  search: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
   /* functions */
   handleLoadArticles: PropTypes.func.isRequired,
   handleLoadNext: PropTypes.func.isRequired,
+  handleSetSearch: PropTypes.func.isRequired,
+  handleClearState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

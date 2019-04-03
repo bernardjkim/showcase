@@ -12,18 +12,21 @@ const selectArticlePageDomain = state => state.get('articlePage', initialState);
  */
 
 const makeSelectLoading = () =>
-  createSelector(selectArticlePageDomain, articleState =>
-    articleState.get('loading'),
+  createSelector(
+    selectArticlePageDomain,
+    articleState => articleState.get('loading'),
   );
 
 const makeSelectError = () =>
-  createSelector(selectArticlePageDomain, articleState =>
-    articleState.get('error'),
+  createSelector(
+    selectArticlePageDomain,
+    articleState => articleState.get('error'),
   );
 
 const makeSelectArticle = () =>
-  createSelector(selectArticlePageDomain, articleState =>
-    articleState.get('article'),
+  createSelector(
+    selectArticlePageDomain,
+    articleState => articleState.get('article'),
   );
 
 /**
@@ -31,7 +34,10 @@ const makeSelectArticle = () =>
  */
 
 const makeSelectArticlePage = () =>
-  createSelector(selectArticlePageDomain, substate => substate.toJS());
+  createSelector(
+    selectArticlePageDomain,
+    substate => substate.toJS(),
+  );
 
 export default makeSelectArticlePage;
 export {

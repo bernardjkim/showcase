@@ -1,22 +1,7 @@
-# Use Node
-FROM node:alpine
-
-RUN apk update
-RUN apk add --no-cache \
-    libtool \
-    mesa-gl \
-    autoconf \
-    automake \
-    bash \
-    g++ \
-    libc6-compat \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    make \
-    nasm
+# Build Stage
+FROM node as build
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
-
 
 WORKDIR /home/node/app
 
@@ -29,10 +14,13 @@ COPY internals ./internals
 RUN npm install
 
 # Bundle app source
+
 COPY --chown=node:node . .
 
 # Build app
-RUN npm run heroku-postbuild
+RUN npm run build
 
-# Start app
-CMD ["npm", "run", "start:prod"]
+# Nginx Stage
+FROM nginx
+COPY --from=build /home/node/app/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /home/node/app/build /usr/share/nginx/html

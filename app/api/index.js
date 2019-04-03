@@ -23,14 +23,14 @@ export default {
   /** Comment Endpoints */
   comment: {
     create: `${COMMENT_URL}`,
-    get: id => `${COMMENT_URL}/${id}`,
+    get: id => `${COMMENT_URL}/?article=${id}`,
   },
 
   /** Like Endpoints */
   like: {
     getAll: `${LIKE_URL}`,
     create: `${LIKE_URL}`,
-    getByArticle: id => `${LIKE_URL}/${id}`,
+    getByArticle: id => `${LIKE_URL}/?article=${id}`,
   },
 
   /** User Endpoints */

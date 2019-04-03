@@ -88,7 +88,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/comment/5c4ebe9be5346639c09786e3",
+      "/api/comment/?article=5c4ebe9be5346639c09786e3",
     ],
     "context": null,
     "fn": [Function],
@@ -111,7 +111,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/like/5c4ebe9be5346639c09786e3",
+      "/api/like/?article=5c4ebe9be5346639c09786e3",
     ],
     "context": null,
     "fn": [Function],

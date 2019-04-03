@@ -11,17 +11,26 @@ const selectAuthPageDomain = state => state.get('authPage', initialState);
  * Other specific selectors
  */
 const makeSelectLoading = () =>
-  createSelector(selectAuthPageDomain, authState => authState.get('loading'));
+  createSelector(
+    selectAuthPageDomain,
+    authState => authState.get('loading'),
+  );
 
 const makeSelectError = () =>
-  createSelector(selectAuthPageDomain, authState => authState.get('error'));
+  createSelector(
+    selectAuthPageDomain,
+    authState => authState.get('error'),
+  );
 
 /**
  * Default selector used by AuthPage
  */
 
 const makeSelectAuthPage = () =>
-  createSelector(selectAuthPageDomain, substate => substate.toJS());
+  createSelector(
+    selectAuthPageDomain,
+    substate => substate.toJS(),
+  );
 
 export default makeSelectAuthPage;
 export { selectAuthPageDomain, makeSelectError, makeSelectLoading };
