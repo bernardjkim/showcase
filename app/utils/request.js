@@ -1,7 +1,7 @@
 /**
  * Parses the JSON returned by a network request
  *
- * @param  {object} response A response from a network request
+ * @param  {Response} response A response from a network request
  *
  * @return {object}          The parsed JSON from the request
  */
@@ -15,9 +15,9 @@ function parseJSON(response) {
 /**
  * Checks if a network request came back fine, and throws an error if not
  *
- * @param  {object} response   A response from a network request
+ * @param  {Response} response   A response from a network request
  *
- * @return {object|undefined} Returns either the response, or throws an error
+ * @return {Response|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -25,7 +25,8 @@ function checkStatus(response) {
   }
 
   const error = new Error(response.statusText);
-  error.response = response;
+  // TODO: Create new error type?
+  // error.response = response;
   throw error;
 }
 

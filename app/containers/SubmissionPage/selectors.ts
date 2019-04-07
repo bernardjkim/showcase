@@ -1,12 +1,14 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
+import { SubmissionState } from './types';
 
 /**
  * Direct selector to the submissionPage state domain
  */
 
-const selectSubmissionPageDomain = state =>
-  state.get('submissionPage', initialState);
+const selectSubmissionPageDomain = (state: any): SubmissionState => {
+  return state.get('submissionPage', initialState);
+}
 
 /**
  * Other specific selectors
@@ -14,17 +16,20 @@ const selectSubmissionPageDomain = state =>
 const makeSelectLoading = () =>
   createSelector(
     selectSubmissionPageDomain,
-    submissionState => submissionState.get('loading'),
+    // submissionState => submissionState.get('loading'),
+    submissionState => submissionState.loading,
   );
 const makeSelectError = () =>
   createSelector(
     selectSubmissionPageDomain,
-    submissionState => submissionState.get('error'),
+    // submissionState => submissionState.get('error'),
+    submissionState => submissionState.error,
   );
 const makeSelectSubmissionSuccess = () =>
   createSelector(
     selectSubmissionPageDomain,
-    submissionState => submissionState.get('submissionSuccess'),
+    // submissionState => submissionState.get('submissionSuccess'),
+    submissionState => submissionState.submissionSuccess,
   );
 
 /**
@@ -34,7 +39,8 @@ const makeSelectSubmissionSuccess = () =>
 const makeSelectSubmissionPage = () =>
   createSelector(
     selectSubmissionPageDomain,
-    substate => substate.toJS(),
+    // substate => substate.toJS(),
+    substate => substate,
   );
 
 export default makeSelectSubmissionPage;
@@ -44,3 +50,4 @@ export {
   makeSelectLoading,
   makeSelectSubmissionSuccess,
 };
+

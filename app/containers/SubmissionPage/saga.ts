@@ -1,18 +1,18 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
 
-import api from '../../api';
-import request from '../../utils/request';
+import api from 'api/index';
+import request from 'utils/request';
 
 import { submitFormSuccess, submitFormError } from './actions';
-import { SUBMIT_FORM } from './constants';
+import { SUBMIT_FORM, SubmitFormAction } from './types';
 
 // Individual exports for testing
 
 /**
  * POST article request/response handler
  */
-export function* submitForm(action) {
+export function* submitForm(action: SubmitFormAction) {
   const url = api.article.create;
 
   const { screenshot, ...form } = action.form;

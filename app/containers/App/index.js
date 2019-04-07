@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Switch, Route } from 'react-router-dom';
@@ -33,11 +33,8 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import {
-  makeSelectUser,
-  makeSelectValidateToken,
-} from 'containers/App/selectors';
 import { loadUser } from 'containers/App/actions';
+import { makeSelectUser, makeSelectValidateToken } from './selectors';
 
 import saga from './saga';
 import reducer from './reducer';
@@ -46,6 +43,8 @@ import theme from './theme';
 import GlobalStyle from '../../global-styles';
 
 library.add(fas, fab);
+
+
 
 function App(props) {
   const { user, validateToken } = props;
@@ -68,14 +67,14 @@ function App(props) {
   );
 }
 
-App.propTypes = {
-  // state variables
-  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  validateToken: PropTypes.bool.isRequired,
+// App.propTypes = {
+//   // state variables
+//   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+//   validateToken: PropTypes.bool.isRequired,
 
-  // dispatch functions
-  handleLoadUser: PropTypes.func.isRequired,
-};
+//   // dispatch functions
+//   handleLoadUser: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),

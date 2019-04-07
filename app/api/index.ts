@@ -1,3 +1,5 @@
+import { API } from './types';
+
 const BASE_URL = '/api';
 const ARTICLE_URL = `${BASE_URL}/article`;
 const AUTH_URL = `${BASE_URL}/auth`;
@@ -5,7 +7,7 @@ const COMMENT_URL = `${BASE_URL}/comment`;
 const LIKE_URL = `${BASE_URL}/like`;
 const USER_URL = `${BASE_URL}/user`;
 
-export default {
+export const api: API = {
   /** Article Endpoints */
   article: {
     create: `${ARTICLE_URL}`,
@@ -40,3 +42,5 @@ export default {
     getOne: id => `${USER_URL}/${id}`,
   },
 };
+
+export default api;
