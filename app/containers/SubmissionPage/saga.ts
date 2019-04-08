@@ -13,14 +13,15 @@ import { SUBMIT_FORM, SubmitFormAction } from './types';
  * POST article request/response handler
  */
 export function* submitForm(action: SubmitFormAction) {
-  const url = api.article.create;
 
   const { screenshot, ...form } = action.form;
+  if (!screenshot || !form) return;
 
   const formData = new FormData();
   formData.append('form', qs.stringify(form));
   formData.append('file', screenshot);
 
+  const url = api.article.create;
   // set request method/header/body
   const options = {
     method: 'POST',

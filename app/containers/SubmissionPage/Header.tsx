@@ -24,7 +24,7 @@ const Message = styled(Typography)`
   font-size: 48px;
   font-weight: 100;
   text-align: center;
-`;
+` as typeof Typography;
 
 const Header = () => (
   <Container>

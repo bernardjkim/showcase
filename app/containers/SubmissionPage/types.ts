@@ -2,7 +2,12 @@
 //  STATE
 // =============================================================================
 export interface Form {
-  screenshot: Blob;
+  title: string;
+  uri: string;
+  github: string;
+  description: string;
+  tags: string[];
+  screenshot?: Blob;
 }
 export interface Error {}
 

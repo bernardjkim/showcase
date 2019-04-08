@@ -5,12 +5,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, Dispatch } from 'redux';
 
 /* Utils */
 import injectSaga from 'utils/injectSaga';
@@ -35,6 +34,7 @@ import makeSelectSubmissionPage, {
 import Footer from './Footer';
 import Header from './Header';
 import SubmissionForm from './SubmissionForm';
+import { Form } from './types';
 
 const Container = styled.div`
   display: flex;
@@ -43,13 +43,24 @@ const Container = styled.div`
   align-items: center;
 `;
 
+type Props = {
+  user?: object;
+  loadingGlobal: boolean;
+  loadingSubmit: boolean;
+  submissionSuccess: boolean;
+  handleClearState: () => void;
+  handleSubmitForm: (form: Form) => () => void;
+};
+
 /* eslint-disable react/prefer-stateless-function */
-export class SubmissionPage extends React.PureComponent {
+export class SubmissionPage extends React.PureComponent<Props> {
   render() {
-    /* state */
-    const { user, loadingGlobal, submissionSuccess } = this.props;
-    /* functions */
-    const { handleClearState } = this.props;
+    const {
+      user,
+      loadingGlobal,
+      submissionSuccess,
+      handleClearState,
+    } = this.props;
 
     if (!user && !loadingGlobal) return <Redirect to="/auth" />;
 
@@ -67,15 +78,6 @@ export class SubmissionPage extends React.PureComponent {
   }
 }
 
-SubmissionPage.propTypes = {
-  /* state */
-  user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  loadingGlobal: PropTypes.bool.isRequired, // loading status for LOAD_USER
-  submissionSuccess: PropTypes.bool.isRequired,
-  /* functions */
-  handleClearState: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = createStructuredSelector({
   submissionPage: makeSelectSubmissionPage(),
   user: makeSelectUser(),
@@ -84,13 +86,12 @@ const mapStateToProps = createStructuredSelector({
   submissionSuccess: makeSelectSubmissionSuccess(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
     handleClearState: () => {
       dispatch(clearState());
     },
-    handleSubmitForm: data => () => {
-      const { tag, ...form } = data;
+    handleSubmitForm: (form: Form) => () => {
       dispatch(submitForm(form));
     },
   };
@@ -102,7 +103,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'submissionPage', reducer });
-const withSaga = injectSaga({ key: 'submissionPage', saga });
+const withSaga = injectSaga({ key: 'submissionPage', saga, mode: '' });
 
 export default compose(
   withReducer,

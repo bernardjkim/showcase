@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 /* MUI */
@@ -13,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 
 /* Shared Components */
 import TagList from 'components/TagList';
+import { Form } from './types';
 
 /* Local Components */
 import InputImage from './components/InputImage';
@@ -38,55 +38,71 @@ const StyledTextField = styled(TextField)`
     color: #57c1ae;
     font-size: 17px;
   }
-`;
+` as typeof TextField;
+
+type Props = {
+  loadingSubmit: boolean;
+  handleSubmitForm: (form: Form) => () => void;
+};
+
+type State = {
+  form: Form;
+  tag: string;
+  preview?: string;
+};
 
 /* eslint-disable react/prefer-stateless-function */
-class SubmissionForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        title: '',
-        uri: '',
-        github: '',
-        description: '',
-        tag: '', // current input
-        tags: [],
-        screenshot: false,
-      },
-      preview: false,
-    };
-  }
+class SubmissionForm extends React.PureComponent<Props, State> {
+  readonly state: State = {
+    form: {
+      title: '',
+      uri: '',
+      github: '',
+      description: '',
+      tags: [],
+      screenshot: undefined,
+    },
+    tag: '', // current tag input
+    preview: undefined, // screenshot preview
+  };
 
-  handleChange = field => e => {
+  handleChange = (field: string) => (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { form } = this.state;
     this.setState({ form: { ...form, [field]: e.target.value } });
   };
 
-  handleFileUpload = e => {
+  handleChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ tag: e.target.value });
+  };
+
+  handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
     const reader = new FileReader();
-    const file = e.target.files[0];
+    const file = e.target.files[0] as Blob;
     const { form } = this.state;
 
     reader.onloadend = () => {
       this.setState({
         form: { ...form, screenshot: file },
-        preview: reader.result,
+        preview: reader.result as string,
       });
     };
     reader.readAsDataURL(file);
   };
 
-  handleAddTag = e => {
-    if (e.key === 'Enter' && this.state.form.tag !== '') {
+  handleAddTag = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && this.state.tag !== '') {
       e.preventDefault();
       const { form } = this.state;
-      const tags = [...form.tags, form.tag];
-      this.setState({ form: { ...form, tag: '', tags } });
+      const tags = [...form.tags, this.state.tag];
+      this.setState({ form: { ...form, tags }, tag: '' });
     }
   };
 
-  handleDeleteTag = tag => () => {
+  handleDeleteTag = (tag: string) => () => {
     this.setState(state => {
       const tags = [...state.form.tags];
       const tagToDelete = tags.indexOf(tag);
@@ -97,66 +113,58 @@ class SubmissionForm extends React.PureComponent {
   };
 
   render() {
-    /* state */
-    const { loadingSubmit } = this.props;
-    /* functions */
-    const { handleSubmitForm } = this.props;
+    const {
+      handleChange,
+      handleChangeTag,
+      handleFileUpload,
+      handleAddTag,
+      handleDeleteTag,
+    } = this;
+    const { loadingSubmit, handleSubmitForm } = this.props;
+    const { form, tag, preview } = this.state;
 
     return (
       <Container>
         <StyledTextField
           label="Title"
           required
-          onChange={this.handleChange('title')}
-          value={this.state.form.title}
+          onChange={handleChange('title')}
+          value={form.title}
         />
         <StyledTextField
           label="URL"
           required
           onChange={this.handleChange('uri')}
-          value={this.state.form.uri}
+          value={form.uri}
         />
         <StyledTextField
           label="GitHub"
           onChange={this.handleChange('github')}
-          value={this.state.form.github}
+          value={form.github}
         />
         <StyledTextField
           label="Description"
           required
           multiline
           rowsMax={6}
-          onChange={this.handleChange('description')}
-          value={this.state.form.description}
+          onChange={handleChange('description')}
+          value={form.description}
         />
         <StyledTextField
           label="Tags"
-          onChange={this.handleChange('tag')}
-          onKeyPress={this.handleAddTag}
-          value={this.state.form.tag}
+          onChange={handleChangeTag}
+          onKeyPress={handleAddTag}
+          value={tag}
         />
-        <TagList
-          tags={this.state.form.tags}
-          handleDeleteTag={this.handleDeleteTag}
-        />
-        <InputImage
-          preview={this.state.preview}
-          handleFileUpload={this.handleFileUpload}
-        />
+        <TagList tags={form.tags} handleDeleteTag={handleDeleteTag} />
+        <InputImage preview={preview} handleFileUpload={handleFileUpload} />
         <SubmitButton
           loading={loadingSubmit}
-          handleSubmit={handleSubmitForm(this.state.form)}
+          handleSubmit={handleSubmitForm(form)}
         />
       </Container>
     );
   }
 }
-
-SubmissionForm.propTypes = {
-  /* state */
-  loadingSubmit: PropTypes.bool.isRequired,
-  /* functions */
-  handleSubmitForm: PropTypes.func.isRequired,
-};
 
 export default SubmissionForm;

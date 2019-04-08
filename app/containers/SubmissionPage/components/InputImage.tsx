@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -29,17 +28,19 @@ const Label = styled(Typography)`
   font-weight: 300;
   color: #a9caca;
   margin-bottom: 10px;
-`;
+` as typeof Typography;
 
 const InputFile = styled.input`
   display: none;
 `;
 
-const InputImage = props => {
-  /* state */
-  const { preview } = props;
-  /* functions */
-  const { handleFileUpload } = props;
+type Props = {
+  preview?: string;
+  handleFileUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const InputImage: React.FC<Props> = props => {
+  const { preview, handleFileUpload } = props;
 
   if (preview) {
     return (
@@ -55,13 +56,6 @@ const InputImage = props => {
       <FontAwesomeIcon size="3x" color="#a9caca" icon={faPlusCircle} />
     </PlaceHolder>
   );
-};
-
-InputImage.propTypes = {
-  /* state */
-  preview: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-  /* functions */
-  handleFileUpload: PropTypes.func.isRequired,
 };
 
 export default InputImage;

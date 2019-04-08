@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
@@ -14,18 +13,20 @@ const StyledButton = styled(Button)`
   span {
     height: 36px;
   }
-`;
+` as typeof Button;
 
 const Label = styled(Typography)`
   color: white;
   font-weight: 300;
-`;
+` as typeof Typography;
 
-const SubmitButton = props => {
-  /* state */
-  const { loading } = props;
-  /* function */
-  const { handleSubmit } = props;
+type Props = {
+  loading: boolean;
+  handleSubmit: (e: React.MouseEvent) => void;
+};
+
+const SubmitButton: React.FC<Props> = props => {
+  const { loading, handleSubmit } = props;
   return (
     <StyledButton
       color="primary"
@@ -40,13 +41,6 @@ const SubmitButton = props => {
       )}
     </StyledButton>
   );
-};
-
-SubmitButton.propTypes = {
-  /* state */
-  loading: PropTypes.bool.isRequired,
-  /* functions */
-  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default SubmitButton;
