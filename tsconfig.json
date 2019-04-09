@@ -24,7 +24,7 @@
     "lib": ["dom", "es2017"], // you will need to include polyfills for es2017 manually
     "types": ["node", "react", "jest"], // which global types to use
     "target": "es5", // "es2015" for ES6+ engines
-    "module": "es2015", // "es2015" for tree-shaking
+    "module": "esnext", // "es2015" for tree-shaking
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
