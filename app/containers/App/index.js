@@ -29,6 +29,7 @@ import SubmissionPage from 'containers/SubmissionPage/Loadable';
 import AuthPage from 'containers/AuthPage/Loadable';
 import SearchPage from 'containers/SearchPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import ProfilePage from 'containers/ProfilePage/Loadable';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -60,6 +61,7 @@ function App(props) {
         <Route exact path="/auth" component={AuthPage} />
         <Route exact path="/search" component={SearchPage} />
         <Route exact path="/article" component={ArticlePage} />
+        <Route exact path="/profile" component={ProfilePage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
