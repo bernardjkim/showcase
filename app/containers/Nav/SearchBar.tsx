@@ -1,23 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
 
-import NavContent from './components/NavContent';
-
-const StyledTextField = styled(TextField)`
-  width: 100%;
-  div {
-    height: 36px;
-
-    fieldset {
-      border-radius: 30px;
-    }
-  }
-` as typeof TextField;
+import { NavContent, StyledTextField } from './components';
 
 type Props = {
   value: string;

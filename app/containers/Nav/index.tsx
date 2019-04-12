@@ -5,25 +5,21 @@
  */
 
 import React from 'react';
-import styled from 'styled-components';
 // import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
+import { RouteComponentProps } from 'react-router-dom';
 
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+
+import { deleteToken } from 'Root/actions';
+// import { makeSelectUser } from 'Root/selectors';
+
 import Logo from './Logo';
 import SearchBar from './SearchBar';
 import NavActions from './NavActions';
-import { deleteToken } from 'Root/actions';
-// import { makeSelectUser } from 'Root/selectors';
-import { RouteComponentProps } from 'react-router-dom';
 
-const StyledAppBar = styled(AppBar)`
-  box-shadow: none;
-  border-bottom: solid 1px;
-  border-color: #ccddda;
-` as typeof AppBar;
+import { StyledAppBar } from './components';
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps) => ({
   handleLogout: () => dispatch(deleteToken()),

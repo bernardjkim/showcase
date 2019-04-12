@@ -36,11 +36,11 @@ export class HomePage extends React.PureComponent<Props> {
   }
 
   render() {
-    const { user, history, location, match } = this.props;
+    const { history, location, match } = this.props;
     const routeProps = { history, location, match };
     return (
       <div>
-        <Nav user={user} {...routeProps} />
+        <Nav {...routeProps} />
         <SearchResults {...routeProps} />
       </div>
     );

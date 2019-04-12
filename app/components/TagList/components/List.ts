@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const List = styled.div`
+export const List = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -9,5 +9,3 @@ const List = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
-
-export default List;
