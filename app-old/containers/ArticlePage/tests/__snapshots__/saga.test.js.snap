@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[` 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/comment",
+      Object {
+        "body": "articleId=5c4ebe9be5346639c09786e3",
+        "headers": Object {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[` 3`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[` 4`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/like",
+      Object {
+        "body": "articleId=5c4ebe9be5346639c09786e3",
+        "headers": Object {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[` 5`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/article/id",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[` 6`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[` 7`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/comment/?article=5c4ebe9be5346639c09786e3",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[` 8`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[` 9`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/like/?article=5c4ebe9be5346639c09786e3",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
