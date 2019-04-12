@@ -21,10 +21,10 @@ import createGenerateClassName from '@material-ui/core/styles/createGenerateClas
 import jssPreset from '@material-ui/core/styles/jssPreset';
 
 // Import root app
-import App from 'containers/App';
+import LanguageProvider from 'containers/LanguageProvider';
+import App from './Root';
 
 // Import Language Provider
-import LanguageProvider from 'containers/LanguageProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -72,7 +72,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept(['./i18n', 'containers/App'], () => {
+  module.hot.accept(['./i18n', './Root'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render(translationMessages);
   });
