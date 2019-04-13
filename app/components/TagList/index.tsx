@@ -5,7 +5,7 @@ import { List, StyledChip } from './components';
 
 type Props = {
   tags: string[];
-  handleDeleteTag: (tag: string) => () => void;
+  handleDeleteTag?: (tag: string) => () => void;
 };
 
 const TagList: React.FC<Props> = props => {
@@ -18,7 +18,7 @@ const TagList: React.FC<Props> = props => {
           variant="outlined"
           key={uuid()}
           label={tag}
-          onDelete={handleDeleteTag(tag)}
+          onDelete={handleDeleteTag ? handleDeleteTag(tag) : () => null}
         />
       ))}
     </List>

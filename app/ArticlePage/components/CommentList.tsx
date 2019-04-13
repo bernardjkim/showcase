@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid/v1';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 
 /* MUI */
 import Typography from '@material-ui/core/Typography';
@@ -20,11 +20,11 @@ const User = styled(Typography)`
   margin-right: 10px;
 ` as typeof Typography;
 
-const Date = styled(Typography)`
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 16px;
-` as typeof Typography;
+// const Date = styled(Typography)`
+//   font-weight: 300;
+//   font-size: 14px;
+//   line-height: 16px;
+// ` as typeof Typography;
 
 const List = styled.ul`
   width: 100%;

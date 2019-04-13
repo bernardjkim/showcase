@@ -6,24 +6,21 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
+import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 /* Utils */
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
-/* Shard Components */
-import Nav from 'containers/Nav';
+import injectSaga from 'utils/injectSaga';
 
 /* Local Components */
 import SearchResults from './SearchResults';
 
 /* Locals */
-import saga from './saga';
-import reducer from './reducer';
 import { clearState } from './actions';
+import reducer from './reducer';
+import saga from './saga';
 import makeSelectHomePage from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -33,12 +30,7 @@ export class HomePage extends React.PureComponent<Props> {
   }
 
   render() {
-    return (
-      <div>
-        <Nav />
-        <SearchResults />
-      </div>
-    );
+    return <SearchResults />;
   }
 }
 

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
+import styled from 'styled-components';
 
 export const StyledChip = styled(Chip)`
   margin-left: 2px;

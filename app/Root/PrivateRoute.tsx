@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
-import { createStructuredSelector } from 'reselect';
+import { withRouter, Redirect, Route, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import { Loadable } from 'loadable-components';
 

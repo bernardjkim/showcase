@@ -1,26 +1,25 @@
-import React from 'react';
-import uuid from 'uuid/v1';
 import queryString from 'query-string';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import uuid from 'uuid/v1';
 
 /* Shared Components */
 import ArticleCard from 'components/ArticleCard';
 
 /* Local Components */
+import { loadArticlesAll, loadNext, setSearch } from './actions';
 import { SearchResultsContainer } from './components';
 import { makeSelectArticles, makeSelectOffset, makeSelectSearch } from './selectors';
-import { loadArticlesAll, loadNext, setSearch } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 class SearchResults extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     // update search state if location changes
     if (this.props.location !== prevProps.location) {
-      const { term } = queryString.parse(this.props.location.search);
-      this.props.handleSetSearch((term as string) || '');
+      this.updateSearchValue();
     }
 
     // update articles if search changes
@@ -30,6 +29,7 @@ class SearchResults extends React.Component<Props> {
   }
 
   componentDidMount() {
+    this.updateSearchValue();
     this.props.handleLoadArticles();
     // Binds our scroll event handler
     window.addEventListener('scroll', this.handleScroll);
@@ -38,6 +38,11 @@ class SearchResults extends React.Component<Props> {
   componentWillUnmount() {
     // Unbind scroll event handler
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  updateSearchValue() {
+    const { term } = queryString.parse(this.props.location.search);
+    this.props.handleSetSearch((term as string) || '');
   }
 
   /**

@@ -5,23 +5,28 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import openInNewTab from 'utils/openInNewTab';
 
-import GitHub from './components/GitHub';
-import ButtonAction from './components/ButtonAction';
+import { makeSelectUser } from 'Root/selectors';
+import { likeArticle } from './actions';
+import { ButtonAction, GitHub, HeaderContainer, HeaderDivLeft, HeaderDivRight, HeaderTitle } from './components';
 
-const Header = props => {
-  /* state */
-  const { article, user } = props;
-  /* functions */
-  const { handleLikeArticle } = props;
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & {
+    github: string;
+    likes: any[];
+    title: string;
+    uri: string;
+  };
 
-  const title = article.get('title');
-  const github = article.get('github');
-  const uri = article.get('uri');
-  const likes = article.get('likes');
-  const likedByUser = likes && user ? likes.filter(like => like.get('user') === user.get('_id')).size > 0 : false;
+const Header: React.SFC<Props> = props => {
+  const { github, likes, title, uri, user, handleLikeArticle } = props;
+
+  const likedByUser = likes && user ? likes.filter(like => like.user === user._id.size > 0) : false;
 
   return (
     <HeaderContainer>
@@ -30,19 +35,28 @@ const Header = props => {
         <GitHub github={github} handleOpenRepo={openInNewTab(github)} />
       </HeaderDivLeft>
       <HeaderDivRight>
-        <ButtonAction disabled={likedByUser} label={`Like ${likes ? likes.size : 0}`} handleClick={handleLikeArticle} />
+        <ButtonAction
+          disabled={!!likedByUser}
+          label={`Like ${likes ? likes.length : 0}`}
+          handleClick={handleLikeArticle}
+        />
         <ButtonAction disabled={false} label="Visit" handleClick={openInNewTab(uri)} />
       </HeaderDivRight>
     </HeaderContainer>
   );
 };
 
-// Header.propTypes = {
-//   /* state */
-//   user: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
-//   article: PropTypes.oneOfType([ImmutablePropTypes.map.isRequired, PropTypes.bool]).isRequired,
-//   /* functions */
-//   handleLikeArticle: PropTypes.func.isRequired,
-// };
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+});
 
-export default Header;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  handleLikeArticle: () => dispatch(likeArticle()),
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(Header);

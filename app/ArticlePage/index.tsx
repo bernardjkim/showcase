@@ -4,32 +4,43 @@
  *
  */
 
-import React from 'react';
 import queryString from 'query-string';
+import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 /* Utils */
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
-/* Shared Components */
-import Nav from 'containers/Nav';
+import injectSaga from 'utils/injectSaga';
 
 /* Locals */
-import saga from './saga';
+import { loadArticle } from './actions';
 import reducer from './reducer';
-import { createComment, likeArticle, loadArticle } from './actions';
-import makeSelectArticlePage, { makeSelectArticle } from './selectors';
+import saga from './saga';
+import makeSelectArticlePage, { makeSelectArticle, makeSelectComments, makeSelectLikes } from './selectors';
+import { Query } from './types';
 
 /* Local Components */
-import Header from './Header';
+import CommentForm from './CommentForm';
 import Gallary from './Gallary';
+import Header from './Header';
 import Info from './Info';
-import Comments from './Comments';
-import { RouteComponentProps } from 'react-router-dom';
-import { Query } from './types';
+import { ArticlePageContainer, CommentsContainer, CommentList } from './components';
+
+const mapStateToProps = createStructuredSelector({
+  articlePage: makeSelectArticlePage(),
+  article: makeSelectArticle(),
+  comments: makeSelectComments(),
+  likes: makeSelectLikes(),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  handleLoadArticle: (query: Query) => dispatch(loadArticle(query)),
+});
+
+type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 /* eslint-disable react/prefer-stateless-function */
 export class ArticlePage extends React.PureComponent<Props> {
@@ -39,41 +50,23 @@ export class ArticlePage extends React.PureComponent<Props> {
   }
 
   render() {
-    const { article } = this.props;
+    const { article, comments, likes } = this.props;
     return (
       <ArticlePageContainer>
-        <Nav />
         {article && (
           <React.Fragment>
-            <Header {...this.props} />
-            <Gallary {...this.props} />
-            <Info {...this.props} />
-            <Comments {...this.props} />
+            <Header github={article.github} likes={likes} title={article.title} uri={article.uri} />
+            <Gallary uri={article.uri} image={article.image} />
+            <Info description={article.description} tags={article.tags} />
+            <CommentsContainer>
+              <CommentForm />
+              <CommentList comments={comments} />
+            </CommentsContainer>
           </React.Fragment>
         )}
       </ArticlePageContainer>
     );
   }
-}
-
-type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const mapStateToProps = createStructuredSelector({
-  articlePage: makeSelectArticlePage(),
-  article: makeSelectArticle(),
-});
-
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    handleCreateComment: (comment: string) => {
-      // ignore empty comments
-      if (comment.length > 0) {
-        dispatch(createComment(comment));
-      }
-    },
-    handleLoadArticle: (query: Query) => dispatch(loadArticle(query)),
-    handleLikeArticle: () => dispatch(likeArticle()),
-  };
 }
 
 const withConnect = connect(

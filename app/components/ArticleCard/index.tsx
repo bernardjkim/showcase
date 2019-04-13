@@ -1,9 +1,8 @@
 import React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router';
 
-import openInNewTab from 'utils/openInNewTab';
 import { Article } from 'types';
-
-import { RouteComponentProps, withRouter } from 'react-router';
+import openInNewTab from 'utils/openInNewTab';
 
 import {
   CardDescription,

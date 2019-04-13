@@ -6,14 +6,14 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 /* Shared Components */
 import TagList from 'components/TagList';
 
 /* Local Components */
-import { SubmissionFormContainer, StyledTextField, InputImage, SubmitButton } from './components';
+import { InputImage, StyledTextField, SubmissionFormContainer, SubmitButton } from './components';
 
 import { submitForm } from './actions';
 import { makeSelectLoading } from './selectors';

@@ -1,58 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 
 import TagList from 'components/TagList';
+import { ContainerTags, Description, DescriptionBox, InfoContainer } from './components';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-`;
-const DescriptionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const Description = styled(Typography)`
-  text-align: center;
-  font-size: 17px;
-  line-height: 170%;
-`;
-
-const ContainerTags = styled.div`
-  margin-top: 10px;
-`;
-
-const Info = props => {
-  /* state */
-  const { article } = props;
-
-  return (
-    <Container>
-      <DescriptionBox>
-        <Description>{article.get('description')}</Description>
-        <ContainerTags>
-          <TagList tags={article.get('tags')} handleDeleteTag={() => {}} />
-        </ContainerTags>
-      </DescriptionBox>
-    </Container>
-  );
+type Props = {
+  description: string;
+  tags: string[];
 };
 
-Info.propTypes = {
-  /* state */
-  article: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool])
-    .isRequired,
+const Info: React.SFC<Props> = props => {
+  const { description, tags } = props;
+  return (
+    <InfoContainer>
+      <DescriptionBox>
+        <Description>{description}</Description>
+        <ContainerTags>
+          <TagList tags={tags} />
+        </ContainerTags>
+      </DescriptionBox>
+    </InfoContainer>
+  );
 };
 
 export default Info;

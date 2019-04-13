@@ -5,16 +5,16 @@
  */
 
 import {
-  HomeState,
-  HomeActionTypes,
   CLEAR_STATE,
-  SET_SEARCH,
+  HomeActionTypes,
+  HomeState,
   LOAD_ARTICLES_ALL,
   LOAD_ARTICLES_ALL_ERROR,
   LOAD_ARTICLES_ALL_SUCCESS,
   LOAD_NEXT,
-  LOAD_NEXT_SUCCESS,
   LOAD_NEXT_ERROR,
+  LOAD_NEXT_SUCCESS,
+  SET_SEARCH,
 } from './types';
 
 export const initialState: HomeState = {
@@ -25,23 +25,16 @@ export const initialState: HomeState = {
   search: '',
 };
 
-function homePageReducer(
-  state: HomeState = initialState,
-  action: HomeActionTypes,
-) {
+function homePageReducer(state: HomeState = initialState, action: HomeActionTypes) {
   switch (action.type) {
     case CLEAR_STATE:
       return initialState;
 
     case SET_SEARCH:
-      return { ...state, search: action.search };
+      return { ...state, search: action.search, offset: 0 };
 
     case LOAD_NEXT:
-      return {
-        ...state,
-        loading: true,
-        error: undefined,
-      };
+      return { ...state, loading: true, error: undefined };
 
     case LOAD_NEXT_SUCCESS:
       return {
@@ -52,19 +45,10 @@ function homePageReducer(
       };
 
     case LOAD_NEXT_ERROR:
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
+      return { ...state, error: action.error, loading: false };
 
     case LOAD_ARTICLES_ALL:
-      return {
-        ...state,
-        articles: [],
-        loading: true,
-        error: undefined,
-      };
+      return { ...state, articles: [], loading: true, error: undefined };
 
     case LOAD_ARTICLES_ALL_SUCCESS:
       return {
@@ -75,11 +59,7 @@ function homePageReducer(
       };
 
     case LOAD_ARTICLES_ALL_ERROR:
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
+      return { ...state, error: action.error, loading: false };
 
     default:
       return state;

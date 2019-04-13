@@ -1,37 +1,39 @@
-import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import qs from 'qs';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import api from '../../api';
-import request from '../../utils/request';
+import api from 'api';
+import request from 'utils/request';
 import {
-  createCommentSuccess,
   createCommentError,
-  likeArticleSuccess,
+  createCommentSuccess,
   likeArticleError,
-  loadArticleSuccess,
+  likeArticleSuccess,
   loadArticleError,
+  loadArticleSuccess,
   loadComments as loadCommentsAction,
-  loadCommentsSuccess,
   loadCommentsError,
+  loadCommentsSuccess,
   loadLikes as loadLikesAction,
-  loadLikesSuccess,
   loadLikesError,
+  loadLikesSuccess,
 } from './actions';
+import { makeSelectArticle } from './selectors';
 import {
+  CreateCommentAction,
   CREATE_COMMENT,
+  LoadArticleAction,
   LIKE_ARTICLE,
   LOAD_ARTICLE,
   LOAD_COMMENTS,
   LOAD_LIKES,
-} from './constants';
-import { makeSelectArticle } from './selectors';
+} from './types';
 
 // Individual exports for testing
 
 /**
  * POST comment request/response handler
  */
-export function* createComment(action) {
+export function* createComment(action: CreateCommentAction) {
   const article = yield select(makeSelectArticle());
 
   const url = api.comment.create;
@@ -41,7 +43,7 @@ export function* createComment(action) {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: qs.stringify({
-      articleId: article.get('_id'),
+      articleId: article._id,
       value: action.comment,
     }),
   };
@@ -68,7 +70,7 @@ export function* likeArticle() {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: qs.stringify({ articleId: article.get('_id') }),
+    body: qs.stringify({ articleId: article._id }),
   };
 
   try {
@@ -84,7 +86,7 @@ export function* likeArticle() {
 /**
  * GET article request/response handler
  */
-export function* loadArticle(action) {
+export function* loadArticle(action: LoadArticleAction) {
   const { id } = action.query;
 
   const url = api.article.getOne(id);
@@ -107,7 +109,7 @@ export function* loadArticle(action) {
 export function* loadComments() {
   const article = yield select(makeSelectArticle());
 
-  const url = api.comment.get(article.get('_id'));
+  const url = api.comment.get(article._id);
 
   try {
     // Call our request helper (see 'utils/request')
@@ -123,7 +125,7 @@ export function* loadComments() {
  */
 export function* loadLikes() {
   const article = yield select(makeSelectArticle());
-  const url = api.like.getByArticle(article.get('_id'));
+  const url = api.like.getByArticle(article._id);
 
   try {
     // Call our request helper (see 'utils/request')

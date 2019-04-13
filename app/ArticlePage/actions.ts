@@ -4,10 +4,14 @@
  *
  */
 
+import { Article } from 'types';
 import {
+  ArticleActionTypes,
+  Comment,
   CREATE_COMMENT,
   CREATE_COMMENT_ERROR,
   CREATE_COMMENT_SUCCESS,
+  Like,
   LIKE_ARTICLE,
   LIKE_ARTICLE_ERROR,
   LIKE_ARTICLE_SUCCESS,
@@ -20,7 +24,8 @@ import {
   LOAD_LIKES,
   LOAD_LIKES_ERROR,
   LOAD_LIKES_SUCCESS,
-} from './constants';
+  Query,
+} from './types';
 
 /**
  * Create comment, this action starts the request saga
@@ -29,7 +34,7 @@ import {
  *
  * @return {object}           - An action object with a type of CREATE_COMMENT
  */
-export function createComment(comment) {
+export function createComment(comment: Comment): ArticleActionTypes {
   return {
     type: CREATE_COMMENT,
     comment,
@@ -43,7 +48,7 @@ export function createComment(comment) {
  *
  * @return {object}           - An action object with a type of CREATE_COMMENT_SUCCESS
  */
-export function createCommentSuccess(comment) {
+export function createCommentSuccess(comment: Comment): ArticleActionTypes {
   return {
     type: CREATE_COMMENT_SUCCESS,
     comment,
@@ -55,7 +60,7 @@ export function createCommentSuccess(comment) {
  *
  * @return {object} - An action object with a type of CREATE_COMMENT_SUCCESS
  */
-export function createCommentError(error) {
+export function createCommentError(error: Error): ArticleActionTypes {
   return {
     type: CREATE_COMMENT_ERROR,
     error,
@@ -67,7 +72,7 @@ export function createCommentError(error) {
  *
  * @return {object} - An action object with a type of LIKE_ARTICLE
  */
-export function likeArticle() {
+export function likeArticle(): ArticleActionTypes {
   return {
     type: LIKE_ARTICLE,
   };
@@ -79,7 +84,7 @@ export function likeArticle() {
  *
  * @returns {object}        - An action object with a type of LIKE_ARTICLE_SUCCESS
  */
-export function likeArticleSuccess(like) {
+export function likeArticleSuccess(like: Like): ArticleActionTypes {
   return {
     type: LIKE_ARTICLE_SUCCESS,
     like,
@@ -91,7 +96,7 @@ export function likeArticleSuccess(like) {
  *
  * @return {object} - An action object with a type of LIKE_ARTICLE_ERROR
  */
-export function likeArticleError(error) {
+export function likeArticleError(error: Error): ArticleActionTypes {
   return {
     type: LIKE_ARTICLE_ERROR,
     error,
@@ -105,7 +110,7 @@ export function likeArticleError(error) {
  *
  * @return {object}         - An action object with a type of LOAD_ARTICLE
  */
-export function loadArticle(query) {
+export function loadArticle(query: Query): ArticleActionTypes {
   return {
     type: LOAD_ARTICLE,
     query,
@@ -119,7 +124,7 @@ export function loadArticle(query) {
  *
  * @return {object}           - An action object with a type of LOAD_ARTICLE_SUCCESS
  */
-export function loadArticleSuccess(article) {
+export function loadArticleSuccess(article: Article): ArticleActionTypes {
   return {
     type: LOAD_ARTICLE_SUCCESS,
     article,
@@ -133,7 +138,7 @@ export function loadArticleSuccess(article) {
  *
  * @return {object}       An action object with a type of LOAD_ARTICLE_ERROR
  */
-export function loadArticleError(error) {
+export function loadArticleError(error: Error): ArticleActionTypes {
   return {
     type: LOAD_ARTICLE_ERROR,
     error,
@@ -145,7 +150,7 @@ export function loadArticleError(error) {
  *
  * @return {object} - An action object with a type of LOAD_COMMENTS
  */
-export function loadComments() {
+export function loadComments(): ArticleActionTypes {
   return {
     type: LOAD_COMMENTS,
   };
@@ -158,7 +163,7 @@ export function loadComments() {
  *
  * @return {object}           - An action object with a type of LOAD_COMMENT_SUCCESS
  */
-export function loadCommentsSuccess(comments) {
+export function loadCommentsSuccess(comments: Comment[]): ArticleActionTypes {
   return {
     type: LOAD_COMMENTS_SUCCESS,
     comments,
@@ -172,7 +177,7 @@ export function loadCommentsSuccess(comments) {
  *
  * @return {object}       - An action object with a type of LOAD_COMMENTS_ERROR
  */
-export function loadCommentsError(error) {
+export function loadCommentsError(error: Error): ArticleActionTypes {
   return {
     type: LOAD_COMMENTS_ERROR,
     error,
@@ -184,7 +189,7 @@ export function loadCommentsError(error) {
  *
  * @return {object} - An action object with a type of LOAD_LIKES
  */
-export function loadLikes() {
+export function loadLikes(): ArticleActionTypes {
   return {
     type: LOAD_LIKES,
   };
@@ -197,7 +202,7 @@ export function loadLikes() {
  *
  * @return {object}         - An action object with a type of LOAD_LIKES_SUCCESS
  */
-export function loadLikesSuccess(likes) {
+export function loadLikesSuccess(likes: Like[]): ArticleActionTypes {
   return {
     type: LOAD_LIKES_SUCCESS,
     likes,
@@ -211,7 +216,7 @@ export function loadLikesSuccess(likes) {
  *
  * @return {object}       - An action object with a type of LOAD_LIKES_ERROR
  */
-export function loadLikesError(error) {
+export function loadLikesError(error: Error): ArticleActionTypes {
   return {
     type: LOAD_LIKES_ERROR,
     error,

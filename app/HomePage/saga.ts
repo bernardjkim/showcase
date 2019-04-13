@@ -1,15 +1,11 @@
-import { all, takeLatest, call, put, select } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+
 import api from 'api';
-import request from 'utils/request';
 import processSearchResults from 'utils/processSearchResults';
-import { LOAD_ARTICLES_ALL, LOAD_NEXT } from './types';
-import {
-  loadArticlesAllSuccess,
-  loadArticlesAllError,
-  loadNextSuccess,
-  loadNextError,
-} from './actions';
+import request from 'utils/request';
+import { loadArticlesAllError, loadArticlesAllSuccess, loadNextError, loadNextSuccess } from './actions';
 import { makeSelectOffset, makeSelectSearch } from './selectors';
+import { LOAD_ARTICLES_ALL, LOAD_NEXT } from './types';
 
 // Individual exports for testing
 
@@ -55,8 +51,5 @@ export function* loadNext() {
  * Root saga manages watcher lifecycle
  */
 export default function* homePageSaga() {
-  yield all([
-    takeLatest(LOAD_ARTICLES_ALL, loadArticlesAll),
-    takeLatest(LOAD_NEXT, loadNext),
-  ]);
+  yield all([takeLatest(LOAD_ARTICLES_ALL, loadArticlesAll), takeLatest(LOAD_NEXT, loadNext)]);
 }
