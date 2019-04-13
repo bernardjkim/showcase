@@ -10,9 +10,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
-import { withRouter } from 'react-router';
 
 /** Font Awesome Icons */
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -22,19 +21,18 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 /** MUI theme */
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-import HomePage from '../HomePage/Loadable';
+import HomePage from 'HomePage/Loadable';
 // import ArticlePage from 'containers/ArticlePage/Loadable';
-// import SubmissionPage from 'containers/SubmissionPage/Loadable';
-// import AuthPage from 'containers/AuthPage/Loadable';
-// import SearchPage from 'containers/SearchPage/Loadable';
-import NotFoundPage from '../NotFoundPage/Loadable';
+import SubmissionPage from 'SubmissionPage/Loadable';
+import AuthPage from 'AuthPage/Loadable';
+import NotFoundPage from 'NotFoundPage/Loadable';
 // import ProfilePage from 'containers/ProfilePage/Loadable';
+import PrivateRoute from './PrivateRoute';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
 import { loadUser } from './actions';
-import { makeSelectUser, makeSelectValidateToken } from './selectors';
 
 import saga from './saga';
 import reducer from './reducer';
@@ -44,40 +42,36 @@ import GlobalStyle from '../global-styles';
 
 library.add(fas, fab);
 
-function App(props: any) {
-  const { user, validateToken } = props;
-  const { handleLoadUser } = props;
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-  if (!user && validateToken) {
-    handleLoadUser();
+export class App extends React.PureComponent<Props> {
+  componentDidMount() {
+    this.props.handleLoadUser();
   }
 
-  return (
-    <MuiThemeProvider theme={theme}>
-      <Switch>
-        <Route exact={true} path="/" component={HomePage} />
-        <Route exact={true} path="/search" component={HomePage} />
-        {/* <Route exact path="/submit" component={SubmissionPage} />
-        <Route exact path="/auth" component={AuthPage} />
-        <Route exact path="/article" component={ArticlePage} />
-        <Route exact path="/profile" component={ProfilePage} /> */}
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-    </MuiThemeProvider>
-  );
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Switch>
+          <Route exact={true} path="/" component={HomePage} />
+          <Route exact={true} path="/search" component={HomePage} />
+          <Route exact={true} path="/auth" component={AuthPage} />
+          <PrivateRoute exact={true} path="/submit" component={SubmissionPage} />
+          {/* <Route exact path="/article" component={ArticlePage} /> */}
+          {/* <Route exact path="/profile" component={ProfilePage} /> */}
+          <Route component={NotFoundPage} />
+        </Switch>
+        <GlobalStyle />
+      </MuiThemeProvider>
+    );
+  }
 }
 
-const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
-  validateToken: makeSelectValidateToken(),
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    handleLoadUser: () => {
-      dispatch(loadUser());
-    },
+    handleLoadUser: () => dispatch(loadUser()),
   };
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'uuid/v1';
 import queryString from 'query-string';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
@@ -11,16 +11,12 @@ import ArticleCard from 'components/ArticleCard';
 
 /* Local Components */
 import { SearchResultsContainer } from './components';
-import {
-  makeSelectArticles,
-  makeSelectOffset,
-  makeSelectSearch,
-} from './selectors';
+import { makeSelectArticles, makeSelectOffset, makeSelectSearch } from './selectors';
 import { loadArticlesAll, loadNext, setSearch } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 class SearchResults extends React.Component<Props> {
-  componentDidUpdate(prevProps: any) {
+  componentDidUpdate(prevProps: Props) {
     // update search state if location changes
     if (this.props.location !== prevProps.location) {
       const { term } = queryString.parse(this.props.location.search);
@@ -64,23 +60,17 @@ class SearchResults extends React.Component<Props> {
   };
 
   render() {
-    const { articles, history, location, match } = this.props;
-    const routeProps = { history, location, match };
+    const { articles } = this.props;
 
     return (
       <SearchResultsContainer>
-        {articles &&
-          articles.map(article => (
-            <ArticleCard key={uuid()} {...routeProps} article={article} />
-          ))}
+        {articles && articles.map(article => <ArticleCard key={uuid()} article={article} />)}
       </SearchResultsContainer>
     );
   }
 }
 
-type Props = RouteComponentProps<any> &
-  ReturnType<typeof mapDispatchToProps> &
-  ReturnType<typeof mapStateToProps>;
+type Props = RouteComponentProps & ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps>;
 
 const mapStateToProps = createStructuredSelector({
   articles: makeSelectArticles(),
@@ -101,4 +91,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(SearchResults);
+export default withRouter(compose(withConnect)(SearchResults));

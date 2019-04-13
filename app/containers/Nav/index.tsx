@@ -5,35 +5,34 @@
  */
 
 import React from 'react';
-// import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import Toolbar from '@material-ui/core/Toolbar';
 
 import { deleteToken } from 'Root/actions';
-// import { makeSelectUser } from 'Root/selectors';
+import { makeSelectUser } from 'Root/selectors';
 
 import Logo from './Logo';
 import SearchBar from './SearchBar';
 import NavActions from './NavActions';
-
 import { StyledAppBar } from './components';
+
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleLogout: () => dispatch(deleteToken()),
 });
 
-type OwnProps = RouteComponentProps<any> & {
-  user?: object;
-};
-
 type State = {
   search: string;
 };
 
-type Props = ReturnType<typeof mapDispatchToProps> & OwnProps;
+type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 /* eslint-disable react/prefer-stateless-function */
 class Nav extends React.Component<Props, State> {
@@ -62,11 +61,7 @@ class Nav extends React.Component<Props, State> {
       <StyledAppBar color="inherit" position="relative">
         <Toolbar>
           <Logo />
-          <SearchBar
-            handleSubmit={handleSubmitSearch(search)}
-            handleChange={handleChange}
-            value={search}
-          />
+          <SearchBar handleSubmit={handleSubmitSearch(search)} handleChange={handleChange} value={search} />
           <NavActions user={user} handleLogout={handleLogout} />
         </Toolbar>
       </StyledAppBar>
@@ -74,6 +69,9 @@ class Nav extends React.Component<Props, State> {
   }
 }
 
-const withConnect = connect(mapDispatchToProps);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
-export default compose(withConnect)(Nav);
+export default withRouter(compose(withConnect)(Nav));

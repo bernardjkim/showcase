@@ -8,14 +8,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 
 /* Utils */
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
-/* Globals */
-import { makeSelectUser } from 'Root/selectors';
 
 /* Shard Components */
 import Nav from 'containers/Nav';
@@ -36,24 +33,19 @@ export class HomePage extends React.PureComponent<Props> {
   }
 
   render() {
-    const { history, location, match } = this.props;
-    const routeProps = { history, location, match };
     return (
       <div>
-        <Nav {...routeProps} />
-        <SearchResults {...routeProps} />
+        <Nav />
+        <SearchResults />
       </div>
     );
   }
 }
 
-type Props = RouteComponentProps<any> &
-  ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
+type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = createStructuredSelector({
   homePage: makeSelectHomePage(),
-  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch: Dispatch) {

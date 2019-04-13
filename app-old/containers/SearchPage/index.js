@@ -54,7 +54,6 @@ export class SearchPage extends React.PureComponent {
     if (e.key === 'Enter' && search !== '') {
       e.preventDefault();
       this.props.history.push(`/search?q=${search}`);
-      // this.props.handleSetSearch(search);
     }
   };
 
