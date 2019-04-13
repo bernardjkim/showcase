@@ -8,6 +8,7 @@ export interface HomeState {
   error?: Error;
   articles: Article[];
   offset: number;
+  search: string;
 }
 
 // =============================================================================
@@ -15,6 +16,7 @@ export interface HomeState {
 // =============================================================================
 
 export const CLEAR_STATE = 'app/HomePage/CLEAR_STATE';
+export const SET_SEARCH = 'app/HomePage/SET_SEARCH';
 
 export const LOAD_ARTICLES_ALL = 'app/HomePage/LOAD_ARTICLES_ALL';
 export const LOAD_ARTICLES_ALL_ERROR = 'app/HomePage/LOAD_ARTICLES_ALL_ERROR';
@@ -27,6 +29,11 @@ export const LOAD_NEXT_SUCCESS = 'app/HomePage/LOAD_NEXT_SUCCESS';
 
 interface ClearStateAction {
   type: typeof CLEAR_STATE;
+}
+
+interface SetSearchAction {
+  type: typeof SET_SEARCH;
+  search: string;
 }
 
 interface LoadArticlesAllAction {
@@ -59,6 +66,7 @@ interface LoadNextSuccessAction {
 
 export type HomeActionTypes =
   | ClearStateAction
+  | SetSearchAction
   | LoadArticlesAllAction
   | LoadArticlesAllErrorAction
   | LoadArticlesAllSuccessAction

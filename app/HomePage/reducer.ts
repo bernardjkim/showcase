@@ -8,6 +8,7 @@ import {
   HomeState,
   HomeActionTypes,
   CLEAR_STATE,
+  SET_SEARCH,
   LOAD_ARTICLES_ALL,
   LOAD_ARTICLES_ALL_ERROR,
   LOAD_ARTICLES_ALL_SUCCESS,
@@ -21,6 +22,7 @@ export const initialState: HomeState = {
   error: undefined,
   articles: [],
   offset: 0,
+  search: '',
 };
 
 function homePageReducer(
@@ -30,6 +32,9 @@ function homePageReducer(
   switch (action.type) {
     case CLEAR_STATE:
       return initialState;
+
+    case SET_SEARCH:
+      return { ...state, search: action.search };
 
     case LOAD_NEXT:
       return {

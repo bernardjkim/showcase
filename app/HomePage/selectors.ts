@@ -36,6 +36,12 @@ const makeSelectOffset = () =>
     homeState => homeState.offset,
   );
 
+const makeSelectSearch = () =>
+  createSelector(
+    selectHomePageDomain,
+    homeState => homeState.search,
+  );
+
 /**
  * Default selector used by HomePage
  */
@@ -53,4 +59,5 @@ export {
   makeSelectError,
   makeSelectLoading,
   makeSelectOffset,
+  makeSelectSearch,
 };

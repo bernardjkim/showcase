@@ -9,7 +9,7 @@ import {
   loadNextSuccess,
   loadNextError,
 } from './actions';
-import { makeSelectOffset } from './selectors';
+import { makeSelectOffset, makeSelectSearch } from './selectors';
 
 // Individual exports for testing
 
@@ -17,12 +17,12 @@ import { makeSelectOffset } from './selectors';
  * GET articles all request/response handler
  */
 export function* loadArticlesAll() {
+  const search = yield select(makeSelectSearch());
   const offset = yield select(makeSelectOffset());
-  const url = api.article.getAll(offset);
+  const url = api.article.search(search, offset);
 
   try {
     const res = yield call(request, url);
-
     yield put(loadArticlesAllSuccess(processSearchResults(res)));
   } catch (err) {
     yield put(loadArticlesAllError(err));
@@ -33,6 +33,7 @@ export function* loadArticlesAll() {
  * GET articles next request/response handler
  */
 export function* loadNext() {
+  const search = yield select(makeSelectSearch());
   const offset = yield select(makeSelectOffset());
   // NOTE: prevent loadall & loadnext at the same time. Might want to think of a
   // better way to handle this later...
@@ -40,11 +41,10 @@ export function* loadNext() {
     return;
   }
 
-  const url = api.article.getAll(offset);
+  const url = api.article.search(search, offset);
 
   try {
     const res = yield call(request, url);
-
     yield put(loadNextSuccess(processSearchResults(res)));
   } catch (err) {
     yield put(loadNextError(err));

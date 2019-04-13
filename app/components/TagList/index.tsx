@@ -9,10 +9,7 @@ type Props = {
 };
 
 const TagList: React.FC<Props> = props => {
-  /* state */
-  const { tags } = props;
-  /* fuctions */
-  const { handleDeleteTag } = props;
+  const { tags, handleDeleteTag } = props;
 
   return (
     <List>

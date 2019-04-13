@@ -21,16 +21,8 @@ import NavActions from './NavActions';
 
 import { StyledAppBar } from './components';
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleLogout: () => dispatch(deleteToken()),
-
-  handleSubmitSearch: (search: string) => (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && search !== '') {
-      e.preventDefault();
-      ownProps.history.push(`/search?q=${search}`);
-      // this.props.handleSetSearch(search);
-    }
-  },
 });
 
 type OwnProps = RouteComponentProps<any> & {
@@ -53,9 +45,17 @@ class Nav extends React.Component<Props, State> {
     this.setState({ search: e.target.value });
   };
 
+  handleSubmitSearch = (search: string) => (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && search !== '') {
+      e.preventDefault();
+      this.props.history.push(`/search?term=${search}`);
+      this.setState({ search: '' });
+    }
+  };
+
   render() {
-    const { handleChange } = this;
-    const { user, handleLogout, handleSubmitSearch } = this.props;
+    const { handleChange, handleSubmitSearch } = this;
+    const { user, handleLogout } = this.props;
     const { search } = this.state;
 
     return (

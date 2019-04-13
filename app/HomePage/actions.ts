@@ -7,6 +7,7 @@ import { Article } from 'types';
 import {
   HomeActionTypes,
   CLEAR_STATE,
+  SET_SEARCH,
   LOAD_ARTICLES_ALL,
   LOAD_ARTICLES_ALL_ERROR,
   LOAD_ARTICLES_ALL_SUCCESS,
@@ -23,6 +24,18 @@ import {
 export function clearState(): HomeActionTypes {
   return {
     type: CLEAR_STATE,
+  };
+}
+
+/**
+ * Set the current search term
+ * @param   {string} search - The search term
+ * @returns {object}        - An action object with a type of SET_SEARCH
+ */
+export function setSearch(search: string): HomeActionTypes {
+  return {
+    type: SET_SEARCH,
+    search,
   };
 }
 

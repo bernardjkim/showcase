@@ -1,5 +1,6 @@
 import React from 'react';
 import uuid from 'uuid/v1';
+import queryString from 'query-string';
 import { RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -10,11 +11,28 @@ import ArticleCard from 'components/ArticleCard';
 
 /* Local Components */
 import { SearchResultsContainer } from './components';
-import { makeSelectArticles, makeSelectOffset } from './selectors';
-import { loadArticlesAll, loadNext } from './actions';
+import {
+  makeSelectArticles,
+  makeSelectOffset,
+  makeSelectSearch,
+} from './selectors';
+import { loadArticlesAll, loadNext, setSearch } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 class SearchResults extends React.Component<Props> {
+  componentDidUpdate(prevProps: any) {
+    // update search state if location changes
+    if (this.props.location !== prevProps.location) {
+      const { term } = queryString.parse(this.props.location.search);
+      this.props.handleSetSearch((term as string) || '');
+    }
+
+    // update articles if search changes
+    if (this.props.search !== prevProps.search) {
+      this.props.handleLoadArticles();
+    }
+  }
+
   componentDidMount() {
     this.props.handleLoadArticles();
     // Binds our scroll event handler
@@ -67,12 +85,14 @@ type Props = RouteComponentProps<any> &
 const mapStateToProps = createStructuredSelector({
   articles: makeSelectArticles(),
   offset: makeSelectOffset(),
+  search: makeSelectSearch(),
 });
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
     handleLoadArticles: () => dispatch(loadArticlesAll()),
     handleLoadNext: () => dispatch(loadNext()),
+    handleSetSearch: (search: string) => dispatch(setSearch(search)),
   };
 }
 

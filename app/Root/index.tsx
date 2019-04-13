@@ -56,9 +56,9 @@ function App(props: any) {
     <MuiThemeProvider theme={theme}>
       <Switch>
         <Route exact={true} path="/" component={HomePage} />
+        <Route exact={true} path="/search" component={HomePage} />
         {/* <Route exact path="/submit" component={SubmissionPage} />
         <Route exact path="/auth" component={AuthPage} />
-        <Route exact path="/search" component={SearchPage} />
         <Route exact path="/article" component={ArticlePage} />
         <Route exact path="/profile" component={ProfilePage} /> */}
         <Route component={NotFoundPage} />
