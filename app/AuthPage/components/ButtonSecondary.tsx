@@ -1,5 +1,5 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
+import React from 'react';
 
 export const ButtonSecondary: React.FC<Props> = props => {
   const { label, handleClick } = props;

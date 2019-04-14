@@ -5,19 +5,19 @@
  */
 
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 /* Utils */
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 
 /* Locals */
-import saga from './saga';
+import { clearState, submitForm } from './actions';
 import reducer from './reducer';
-import { submitForm, clearState } from './actions';
+import saga from './saga';
 import makeSelectSubmissionPage, { makeSelectSubmissionSuccess } from './selectors';
 import { Form } from './types';
 

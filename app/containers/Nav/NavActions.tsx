@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AuthLink, SubmitLink } from 'Routes';
 
-import { NavContent, ActionsContainer, StyledButton } from './components';
+import { ActionsContainer, NavContent, StyledButton } from './components';
 
 type Props = {
   user?: object;

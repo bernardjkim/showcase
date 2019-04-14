@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
 
 export const ErrorMessage = styled(Typography)`
   color: red;

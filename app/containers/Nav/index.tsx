@@ -5,10 +5,10 @@
  */
 
 import React from 'react';
-import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -16,8 +16,8 @@ import { deleteToken } from 'Root/actions';
 import { makeSelectUser } from 'Root/selectors';
 
 import Logo from './Logo';
-import SearchBar from './SearchBar';
 import NavActions from './NavActions';
+import SearchBar from './SearchBar';
 import { StyledAppBar } from './components';
 
 const mapStateToProps = createStructuredSelector({

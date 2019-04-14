@@ -5,8 +5,6 @@
  */
 
 import {
-  LoginFormData,
-  SignupFormData,
   AuthActionTypes,
   CLEAR_ERRORS,
   CREATE_TOKEN,
@@ -15,6 +13,8 @@ import {
   CREATE_USER,
   CREATE_USER_ERROR,
   CREATE_USER_SUCCESS,
+  LoginFormData,
+  SignupFormData,
 } from './types';
 
 /**

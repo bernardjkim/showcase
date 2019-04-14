@@ -5,15 +5,15 @@
  */
 import { Article } from 'types';
 import {
-  HomeActionTypes,
   CLEAR_STATE,
-  SET_SEARCH,
+  HomeActionTypes,
   LOAD_ARTICLES_ALL,
   LOAD_ARTICLES_ALL_ERROR,
   LOAD_ARTICLES_ALL_SUCCESS,
   LOAD_NEXT,
   LOAD_NEXT_ERROR,
   LOAD_NEXT_SUCCESS,
+  SET_SEARCH,
 } from './types';
 
 /**

@@ -1,11 +1,11 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import api from 'api/index';
 import request from 'utils/request';
 
-import { submitFormSuccess, submitFormError } from './actions';
-import { SUBMIT_FORM, SubmitFormAction } from './types';
+import { submitFormError, submitFormSuccess } from './actions';
+import { SubmitFormAction, SUBMIT_FORM } from './types';
 
 // Individual exports for testing
 

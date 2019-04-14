@@ -14,11 +14,7 @@ const Gallary: React.SFC<Props> = props => {
 
   return (
     <GallaryContainer>
-      <StyledImage
-        onClick={openInNewTab(uri)}
-        src={image || require('images/not-found.gif')} // eslint-disable-line global-require
-        alt="Image Not Found"
-      />
+      <StyledImage onClick={openInNewTab(uri)} src={image || require('images/not-found.gif')} alt="Image Not Found" />
     </GallaryContainer>
   );
 };

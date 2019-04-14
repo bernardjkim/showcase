@@ -6,17 +6,17 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-import { createToken, clearErrors } from './actions';
+import { clearErrors, createToken } from './actions';
 
 import {
-  FormContainer,
-  FormInput,
-  ErrorMessage,
   Actions,
   ButtonPrimary,
+  ErrorMessage,
+  FormContainer,
+  FormInput,
   // ButtonSecondary,
 } from './components';
 import { makeSelectError } from './selectors';

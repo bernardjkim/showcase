@@ -5,13 +5,13 @@
  */
 
 import {
-  Form,
-  Error,
   CLEAR_STATE,
+  Error,
+  Form,
+  SubmissionActionTypes,
   SUBMIT_FORM,
   SUBMIT_FORM_ERROR,
   SUBMIT_FORM_SUCCESS,
-  SubmissionActionTypes,
 } from './types';
 
 export function clearState(): SubmissionActionTypes {

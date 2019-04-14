@@ -6,13 +6,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-import { createUser, clearErrors } from './actions';
+import { clearErrors, createUser } from './actions';
 import { makeSelectError } from './selectors';
 
-import { FormContainer, FormInput, ErrorMessage, Actions, ButtonPrimary } from './components';
+import { Actions, ButtonPrimary, ErrorMessage, FormContainer, FormInput } from './components';
 import { SignupFormData } from './types';
 
 /* eslint-disable react/prefer-stateless-function */

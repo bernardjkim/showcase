@@ -8,7 +8,7 @@ import { SubmissionState } from './types';
 
 const selectSubmissionPageDomain = (state: any): SubmissionState => {
   return state.get('submissionPage', initialState);
-}
+};
 
 /**
  * Other specific selectors
@@ -40,10 +40,4 @@ const makeSelectSubmissionPage = () =>
   );
 
 export default makeSelectSubmissionPage;
-export {
-  selectSubmissionPageDomain,
-  makeSelectError,
-  makeSelectLoading,
-  makeSelectSubmissionSuccess,
-};
-
+export { selectSubmissionPageDomain, makeSelectError, makeSelectLoading, makeSelectSubmissionSuccess };

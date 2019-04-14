@@ -6,27 +6,27 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose, Dispatch } from 'redux';
 import { Redirect } from 'react-router-dom';
+import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 /* Utils */
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 
 /* Globals */
 import { makeSelectUser } from 'Root/selectors';
 
 /* Locals */
-import saga from './saga';
-import reducer from './reducer';
 import { clearErrors } from './actions';
+import reducer from './reducer';
+import saga from './saga';
 import makeSelectAuthPage, { makeSelectError } from './selectors';
 
 /* Local Components */
+import Header from './Header';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import Header from './Header';
 import { AuthPageContainer } from './components';
 
 type State = {

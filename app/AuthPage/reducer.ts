@@ -6,8 +6,8 @@
 
 // import { LOCATION_CHANGE } from 'react-router-redux';
 import {
-  AuthState,
   AuthActionTypes,
+  AuthState,
   CLEAR_ERRORS,
   CREATE_TOKEN,
   CREATE_TOKEN_ERROR,
@@ -22,10 +22,7 @@ export const initialState: AuthState = {
   error: undefined,
 };
 
-function AuthPageReducer(
-  state: AuthState = initialState,
-  action: AuthActionTypes,
-) {
+function AuthPageReducer(state: AuthState = initialState, action: AuthActionTypes) {
   switch (action.type) {
     // case LOCATION_CHANGE:
     //   return { ...state, error: undefined };

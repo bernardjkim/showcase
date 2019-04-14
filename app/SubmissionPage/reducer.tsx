@@ -6,9 +6,9 @@
 
 // import { fromJS } from 'immutable';
 import {
-  SubmissionState,
-  SubmissionActionTypes,
   CLEAR_STATE,
+  SubmissionActionTypes,
+  SubmissionState,
   SUBMIT_FORM,
   SUBMIT_FORM_ERROR,
   SUBMIT_FORM_SUCCESS,

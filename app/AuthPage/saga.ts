@@ -1,5 +1,5 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
 import qs from 'qs';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { loadUser } from 'Root/actions';
 
@@ -7,18 +7,13 @@ import api from 'api';
 import request from 'utils/request';
 
 import {
-  CreateTokenAction,
-  CREATE_TOKEN,
-  CREATE_USER,
-  CreateUserAction,
-} from './types';
-import {
   createToken as createTokenAction,
-  createTokenSuccess,
   createTokenError,
-  createUserSuccess,
+  createTokenSuccess,
   createUserError,
+  createUserSuccess,
 } from './actions';
+import { CreateTokenAction, CreateUserAction, CREATE_TOKEN, CREATE_USER } from './types';
 
 /**
  * POST auth request/response handler
@@ -75,8 +70,5 @@ export default function* AuthPageSaga() {
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
 
-  yield all([
-    takeLatest(CREATE_TOKEN, createToken),
-    takeLatest(CREATE_USER, createUser),
-  ]);
+  yield all([takeLatest(CREATE_TOKEN, createToken), takeLatest(CREATE_USER, createUser)]);
 }
