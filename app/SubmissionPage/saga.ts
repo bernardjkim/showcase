@@ -1,3 +1,4 @@
+import FormData from 'form-data';
 import qs from 'qs';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
@@ -13,14 +14,17 @@ import { SubmitFormAction, SUBMIT_FORM } from './types';
  * POST article request/response handler
  */
 export function* submitForm(action: SubmitFormAction) {
-  const { screenshot, ...form } = action.form;
-  if (!screenshot || !form) {
+  if (!action.form) {
     return;
   }
+  const { screenshot, ...form } = action.form;
+  // if (!screenshot || !form) {
+  //   return;
+  // }
 
   const formData = new FormData();
   formData.append('form', qs.stringify(form));
-  formData.append('file', screenshot);
+  formData.append('file', screenshot || '');
 
   const url = api.article.create;
   // set request method/header/body

@@ -6,9 +6,8 @@ import { SubmissionState } from './types';
  * Direct selector to the submissionPage state domain
  */
 
-const selectSubmissionPageDomain = (state: any): SubmissionState => {
-  return state.get('submissionPage', initialState);
-};
+const selectSubmissionPageDomain = (state: any): SubmissionState =>
+  state.get ? state.get('submissionPage', initialState) : initialState;
 
 /**
  * Other specific selectors

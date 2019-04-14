@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`homePageReducer handle the clear state action 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": false,
+  "offset": 0,
+  "search": "",
+}
+`;
+
+exports[`homePageReducer handle the load articles all action 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": true,
+  "offset": 0,
+  "search": "",
+}
+`;
+
+exports[`homePageReducer handle the load articles all error action 1`] = `
+Object {
+  "articles": Array [],
+  "error": [Error: Test Error],
+  "loading": false,
+  "offset": 0,
+  "search": "",
+}
+`;
+
+exports[`homePageReducer handle the load articles all success action 1`] = `
+Object {
+  "articles": Array [
+    Object {
+      "_id": "_id",
+      "description": "description",
+      "github": "github",
+      "image": "image",
+      "tags": Array [],
+      "title": "title",
+      "uri": "uri",
+    },
+  ],
+  "error": undefined,
+  "loading": false,
+  "offset": 1,
+  "search": "",
+}
+`;
+
+exports[`homePageReducer handle the load articles error action 1`] = `
+Object {
+  "articles": Array [],
+  "error": [Error: Test Error],
+  "loading": false,
+  "offset": 0,
+  "search": "",
+}
+`;
+
+exports[`homePageReducer handle the load next action 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": true,
+  "offset": 0,
+  "search": "",
+}
+`;
+
+exports[`homePageReducer handle the load next success action 1`] = `
+Object {
+  "articles": Array [
+    Object {
+      "_id": "_id",
+      "description": "description",
+      "github": "github",
+      "image": "image",
+      "tags": Array [],
+      "title": "title",
+      "uri": "uri",
+    },
+  ],
+  "error": undefined,
+  "loading": false,
+  "offset": 1,
+  "search": "",
+}
+`;

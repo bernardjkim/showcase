@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppReducer handle the delete token action 1`] = `
+Object {
+  "error": undefined,
+  "loading": true,
+  "user": undefined,
+  "validateToken": true,
+}
+`;
+
+exports[`AppReducer handle the delete token error action 1`] = `
+Object {
+  "error": [Error: Test error],
+  "loading": false,
+  "user": undefined,
+  "validateToken": true,
+}
+`;
+
+exports[`AppReducer handle the delete token success action 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+  "user": undefined,
+  "validateToken": true,
+}
+`;
+
+exports[`AppReducer handle the load user action 1`] = `
+Object {
+  "error": undefined,
+  "loading": true,
+  "user": undefined,
+  "validateToken": false,
+}
+`;
+
+exports[`AppReducer handle the load user error action 1`] = `
+Object {
+  "error": Object {
+    "loadUser": [Error: Test error],
+  },
+  "loading": false,
+  "user": undefined,
+  "validateToken": true,
+}
+`;
+
+exports[`AppReducer handle the load user success action 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+  "user": Object {},
+  "validateToken": true,
+}
+`;

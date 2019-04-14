@@ -81,7 +81,7 @@ export function loadArticlesAllError(error: Error): HomeActionTypes {
  * Load next page of articles, this action start the request saga
  * @returns {object}  - An action object with a type of LOAD_NEXT
  */
-export function loadNext() {
+export function loadNext(): HomeActionTypes {
   return {
     type: LOAD_NEXT,
   };

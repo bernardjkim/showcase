@@ -28,7 +28,7 @@ function AuthPageReducer(state: AuthState = initialState, action: AuthActionType
     //   return { ...state, error: undefined };
 
     case CLEAR_ERRORS:
-      return { ...AbortController, error: undefined };
+      return { ...state, error: undefined };
 
     case CREATE_TOKEN:
       return { ...state, loading: true, error: undefined };

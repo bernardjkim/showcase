@@ -7,7 +7,7 @@ import { AuthState } from './types';
  */
 
 const selectAuthPageDomain = (state: any): AuthState =>
-  state.get('authPage', initialState);
+  state.get ? state.get('authPage', initialState) : initialState;
 
 /**
  * Other specific selectors

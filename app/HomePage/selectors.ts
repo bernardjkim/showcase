@@ -6,7 +6,8 @@ import { HomeState } from './types';
  * Direct selector to the homePage state domain
  */
 
-const selectHomePageDomain = (state: any): HomeState => state.get('homePage', initialState);
+const selectHomePageDomain = (state: any): HomeState =>
+  state.get ? state.get('homePage', initialState) : initialState;
 
 /**
  * Other specific selectors

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/api/article",
+      Object {
+        "body": FormData {
+          "_boundary": "--------------------------289533220287786106614591",
+          "_currentStream": null,
+          "_overheadLength": 206,
+          "_released": false,
+          "_streams": Array [
+            "----------------------------289533220287786106614591
+Content-Disposition: form-data; name=\\"form\\"
+
+",
+            "title=title&uri=uri&github=github&description=description",
+            [Function],
+            "----------------------------289533220287786106614591
+Content-Disposition: form-data; name=\\"file\\"
+
+",
+            "",
+            [Function],
+          ],
+          "_valueLength": 57,
+          "_valuesToMeasure": Array [],
+          "dataSize": 0,
+          "maxDataSize": 2097152,
+          "pauseStreams": true,
+          "readable": true,
+          "writable": false,
+        },
+        "method": "POST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
