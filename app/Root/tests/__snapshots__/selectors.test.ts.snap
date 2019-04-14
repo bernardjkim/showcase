@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeSelectError should select the error state 1`] = `undefined`;
+
+exports[`makeSelectLoading should select the loading state 1`] = `false`;
+
+exports[`makeSelectUser should select the user state 1`] = `undefined`;
+
+exports[`makeSelectValidateToken should select the token state 1`] = `true`;
+
+exports[`selectGlobalDomain should select the global state 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+  "user": undefined,
+  "validateToken": true,
+}
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`submissionPageReducer handle the clear state action 1`] = `
+Object {
+  "error": false,
+  "loading": false,
+  "submissionSuccess": false,
+}
+`;
+
+exports[`submissionPageReducer handle the submit form action 1`] = `
+Object {
+  "error": false,
+  "loading": true,
+  "submissionSuccess": false,
+}
+`;
+
+exports[`submissionPageReducer handle the submit form error action 1`] = `
+Object {
+  "error": Object {},
+  "loading": false,
+  "submissionSuccess": false,
+}
+`;
+
+exports[`submissionPageReducer handle the submit form success action 1`] = `
+Object {
+  "error": false,
+  "loading": false,
+  "submissionSuccess": true,
+}
+`;

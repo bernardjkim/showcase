@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeSelectArticles should select the artciles state 1`] = `Array []`;
+
+exports[`makeSelectError should select the error state 1`] = `undefined`;
+
+exports[`makeSelectLoading should select the loading state 1`] = `false`;
+
+exports[`selectHomePageDomain should select the home page state 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": false,
+  "offset": 0,
+  "search": "",
+}
+`;

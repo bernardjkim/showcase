@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeSelectArticle should select the article state 1`] = `undefined`;
+
+exports[`makeSelectComments should select the comments state 1`] = `Array []`;
+
+exports[`makeSelectError should select the error state 1`] = `undefined`;
+
+exports[`makeSelectLikes should select the likes state 1`] = `Array []`;
+
+exports[`makeSelectLoading should select the loading state 1`] = `false`;
+
+exports[`selectArticlePageDomain should select the article page state 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [],
+  "error": undefined,
+  "likes": Array [],
+  "loading": false,
+}
+`;

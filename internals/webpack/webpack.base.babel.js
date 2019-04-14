@@ -25,6 +25,12 @@ module.exports = options => ({
   optimization: options.optimization,
   module: {
     rules: [
+      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
         exclude: /node_modules/,
@@ -78,7 +84,8 @@ module.exports = options => ({
             loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
-                enabled: false,
+                enabled: true,
+                progressive: true,
                 // NOTE: mozjpeg is disabled as it causes errors in some Linux environments
                 // Try enabling it in your environment by switching the config to:
                 // enabled: true,
@@ -123,9 +130,10 @@ module.exports = options => ({
       },
     }),
   ]),
+
   resolve: {
     modules: ['node_modules', 'app'],
-    extensions: ['.js', '.jsx', '.react.js'],
+    extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'],
     mainFields: ['browser', 'jsnext:main', 'main'],
 
     // moment.js fix

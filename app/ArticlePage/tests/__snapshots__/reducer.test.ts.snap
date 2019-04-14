@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`articlePageReducer handles the createComment action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [],
+  "error": undefined,
+  "likes": Array [],
+  "loading": true,
+}
+`;
+
+exports[`articlePageReducer handles the createCommentError action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": [Error: Test Error],
+  "likes": Array [],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the createCommentSuccess action 1`] = `
+Object {
+  "article": undefined,
+  "comments": 1,
+  "error": undefined,
+  "likes": Array [],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the likeArticle action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": Array [],
+  "loading": true,
+}
+`;
+
+exports[`articlePageReducer handles the likeArticleError action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": [Error: Test Error],
+  "likes": Array [
+    Object {},
+  ],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the likeArticleSuccess action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": 1,
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the loadArticle action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": Array [
+    Object {},
+  ],
+  "loading": true,
+}
+`;
+
+exports[`articlePageReducer handles the loadArticleError action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": [Error: Test Error],
+  "likes": Array [
+    Object {},
+  ],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the loadArticleSuccess action 1`] = `
+Object {
+  "article": Object {
+    "_id": "_id",
+    "description": "description",
+    "github": "github",
+    "image": "image",
+    "tags": Array [],
+    "title": "title",
+    "uri": "uri",
+  },
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": Array [
+    Object {},
+  ],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the loadComments action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": Array [
+    Object {},
+  ],
+  "loading": true,
+}
+`;
+
+exports[`articlePageReducer handles the loadCommentsError action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": [Error: Test Error],
+  "likes": Array [
+    Object {},
+  ],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the loadCommentsSuccess action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [],
+  "error": undefined,
+  "likes": Array [
+    Object {},
+  ],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the loadLikes action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": Array [
+    Object {},
+  ],
+  "loading": true,
+}
+`;
+
+exports[`articlePageReducer handles the loadLikesError action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": [Error: Test Error],
+  "likes": Array [
+    Object {},
+  ],
+  "loading": false,
+}
+`;
+
+exports[`articlePageReducer handles the loadLikesSuccess action 1`] = `
+Object {
+  "article": undefined,
+  "comments": Array [
+    Object {},
+  ],
+  "error": undefined,
+  "likes": Array [],
+  "loading": false,
+}
+`;

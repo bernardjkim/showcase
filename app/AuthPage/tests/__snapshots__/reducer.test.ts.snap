@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthPageReducer handle the clear errors action 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+}
+`;
+
+exports[`AuthPageReducer handle the create token action 1`] = `
+Object {
+  "error": undefined,
+  "loading": true,
+}
+`;
+
+exports[`AuthPageReducer handle the create token error action 1`] = `
+Object {
+  "error": Object {
+    "createToken": [Error: Test error],
+  },
+  "loading": false,
+}
+`;
+
+exports[`AuthPageReducer handle the create token success action 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+}
+`;
+
+exports[`AuthPageReducer handle the create user action 1`] = `
+Object {
+  "error": undefined,
+  "loading": true,
+}
+`;
+
+exports[`AuthPageReducer handle the create user error action 1`] = `
+Object {
+  "error": Object {
+    "createUser": [Error: Test error],
+  },
+  "loading": false,
+}
+`;
+
+exports[`AuthPageReducer handle the create user success action 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+}
+`;

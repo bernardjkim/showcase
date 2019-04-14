@@ -15,12 +15,13 @@ RUN npm install
 
 # Bundle app source
 
-COPY --chown=node:node . .
+COPY app ./app
+COPY babel.config.js ./babel.config.js
 
 # Build app
 RUN npm run build
 
 # Nginx Stage
 FROM nginx
-COPY --from=build /home/node/app/default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /home/node/app/build /usr/share/nginx/html
