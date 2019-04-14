@@ -1,7 +1,7 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
-    "exclude": ["node_modules/**", "internals/scripts", ".*"]
+    "exclude": ["node_modules/**", "internals/**", ".*", "*.js"]
   },
   "rules": {
     "arrow-parens": false,

@@ -17,7 +17,7 @@ Object {
     "args": Array [
       "/api/comment",
       Object {
-        "body": "articleId=5c4ebe9be5346639c09786e3",
+        "body": "articleId=_id",
         "headers": Object {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -47,7 +47,7 @@ Object {
     "args": Array [
       "/api/like",
       Object {
-        "body": "articleId=5c4ebe9be5346639c09786e3",
+        "body": "articleId=_id",
         "headers": Object {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -88,7 +88,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/comment/?article=5c4ebe9be5346639c09786e3",
+      "/api/comment/?article=_id",
     ],
     "context": null,
     "fn": [Function],
@@ -111,7 +111,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "/api/like/?article=5c4ebe9be5346639c09786e3",
+      "/api/like/?article=_id",
     ],
     "context": null,
     "fn": [Function],

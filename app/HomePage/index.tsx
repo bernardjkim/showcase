@@ -30,8 +30,6 @@ export class HomePage extends React.PureComponent<Props> {
   }
 
   render() {
-    console.log('TEST');
-    console.log(this.props);
     return <SearchResults />;
   }
 }

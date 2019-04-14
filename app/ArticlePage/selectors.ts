@@ -6,7 +6,9 @@ import { ArticleState } from './types';
  * Direct selector to the articlePage state domain
  */
 
-const selectArticlePageDomain = (state: any): ArticleState => state.get('articlePage', initialState);
+const selectArticlePageDomain = (state: any): ArticleState => {
+  return state.get ? state.get('articlePage', initialState) : initialState;
+};
 
 /**
  * Other specific selectors

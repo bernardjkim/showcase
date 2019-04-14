@@ -50,6 +50,8 @@ const comments: Comment[] = [];
 const likes: Like[] = [];
 const error = new Error('Test Error');
 
+state.article = article;
+
 describe('createComment Saga', () => {
   const comment: Comment = {};
   const gen = cloneableGenerator(createComment)(createCommentAction(comment) as CreateCommentAction);

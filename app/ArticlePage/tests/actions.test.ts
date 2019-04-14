@@ -104,6 +104,7 @@ describe('ArticlePage actions', () => {
       const query = { id: 'id' };
       const expected = {
         type: LOAD_ARTICLE,
+        query,
       };
       expect(loadArticle(query)).toEqual(expected);
     });
