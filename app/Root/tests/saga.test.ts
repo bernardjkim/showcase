@@ -9,6 +9,7 @@ import { deleteTokenError, deleteTokenSuccess, loadUserError, loadUserSuccess } 
 import AppSaga, { deleteToken, loadUser } from '../saga';
 import { DELETE_TOKEN, LOAD_USER } from '../types';
 
+const user = { _id: '_id', username: 'username', email: 'email', updated: new Date() };
 const error = new Error('Test error');
 
 describe('deleteToken Saga', () => {
@@ -39,7 +40,6 @@ describe('loadUser Saga', () => {
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadUserSuccess action if successful', () => {
-    const user = 'user';
     const putDescriptor = gen.clone().next({ user }).value;
     expect(putDescriptor).toEqual(put(loadUserSuccess(user)));
   });

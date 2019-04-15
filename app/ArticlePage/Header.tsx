@@ -26,7 +26,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 const Header: React.SFC<Props> = props => {
   const { github, likes, title, uri, user, handleLikeArticle } = props;
 
-  const likedByUser = likes && user ? likes.filter(like => like.user === user._id.size > 0) : false;
+  const likedByUser = likes && user ? likes.filter(like => like.user === user._id).length > 0 : false;
 
   return (
     <HeaderContainer>

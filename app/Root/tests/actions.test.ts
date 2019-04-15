@@ -15,6 +15,8 @@ import {
   LOAD_USER_SUCCESS,
 } from '../types';
 
+const user = { _id: '_id', username: 'username', email: 'email', updated: new Date() };
+
 const error = new Error('Test Error');
 
 describe('App actions', () => {
@@ -57,7 +59,6 @@ describe('App actions', () => {
 
   describe('Load User Success Action', () => {
     it('has a type of LOAD_USER_SUCCESS', () => {
-      const user = {};
       const expected = {
         type: LOAD_USER_SUCCESS,
         user,

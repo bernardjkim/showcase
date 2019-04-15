@@ -10,6 +10,8 @@ import {
 } from '../actions';
 import { RootState } from '../types';
 
+const user = { _id: '_id', username: 'username', email: 'email', updated: new Date() };
+
 describe('AppReducer', () => {
   let state: RootState;
   beforeEach(() => {
@@ -34,7 +36,6 @@ describe('AppReducer', () => {
   });
 
   it('handle the load user success action', () => {
-    const user = {};
     expect(AppReducer(state, loadUserSuccess(user))).toMatchSnapshot();
   });
 

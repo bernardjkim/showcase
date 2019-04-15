@@ -10,15 +10,13 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import Toolbar from '@material-ui/core/Toolbar';
-
 import { deleteToken } from 'Root/actions';
 import { makeSelectUser } from 'Root/selectors';
 
 import Logo from './Logo';
 import NavActions from './NavActions';
 import SearchBar from './SearchBar';
-import { StyledAppBar } from './components';
+import { StyledAppBar, StyledToolbar } from './components';
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
@@ -59,11 +57,11 @@ class Nav extends React.Component<Props, State> {
 
     return (
       <StyledAppBar color="inherit" position="relative">
-        <Toolbar>
+        <StyledToolbar>
           <Logo />
           <SearchBar handleSubmit={handleSubmitSearch(search)} handleChange={handleChange} value={search} />
           <NavActions user={user} handleLogout={handleLogout} />
-        </Toolbar>
+        </StyledToolbar>
       </StyledAppBar>
     );
   }
