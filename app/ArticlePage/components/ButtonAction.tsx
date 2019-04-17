@@ -3,8 +3,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
 ` as typeof Button;
 
 type Props = {

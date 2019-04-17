@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const Description = styled(Typography)`
   text-align: center;
-  font-size: 17px;
+  font-size: 16px;
+  font-weight: 300;
   line-height: 170%;
 ` as typeof Typography;

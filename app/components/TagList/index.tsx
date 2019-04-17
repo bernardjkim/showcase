@@ -17,8 +17,8 @@ const TagList: React.FC<Props> = props => {
         <StyledChip
           variant="outlined"
           key={uuid()}
-          label={tag}
-          onDelete={handleDeleteTag ? handleDeleteTag(tag) : () => null}
+          label={tag.toUpperCase()}
+          onDelete={handleDeleteTag ? handleDeleteTag(tag) : undefined}
         />
       ))}
     </List>
