@@ -6,7 +6,8 @@ Object {
   "error": undefined,
   "loading": false,
   "offset": 0,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
 }
 `;
 
@@ -16,7 +17,8 @@ Object {
   "error": undefined,
   "loading": true,
   "offset": 0,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
 }
 `;
 
@@ -26,7 +28,8 @@ Object {
   "error": [Error: Test Error],
   "loading": false,
   "offset": 0,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
 }
 `;
 
@@ -46,7 +49,8 @@ Object {
   "error": undefined,
   "loading": false,
   "offset": 1,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
 }
 `;
 
@@ -56,7 +60,8 @@ Object {
   "error": [Error: Test Error],
   "loading": false,
   "offset": 0,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
 }
 `;
 
@@ -66,7 +71,8 @@ Object {
   "error": undefined,
   "loading": true,
   "offset": 0,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
 }
 `;
 
@@ -86,6 +92,42 @@ Object {
   "error": undefined,
   "loading": false,
   "offset": 1,
-  "search": "",
+  "sort": "new",
+  "tags": Array [],
+}
+`;
+
+exports[`homePageReducer handle the refresh action 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": false,
+  "offset": 0,
+  "sort": "new",
+  "tags": Array [],
+}
+`;
+
+exports[`homePageReducer handle the set search action 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": false,
+  "offset": 0,
+  "sort": "new",
+  "tags": Array [
+    "search",
+  ],
+}
+`;
+
+exports[`homePageReducer handle the set sort action 1`] = `
+Object {
+  "articles": Array [],
+  "error": undefined,
+  "loading": false,
+  "offset": 0,
+  "sort": "sort",
+  "tags": Array [],
 }
 `;

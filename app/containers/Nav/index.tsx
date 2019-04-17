@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { deleteToken } from 'Root/actions';
 import { makeSelectUser } from 'Root/selectors';
 
+import { makeSelectTags } from 'HomePage/selectors';
 import Logo from './Logo';
 import NavActions from './NavActions';
 import SearchBar from './SearchBar';
@@ -20,6 +21,7 @@ import { StyledAppBar, StyledToolbar } from './components';
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  tags: makeSelectTags(),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -44,9 +46,10 @@ class Nav extends React.Component<Props, State> {
 
   handleSubmitSearch = (search: string) => (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && search !== '') {
-      e.preventDefault();
-      this.props.history.push(`/search?term=${search}`);
+      const { tags, history } = this.props;
+      history.push(`/search?term=${[...tags, search]}`);
       this.setState({ search: '' });
+      e.preventDefault();
     }
   };
 

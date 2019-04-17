@@ -13,7 +13,9 @@ import {
   LOAD_NEXT,
   LOAD_NEXT_ERROR,
   LOAD_NEXT_SUCCESS,
+  REFRESH,
   SET_SEARCH,
+  SET_SORT,
 } from './types';
 
 /**
@@ -27,15 +29,28 @@ export function clearState(): HomeActionTypes {
   };
 }
 
+export function refresh(): HomeActionTypes {
+  return {
+    type: REFRESH,
+  };
+}
+
 /**
  * Set the current search term
  * @param   {string} search - The search term
  * @returns {object}        - An action object with a type of SET_SEARCH
  */
-export function setSearch(search: string): HomeActionTypes {
+export function setSearch(search: string[]): HomeActionTypes {
   return {
     type: SET_SEARCH,
     search,
+  };
+}
+
+export function setSort(sort: string): HomeActionTypes {
+  return {
+    type: SET_SORT,
+    sort,
   };
 }
 

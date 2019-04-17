@@ -4,15 +4,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 import { Article } from 'types';
 import openInNewTab from 'utils/openInNewTab';
 
-import {
-  CardDescription,
-  CardTitle,
-  Container,
-  StyledCard,
-  StyledCardActionArea,
-  StyledCardContent,
-  StyledCardMedia,
-} from './components';
+import { Container, StyledCard, StyledCardActionArea, StyledCardContent, StyledCardMedia } from './components';
 
 type Props = RouteComponentProps & {
   article: Article;
@@ -31,10 +23,12 @@ const Result: React.FC<Props> = props => {
         <StyledCardActionArea>
           <StyledCardMedia image={article.image} title={article.title} onClick={openInNewTab(article.uri)} />
         </StyledCardActionArea>
-        <StyledCardContent onClick={handleViewArticle(article._id)}>
-          <CardTitle gutterBottom={true}>{article.title}</CardTitle>
-          <CardDescription gutterBottom={true}>{article.description}</CardDescription>
-        </StyledCardContent>
+        <StyledCardContent
+          handleViewArticle={handleViewArticle(article._id)}
+          title={article.title}
+          description={article.description}
+          tags={article.tags}
+        />
       </StyledCard>
     </Container>
   );

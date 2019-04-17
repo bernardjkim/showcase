@@ -13,7 +13,7 @@ export const api: API = {
     create: `${ARTICLE_URL}`,
     getAll: offset => `${ARTICLE_URL}/all?offset=${offset}`,
     getOne: id => `${ARTICLE_URL}/${id}`,
-    search: (q, offset) => `${ARTICLE_URL}/search?q=${q}&offset=${offset}`,
+    search: (term, offset, sort) => `${ARTICLE_URL}/search?term=${term}&offset=${offset}&sort=${sort}`,
   },
 
   /** Auth Endpoints */

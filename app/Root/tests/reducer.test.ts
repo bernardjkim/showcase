@@ -10,7 +10,7 @@ import {
 } from '../actions';
 import { RootState } from '../types';
 
-const user = { _id: '_id', username: 'username', email: 'email', updated: new Date() };
+const user = { _id: '_id', username: 'username', email: 'email', updated: new Date('April 16, 2019 20:32:00') };
 
 describe('AppReducer', () => {
   let state: RootState;

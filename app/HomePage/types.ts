@@ -1,4 +1,5 @@
 import { Article } from 'types';
+
 // =============================================================================
 //  STATE
 // =============================================================================
@@ -8,7 +9,8 @@ export interface HomeState {
   error?: Error;
   articles: Article[];
   offset: number;
-  search: string;
+  tags: string[];
+  sort: string;
 }
 
 // =============================================================================
@@ -16,12 +18,13 @@ export interface HomeState {
 // =============================================================================
 
 export const CLEAR_STATE = 'app/HomePage/CLEAR_STATE';
+export const REFRESH = 'app/HomePage/REFRESH';
 export const SET_SEARCH = 'app/HomePage/SET_SEARCH';
+export const SET_SORT = 'app/HomePage/SET_SORT';
 
 export const LOAD_ARTICLES_ALL = 'app/HomePage/LOAD_ARTICLES_ALL';
 export const LOAD_ARTICLES_ALL_ERROR = 'app/HomePage/LOAD_ARTICLES_ALL_ERROR';
-export const LOAD_ARTICLES_ALL_SUCCESS =
-  'app/HomePage/LOAD_ARTICLES_ALL_SUCCESS';
+export const LOAD_ARTICLES_ALL_SUCCESS = 'app/HomePage/LOAD_ARTICLES_ALL_SUCCESS';
 
 export const LOAD_NEXT = 'app/HomePage/LOAD_NEXT';
 export const LOAD_NEXT_ERROR = 'app/HomePage/LOAD_NEXT_ERROR';
@@ -31,9 +34,18 @@ interface ClearStateAction {
   type: typeof CLEAR_STATE;
 }
 
+interface RefreshAction {
+  type: typeof REFRESH;
+}
+
 interface SetSearchAction {
   type: typeof SET_SEARCH;
-  search: string;
+  search: string[];
+}
+
+interface SetSortAction {
+  type: typeof SET_SORT;
+  sort: string;
 }
 
 interface LoadArticlesAllAction {
@@ -66,7 +78,9 @@ interface LoadNextSuccessAction {
 
 export type HomeActionTypes =
   | ClearStateAction
+  | RefreshAction
   | SetSearchAction
+  | SetSortAction
   | LoadArticlesAllAction
   | LoadArticlesAllErrorAction
   | LoadArticlesAllSuccessAction

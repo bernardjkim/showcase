@@ -14,7 +14,9 @@ import {
   LOAD_NEXT,
   LOAD_NEXT_ERROR,
   LOAD_NEXT_SUCCESS,
+  REFRESH,
   SET_SEARCH,
+  SET_SORT,
 } from './types';
 
 export const initialState: HomeState = {
@@ -22,7 +24,8 @@ export const initialState: HomeState = {
   error: undefined,
   articles: [],
   offset: 0,
-  search: '',
+  tags: [],
+  sort: 'new',
 };
 
 function homePageReducer(state: HomeState = initialState, action: HomeActionTypes) {
@@ -30,8 +33,22 @@ function homePageReducer(state: HomeState = initialState, action: HomeActionType
     case CLEAR_STATE:
       return initialState;
 
+    case REFRESH:
+      return { ...state, offset: 0, tags: [...state.tags] };
+
     case SET_SEARCH:
-      return { ...state, search: action.search, offset: 0 };
+      return {
+        ...state,
+        offset: 0,
+        tags: action.search ? action.search : [],
+      };
+
+    case SET_SORT:
+      return {
+        ...state,
+        offset: 0,
+        sort: action.sort,
+      };
 
     case LOAD_NEXT:
       return { ...state, loading: true, error: undefined };

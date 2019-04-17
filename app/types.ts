@@ -13,3 +13,5 @@ export interface Article {
   tags: string[];
   image: string;
 }
+
+export type Sort = 'new' | 'top';
