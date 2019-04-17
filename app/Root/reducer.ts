@@ -38,7 +38,7 @@ function AppReducer(state: RootState = initialState, action: RootActionTypes) {
       return { ...state, user: undefined, validateToken: false, loading: true, error: undefined };
 
     case LOAD_USER_SUCCESS:
-      return { ...state, user: action.user, loading: false };
+      return { ...state, user: action.user ? action.user : undefined, loading: false };
 
     case LOAD_USER_ERROR:
       return { ...state, loading: false, error: { loadUser: action.error } };

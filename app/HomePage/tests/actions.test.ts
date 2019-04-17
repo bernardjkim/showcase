@@ -6,6 +6,9 @@ import {
   loadNext,
   loadNextError,
   loadNextSuccess,
+  refresh,
+  setSearch,
+  setSort,
 } from '../actions';
 import {
   CLEAR_STATE,
@@ -15,6 +18,9 @@ import {
   LOAD_NEXT,
   LOAD_NEXT_ERROR,
   LOAD_NEXT_SUCCESS,
+  REFRESH,
+  SET_SEARCH,
+  SET_SORT,
 } from '../types';
 
 const articles = [
@@ -37,6 +43,37 @@ describe('HomePage actions', () => {
         type: CLEAR_STATE,
       };
       expect(clearState()).toEqual(expected);
+    });
+  });
+
+  describe('Refresh Action', () => {
+    it('has a type of REFRESH', () => {
+      const expected = {
+        type: REFRESH,
+      };
+      expect(refresh()).toEqual(expected);
+    });
+  });
+
+  describe('SET_SEARCH', () => {
+    it('has a type of SET_SEARCH', () => {
+      const search = ['search'];
+      const expected = {
+        type: SET_SEARCH,
+        search,
+      };
+      expect(setSearch(search)).toEqual(expected);
+    });
+  });
+
+  describe('SET_SORT', () => {
+    it('has a type of SET_SORT', () => {
+      const sort = 'sort';
+      const expected = {
+        type: SET_SORT,
+        sort,
+      };
+      expect(setSort(sort)).toEqual(expected);
     });
   });
   describe('Load Articles All Action', () => {

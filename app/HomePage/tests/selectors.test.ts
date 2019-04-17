@@ -3,6 +3,9 @@ import {
   makeSelectArticles,
   makeSelectError,
   makeSelectLoading,
+  makeSelectOffset,
+  makeSelectSort,
+  makeSelectTags,
   selectHomePageDomain,
 } from '../selectors';
 
@@ -32,5 +35,26 @@ describe('makeSelectArticles', () => {
   const articlesSelector = makeSelectArticles();
   it('should select the artciles state', () => {
     expect(articlesSelector(initialState)).toMatchSnapshot();
+  });
+});
+
+describe('makeSelectTags', () => {
+  const tagsSelector = makeSelectTags();
+  it('should select the tags state', () => {
+    expect(tagsSelector(initialState)).toMatchSnapshot();
+  });
+});
+
+describe('makeSelectOffset', () => {
+  const offsetSelector = makeSelectOffset();
+  it('should select the offset state', () => {
+    expect(offsetSelector(initialState)).toMatchSnapshot();
+  });
+});
+
+describe('makeSelectSort', () => {
+  const sortSelector = makeSelectSort();
+  it('should select the offset state', () => {
+    expect(sortSelector(initialState)).toMatchSnapshot();
   });
 });

@@ -4,7 +4,7 @@ import api from 'api';
 import processSearchResults from 'utils/processSearchResults';
 import request from 'utils/request';
 import { loadArticlesAllError, loadArticlesAllSuccess, loadNextError, loadNextSuccess } from './actions';
-import { makeSelectOffset, makeSelectSearch } from './selectors';
+import { makeSelectOffset, makeSelectSort, makeSelectTags } from './selectors';
 import { LOAD_ARTICLES_ALL, LOAD_NEXT } from './types';
 
 // Individual exports for testing
@@ -13,9 +13,12 @@ import { LOAD_ARTICLES_ALL, LOAD_NEXT } from './types';
  * GET articles all request/response handler
  */
 export function* loadArticlesAll() {
-  const search = yield select(makeSelectSearch());
+  // const search = yield select(makeSelectSearch());
+  const tags = yield select(makeSelectTags());
   const offset = yield select(makeSelectOffset());
-  const url = api.article.search(search, offset);
+  const sort = yield select(makeSelectSort());
+
+  const url = api.article.search(tags.toString(), offset, sort);
 
   try {
     const res = yield call(request, url);
@@ -29,15 +32,17 @@ export function* loadArticlesAll() {
  * GET articles next request/response handler
  */
 export function* loadNext() {
-  const search = yield select(makeSelectSearch());
+  // const search = yield select(makeSelectSearch());
+  const tags = yield select(makeSelectTags());
   const offset = yield select(makeSelectOffset());
+  const sort = yield select(makeSelectSort());
   // NOTE: prevent loadall & loadnext at the same time. Might want to think of a
   // better way to handle this later...
   if (offset <= 0) {
     return;
   }
 
-  const url = api.article.search(search, offset);
+  const url = api.article.search(tags.toString(), offset, sort);
 
   try {
     const res = yield call(request, url);

@@ -36,10 +36,16 @@ const makeSelectOffset = () =>
     homeState => homeState.offset,
   );
 
-const makeSelectSearch = () =>
+const makeSelectTags = () =>
   createSelector(
     selectHomePageDomain,
-    homeState => homeState.search,
+    homeState => homeState.tags,
+  );
+
+const makeSelectSort = () =>
+  createSelector(
+    selectHomePageDomain,
+    homeState => homeState.sort,
   );
 
 /**
@@ -59,5 +65,6 @@ export {
   makeSelectError,
   makeSelectLoading,
   makeSelectOffset,
-  makeSelectSearch,
+  makeSelectTags,
+  makeSelectSort,
 };

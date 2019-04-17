@@ -10,18 +10,18 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import Toolbar from '@material-ui/core/Toolbar';
-
 import { deleteToken } from 'Root/actions';
 import { makeSelectUser } from 'Root/selectors';
 
+import { makeSelectTags } from 'HomePage/selectors';
 import Logo from './Logo';
 import NavActions from './NavActions';
 import SearchBar from './SearchBar';
-import { StyledAppBar } from './components';
+import { StyledAppBar, StyledToolbar } from './components';
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  tags: makeSelectTags(),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -46,9 +46,10 @@ class Nav extends React.Component<Props, State> {
 
   handleSubmitSearch = (search: string) => (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && search !== '') {
-      e.preventDefault();
-      this.props.history.push(`/search?term=${search}`);
+      const { tags, history } = this.props;
+      history.push(`/search?term=${[...tags, search]}`);
       this.setState({ search: '' });
+      e.preventDefault();
     }
   };
 
@@ -59,11 +60,11 @@ class Nav extends React.Component<Props, State> {
 
     return (
       <StyledAppBar color="inherit" position="relative">
-        <Toolbar>
+        <StyledToolbar>
           <Logo />
           <SearchBar handleSubmit={handleSubmitSearch(search)} handleChange={handleChange} value={search} />
           <NavActions user={user} handleLogout={handleLogout} />
-        </Toolbar>
+        </StyledToolbar>
       </StyledAppBar>
     );
   }

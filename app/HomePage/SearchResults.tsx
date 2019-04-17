@@ -10,9 +10,9 @@ import uuid from 'uuid/v1';
 import ArticleCard from 'components/ArticleCard';
 
 /* Local Components */
-import { loadArticlesAll, loadNext, setSearch } from './actions';
+import { loadArticlesAll, loadNext, refresh, setSearch } from './actions';
 import { SearchResultsContainer } from './components';
-import { makeSelectArticles, makeSelectOffset, makeSelectSearch } from './selectors';
+import { makeSelectArticles, makeSelectOffset, makeSelectSort, makeSelectTags } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 class SearchResults extends React.Component<Props> {
@@ -23,7 +23,12 @@ class SearchResults extends React.Component<Props> {
     }
 
     // update articles if search changes
-    if (this.props.search !== prevProps.search) {
+    if (this.props.tags !== prevProps.tags) {
+      this.props.handleLoadArticles();
+    }
+
+    // update articles if sort changes
+    if (this.props.sort !== prevProps.sort) {
       this.props.handleLoadArticles();
     }
   }
@@ -42,7 +47,8 @@ class SearchResults extends React.Component<Props> {
 
   updateSearchValue() {
     const { term } = queryString.parse(this.props.location.search);
-    this.props.handleSetSearch((term as string) || '');
+    const tags = term ? (term as string).split(',') : [];
+    this.props.handleSetSearch(tags);
   }
 
   /**
@@ -55,6 +61,8 @@ class SearchResults extends React.Component<Props> {
     // Checks that the page has scrolled to the top
     if (innerHeight + scrollTop === offsetHeight) {
       // this.props.handleScrollTop();
+      // TODO: refresh page on scroll top?
+      this.props.handleRefresh();
     }
 
     // Checks that the page has scrolled to the bottom
@@ -80,14 +88,16 @@ type Props = RouteComponentProps & ReturnType<typeof mapDispatchToProps> & Retur
 const mapStateToProps = createStructuredSelector({
   articles: makeSelectArticles(),
   offset: makeSelectOffset(),
-  search: makeSelectSearch(),
+  tags: makeSelectTags(),
+  sort: makeSelectSort(),
 });
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
+    handleRefresh: () => dispatch(refresh()),
     handleLoadArticles: () => dispatch(loadArticlesAll()),
     handleLoadNext: () => dispatch(loadNext()),
-    handleSetSearch: (search: string) => dispatch(setSearch(search)),
+    handleSetSearch: (search: string[]) => dispatch(setSearch(search)),
   };
 }
 

@@ -27,12 +27,14 @@ describe('loadArticlesAll Saga', () => {
   const gen = cloneableGenerator(loadArticlesAll)();
   const offset = '0';
   const search = 'search';
+  const sort = 'sort';
 
   const selectDescriptor = gen.next().value;
   expect(selectDescriptor).toMatchSnapshot();
 
   gen.next(search);
-  const callDescriptor = gen.next(offset).value;
+  gen.next(offset);
+  const callDescriptor = gen.next(sort).value;
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadArticlesAllSuccess action if successful', () => {
@@ -52,12 +54,14 @@ describe('loadNext Saga', () => {
   const gen = cloneableGenerator(loadNext)();
   const offset = 10;
   const search = 'search';
+  const sort = 'sort';
 
   const selectDescriptor = gen.next().value;
   expect(selectDescriptor).toMatchSnapshot();
 
   gen.next(search);
-  const callDescriptor = gen.next(offset).value;
+  gen.next(offset);
+  const callDescriptor = gen.next(sort).value;
   expect(callDescriptor).toMatchSnapshot();
 
   it('should dispatch the loadNextSuccess action if successful', () => {

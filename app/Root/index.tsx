@@ -25,8 +25,8 @@ import ArticlePage from 'ArticlePage/Loadable';
 import AuthPage from 'AuthPage/Loadable';
 import HomePage from 'HomePage/Loadable';
 import NotFoundPage from 'NotFoundPage/Loadable';
+import ProfilePage from 'ProfilePage/Loadable';
 import SubmissionPage from 'SubmissionPage/Loadable';
-// import ProfilePage from 'containers/ProfilePage/Loadable';
 
 import NavRoute from './NavRoute';
 import PrivateRoute from './PrivateRoute';
@@ -60,7 +60,7 @@ export class App extends React.PureComponent<Props> {
           <NavRoute exact={true} path="/article" component={ArticlePage} />
           <Route exact={true} path="/auth" component={AuthPage} />
           <PrivateRoute exact={true} path="/submit" component={SubmissionPage} />
-          {/* <Route exact path="/profile" component={ProfilePage} /> */}
+          <Route exact={true} path="/profile" component={ProfilePage} />
           <Route component={NotFoundPage} />
         </Switch>
         <GlobalStyle />

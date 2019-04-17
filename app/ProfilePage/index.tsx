@@ -1,6 +1,6 @@
 /**
  *
- * HomePage
+ * ProfilePage
  *
  */
 
@@ -14,28 +14,18 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-/* Local Components */
-import SearchResults from './SearchResults';
-import SearchSettings from './SearchSettings';
-
 /* Locals */
-import { clearState } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import makeSelectHomePage from './selectors';
+import makeSelectProfilePage from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
-export class HomePage extends React.PureComponent<Props> {
-  componentWillUnmount() {
-    this.props.handleClearState();
-  }
-
+export class ProfilePage extends React.PureComponent<Props> {
   render() {
     return (
-      <React.Fragment>
-        <SearchSettings />
-        <SearchResults />
-      </React.Fragment>
+      <div>
+        <div>test</div>
+      </div>
     );
   }
 }
@@ -43,25 +33,21 @@ export class HomePage extends React.PureComponent<Props> {
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = createStructuredSelector({
-  homePage: makeSelectHomePage(),
+  profilePage: makeSelectProfilePage(),
 });
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    handleClearState: () => dispatch(clearState()),
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({});
 
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'homePage', reducer });
-const withSaga = injectSaga({ key: 'homePage', saga, mode: '' });
+const withReducer = injectReducer({ key: 'profilePage', reducer });
+const withSaga = injectSaga({ key: 'profilePage', saga, mode: '' });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(HomePage);
+)(ProfilePage);

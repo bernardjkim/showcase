@@ -1,8 +1,10 @@
+import { Sort } from 'types';
+
 export interface ArticleApi {
   create: string;
   getAll: (offset: number) => string;
   getOne: (id: string) => string;
-  search: (term: string, offset: number) => string;
+  search: (term: string, offset: number, sort: Sort) => string;
 }
 
 export interface AuthApi {
