@@ -15,7 +15,7 @@ import {
   LOAD_USER_SUCCESS,
 } from '../types';
 
-const user = { _id: '_id', username: 'username', email: 'email', updated: new Date() };
+const user = { _id: '_id', username: 'username', email: 'email', updated: new Date('April 16, 2019 20:32:00') };
 
 const error = new Error('Test Error');
 
