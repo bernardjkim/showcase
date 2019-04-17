@@ -18,8 +18,9 @@ type LabelProps = TypographyProps & {
 };
 
 const Label = styled(Typography as React.SFC<LabelProps>)`
-  font-size: 18px;
-  font-weight: 100;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
   color: ${props => (props.private ? 'red' : 'green')};
   margin-left: 10px;
   :hover {
@@ -38,7 +39,7 @@ export const GitHub: React.FC<Props> = props => {
     <Container>
       <FontAwesomeIcon size="lg" icon={faGithub} />
       <Label onClick={handleOpenRepo} private={github ? 0 : 1}>
-        {github || 'private'}
+        {github || 'PRIVATE'}
       </Label>
     </Container>
   );

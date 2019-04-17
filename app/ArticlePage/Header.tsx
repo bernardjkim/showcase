@@ -31,7 +31,7 @@ const Header: React.SFC<Props> = props => {
   return (
     <HeaderContainer>
       <HeaderDivLeft>
-        <HeaderTitle>{title}</HeaderTitle>
+        <HeaderTitle>{title.toUpperCase()}</HeaderTitle>
         <GitHub github={github} handleOpenRepo={openInNewTab(github)} />
       </HeaderDivLeft>
       <HeaderDivRight>

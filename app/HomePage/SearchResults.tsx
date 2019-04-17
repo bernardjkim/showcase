@@ -62,7 +62,7 @@ class SearchResults extends React.Component<Props> {
     if (innerHeight + scrollTop === offsetHeight) {
       // this.props.handleScrollTop();
       // TODO: refresh page on scroll top?
-      this.props.handleRefresh();
+      // this.props.handleRefresh();
     }
 
     // Checks that the page has scrolled to the bottom
