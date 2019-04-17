@@ -9,7 +9,7 @@ import { deleteTokenError, deleteTokenSuccess, loadUserError, loadUserSuccess } 
 import AppSaga, { deleteToken, loadUser } from '../saga';
 import { DELETE_TOKEN, LOAD_USER } from '../types';
 
-const user = { _id: '_id', username: 'username', email: 'email', updated: new Date('April 16, 2019 20:32:00') };
+const user = { _id: '_id', username: 'username', email: 'email', updated: new Date(0) };
 const error = new Error('Test error');
 
 describe('deleteToken Saga', () => {

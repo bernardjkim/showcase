@@ -54,7 +54,7 @@ Object {
   "user": Object {
     "_id": "_id",
     "email": "email",
-    "updated": 2019-04-17T03:32:00.000Z,
+    "updated": 1970-01-01T00:00:00.000Z,
     "username": "username",
   },
   "validateToken": true,
