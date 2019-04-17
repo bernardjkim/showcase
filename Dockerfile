@@ -15,8 +15,7 @@ RUN npm install
 
 # Bundle app source
 
-COPY app ./app
-COPY babel.config.js ./babel.config.js
+COPY . .
 
 # Build app
 RUN npm run build
