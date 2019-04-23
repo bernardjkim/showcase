@@ -7,7 +7,7 @@ import { LogoText, NavContent } from './components';
 const Logo = () => (
   <NavContent>
     <LogoText color="primary" component={HomeLink}>
-      ShowCase
+      koblstone
     </LogoText>
   </NavContent>
 );

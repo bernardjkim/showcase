@@ -12,7 +12,7 @@ const Header: React.FC<Props> = props => {
   const { message, welcome } = props;
   return (
     <HeaderContainer>
-      <Logo color="primary">ShowCase</Logo>
+      <Logo color="primary">koblstone</Logo>
       <Message>{message}</Message>
       <Welcome>{welcome}</Welcome>
     </HeaderContainer>

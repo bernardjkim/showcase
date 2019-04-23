@@ -17,6 +17,9 @@ import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+
 import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
 import jssPreset from '@material-ui/core/styles/jssPreset';
 
@@ -53,13 +56,19 @@ const jss = create({
   insertionPoint: 'jss-insertion-point',
 });
 
+const client = new ApolloClient({
+  uri: 'http://localhost:8080/api/graphql',
+});
+
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
           <JssProvider jss={jss} generateClassName={generateClassName}>
-            <App />
+            <ApolloProvider client={client}>
+              <App />
+            </ApolloProvider>
           </JssProvider>
         </ConnectedRouter>
       </LanguageProvider>

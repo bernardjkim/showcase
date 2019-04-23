@@ -29,7 +29,8 @@ module.exports = options => ({
       { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+      // NOTE: https://github.com/apollographql/react-apollo/issues/597#issuecomment-306091791
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: [/node_modules/, /build/, /__test__/] },
 
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel

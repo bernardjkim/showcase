@@ -11,10 +11,7 @@ module.exports = require('./webpack.base.babel')({
   mode: 'production',
 
   // In production, we skip all hot-reloading stuff
-  entry: [
-    require.resolve('react-app-polyfill/ie11'),
-    path.join(process.cwd(), 'app/app.js'),
-  ],
+  entry: [require.resolve('react-app-polyfill/ie11'), path.join(process.cwd(), 'app/app.js')],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
@@ -26,23 +23,23 @@ module.exports = require('./webpack.base.babel')({
     minimize: true,
     minimizer: [
       // NOTE: for now, prefer reduced build time over reduced build size...
-      // new TerserPlugin({
-      //   terserOptions: {
-      //     warnings: false,
-      //     compress: {
-      //       comparisons: false,
-      //     },
-      //     parse: {},
-      //     mangle: true,
-      //     output: {
-      //       comments: false,
-      //       ascii_only: true,
-      //     },
-      //   },
-      //   parallel: true,
-      //   cache: true,
-      //   sourceMap: true,
-      // }),
+      new TerserPlugin({
+        terserOptions: {
+          warnings: false,
+          compress: {
+            comparisons: false,
+          },
+          parse: {},
+          mangle: true,
+          output: {
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+        cache: true,
+        sourceMap: true,
+      }),
     ],
     nodeEnv: 'production',
     sideEffects: true,
@@ -121,10 +118,11 @@ module.exports = require('./webpack.base.babel')({
       minRatio: 0.8,
     }),
 
+    // TODO: manifest
     new WebpackPwaManifest({
-      name: 'React Boilerplate',
-      short_name: 'React BP',
-      description: 'My React Boilerplate-based project!',
+      name: 'koblstone',
+      short_name: 'koblstone',
+      description: 'koblstone',
       background_color: '#fafafa',
       theme_color: '#b1624d',
       inject: true,
@@ -150,7 +148,6 @@ module.exports = require('./webpack.base.babel')({
   ],
 
   performance: {
-    assetFilter: assetFilename =>
-      !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
+    assetFilter: assetFilename => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
 });

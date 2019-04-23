@@ -2,13 +2,7 @@
   "compilerOptions": {
     "baseUrl": "app", // relative paths base
     "paths": {
-      // "*": ["types/*"],
-      "*": ["*"],
-      "api/*": ["api/*"],
-      "components/*": ["components/*"],
-      "containers/*": ["containers/*"],
-      "images/*": ["images/*"],
-      "utils/*": ["utils/*"]
+      "*": ["*"]
     },
     "outDir": "dist/", // target for compiled files
     "allowSyntheticDefaultImports": true, // no errors with commonjs modules interop
@@ -22,7 +16,7 @@
     "importHelpers": true, // importing transpilation helpers from tslib
     "noEmitHelpers": true, // disable inline transpilation helpers in each file
     "jsx": "react", // transform JSX
-    "lib": ["dom", "es2017"], // you will need to include polyfills for es2017 manually
+    "lib": ["dom", "es2017", "esnext"], // you will need to include polyfills for es2017 manually
     "types": ["node", "react", "jest"], // which global types to use
     "target": "es5", // "es2015" for ES6+ engines
     "module": "esnext", // "es2015" for tree-shaking

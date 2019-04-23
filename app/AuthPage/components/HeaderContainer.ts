@@ -7,5 +7,5 @@ export const HeaderContainer = styled.div`
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 60px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 `;

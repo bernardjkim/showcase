@@ -39,7 +39,7 @@ function articlePageReducer(state: ArticleState = initialState, action: ArticleA
       return { ...state, loading: true, error: undefined };
 
     case CREATE_COMMENT_SUCCESS:
-      return { ...state, comments: state.comments.push(action.comment), loading: false };
+      return { ...state, comments: state.comments.concat(action.comment), loading: false };
 
     case CREATE_COMMENT_ERROR:
       return { ...state, loading: false, error: action.error };
@@ -48,7 +48,7 @@ function articlePageReducer(state: ArticleState = initialState, action: ArticleA
       return { ...state, loading: true, error: undefined };
 
     case LIKE_ARTICLE_SUCCESS:
-      return { ...state, likes: state.likes.push(action.like), loading: false };
+      return { ...state, likes: state.likes.concat(action.like), loading: false };
 
     case LIKE_ARTICLE_ERROR:
       return { ...state, loading: false, error: action.error };

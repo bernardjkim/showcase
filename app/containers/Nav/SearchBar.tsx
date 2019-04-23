@@ -30,7 +30,7 @@ const SearchBar: React.FC<Props> = props => {
             </InputAdornment>
           ),
         }}
-        placeholder="Search Showcase"
+        placeholder="Search koblstone"
       />
     </NavContent>
   );

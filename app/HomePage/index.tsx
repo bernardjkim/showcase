@@ -17,6 +17,7 @@ import injectSaga from 'utils/injectSaga';
 /* Local Components */
 import SearchResults from './SearchResults';
 import SearchSettings from './SearchSettings';
+// import GraphqlTest from './graphql';
 
 /* Locals */
 import { clearState } from './actions';
@@ -33,6 +34,7 @@ export class HomePage extends React.PureComponent<Props> {
   render() {
     return (
       <React.Fragment>
+        {/* <GraphqlTest /> */}
         <SearchSettings />
         <SearchResults />
       </React.Fragment>

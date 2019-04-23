@@ -9,6 +9,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
+
+import Button from '@material-ui/core/Button';
 
 /* Utils */
 import injectReducer from 'utils/injectReducer';
@@ -28,6 +31,15 @@ import Header from './Header';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { AuthPageContainer } from './components';
+
+const Toggle = styled(Button)`` as typeof Button;
+const AuthAction = styled.div`
+  width: 90%;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
 
 type State = {
   showLogin: boolean;
@@ -56,19 +68,23 @@ export class AuthPage extends React.PureComponent<Props, State> {
       <AuthPageContainer>
         {this.state.showLogin ? (
           <React.Fragment>
-            <Header
-              message="Showcase your personal projects"
-              welcome="Welcome Back. Please Login To Continue."
-            />
+            <Header message="Showcase your personal projects" welcome="Welcome Back. Please Login To Continue." />
             <LoginForm />
+            <AuthAction>
+              <Toggle onClick={this.handleToggle(false)}>Sign Up</Toggle>
+            </AuthAction>
           </React.Fragment>
         ) : (
           <React.Fragment>
             <Header
               message="Showcase your personal projects"
-              welcome="Welcome to Showcase. Please Signup To Continue."
+              welcome="Welcome to koblstone. Please Signup To Continue."
             />
             <SignupForm />
+
+            <AuthAction>
+              <Toggle onClick={this.handleToggle(true)}>Login</Toggle>
+            </AuthAction>
           </React.Fragment>
         )}
       </AuthPageContainer>
@@ -76,8 +92,7 @@ export class AuthPage extends React.PureComponent<Props, State> {
   }
 }
 
-type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = createStructuredSelector({
   AuthPage: makeSelectAuthPage(),

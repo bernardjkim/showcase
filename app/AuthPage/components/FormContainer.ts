@@ -6,6 +6,6 @@ export const FormContainer = styled.div`
   flex-direction: column;
   padding-left: 60px;
   padding-right: 60px;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;

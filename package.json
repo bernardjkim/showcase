@@ -1,5 +1,5 @@
 {
-  "name": "showcase",
+  "name": "koblstone",
   "version": "1.0.0",
   "description": "Web application for showcasing web application projects",
   "repository": {
@@ -74,6 +74,7 @@
     "@types/enzyme": "^3.9.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/form-data": "^2.2.1",
+    "@types/graphql": "^14.2.0",
     "@types/intl": "^1.2.0",
     "@types/invariant": "^2.2.29",
     "@types/jest": "^24.0.11",
@@ -93,6 +94,7 @@
     "@types/uuid": "^3.4.4",
     "@types/webpack-env": "^1.13.9",
     "ajv": "^6.10.0",
+    "apollo-boost": "^0.3.1",
     "awesome-typescript-loader": "^5.2.1",
     "chalk": "^2.4.2",
     "compression": "^1.7.4",
@@ -102,6 +104,7 @@
     "express": "^4.16.4",
     "fontfaceobserver": "^2.1.0",
     "form-data": "^2.3.3",
+    "graphql": "^14.2.1",
     "helmet": "^3.16.0",
     "history": "^4.9.0",
     "hoist-non-react-statics": "^3.3.0",
@@ -118,6 +121,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.4.2",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
     "react-dev-utils": "^7.0.5",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
