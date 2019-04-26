@@ -1,93 +1,25 @@
-import gql from 'graphql-tag';
 import queryString from 'query-string';
 import React from 'react';
-import { graphql, ChildDataProps } from 'react-apollo';
+import { compose, graphql, ChildDataProps } from 'react-apollo';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { compose, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import uuid from 'uuid/v1';
 
-/* Shared Components */
+// /* Shared Components */
 import ArticleCard from 'components/ArticleCard';
 
-/* Local Components */
-import { loadArticlesAll, loadNext, refresh, setSearch } from './actions';
+// /* Local Components */
+import { setSearch } from './actions';
 import { SearchResultsContainer } from './components';
-import { makeSelectArticles, makeSelectOffset, makeSelectSort, makeSelectTags } from './selectors';
+import { ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, ARTICLE_SEARCH_QUERY } from './queries';
+import { makeSelectSort, makeSelectTags } from './selectors';
 
-const ARTICLES_QUERY = gql`
-  query GetArticles($input: ArticleSearchInput!) {
-    articleSearch(input: $input) {
-      totalCount
-      edges {
-        _id
-        title
-        uri
-        github
-        image
-        description
-        tags
-      }
-    }
-  }
-`;
-
-type Response = {
-  articleSearch: {
-    totalCount: number;
-    edges: any[];
-  };
-};
-
-type InputProps = {
-  tags: string[];
-};
-
-type Variables = {};
-
-type ChildProps = ChildDataProps<{}, Response, Variables>;
-
-const withArticles = graphql<InputProps, Response, Variables, ChildProps>(ARTICLES_QUERY, {
-  options: ({ tags }) => ({
-    variables: { input: { terms: tags.toString() } },
-  }),
-});
-
-const Search = withArticles(({ data: { loading, articleSearch: articles, error, refetch } }) => {
-  if (loading) {
-    return <div>Loading</div>;
-  }
-  if (error) {
-    return <h1>ERROR</h1>;
-  }
-  return (
-    <div>
-      <button onClick={() => refetch()}>REFETCH</button>
-      <SearchResultsContainer>
-        {articles && articles.edges.map(article => <ArticleCard key={uuid()} article={article} />)}
-      </SearchResultsContainer>
-    </div>
-  );
-});
-
-/* eslint-disable react/prefer-stateless-function */
-class SearchResults extends React.Component<Props> {
-  componentDidUpdate(prevProps: Props) {
-    // update search state if location changes
-    if (this.props.location !== prevProps.location) {
-      this.updateSearchValue();
-    }
-
-    // // update articles if search/sort changes
-    // if (this.props.tags !== prevProps.tags || this.props.sort !== prevProps.sort) {
-    //   this.props.handleLoadArticles();
-    // }
-  }
-
+class SearchResults extends React.Component<SearchResultsProps> {
+  // ===========================================================================
+  //  LIFECYCLE
+  // ===========================================================================
   componentDidMount() {
-    this.updateSearchValue();
-    // this.props.handleLoadArticles();
     // Binds our scroll event handler
     window.addEventListener('scroll', this.handleScroll);
   }
@@ -97,6 +29,38 @@ class SearchResults extends React.Component<Props> {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
+  componentDidUpdate(prevProps: SearchResultsProps) {
+    // update search state if location changes
+    if (this.props.location !== prevProps.location) {
+      this.updateSearchValue();
+    }
+  }
+
+  render() {
+    const { articleSearch: articles, loading } = this.props.data;
+    if (loading) {
+      return 'Loading...';
+    }
+    return (
+      <div>
+        <SearchResultsContainer>
+          {articles &&
+            articles.edges.map(article => (
+              <ArticleCard key={article._id} article={article} likes={article.likes.totalCount} />
+            ))}
+        </SearchResultsContainer>
+      </div>
+    );
+  }
+
+  // ===========================================================================
+  //  UTIL
+  // ===========================================================================
+
+  /**
+   * This function will grab the query 'term' from the current location and
+   * save it to the HomePage state.
+   */
   updateSearchValue() {
     const { term } = queryString.parse(this.props.location.search);
     const tags = term ? (term as string).split(',') : [];
@@ -104,53 +68,70 @@ class SearchResults extends React.Component<Props> {
   }
 
   /**
-   * Handles the scroll event
+   * This is where to add handler functions for when a user scrolls to the top
+   * or bottom of the component.
    */
   handleScroll = () => {
     const { innerHeight } = window;
     const { offsetHeight, scrollHeight, scrollTop } = document.documentElement;
 
-    // Checks that the page has scrolled to the top
+    // Handle scroll top
     if (innerHeight + scrollTop === offsetHeight) {
-      // this.props.handleScrollTop();
-      // TODO: refresh page on scroll top?
-      // this.props.handleRefresh();
+      // Refresh?
     }
 
-    // Checks that the page has scrolled to the bottom
+    // Handle scroll bottom
     if (innerHeight + scrollTop === scrollHeight) {
-      // this.props.handleScrollBottom();
-      // this.props.handleLoadNext();
+      this.onFetchMore();
     }
   };
 
-  render() {
-    // const { articles } = this.props;
+  /**
+   * This function will fetch the next page (max 10) of articles and append them
+   * to the prev state.
+   * GIST: https://gist.github.com/kkemple/bececb840c99b47a2e25f8086f15f056
+   */
+  onFetchMore = () => {
+    const {
+      tags,
+      sort,
+      data: { articleSearch, fetchMore },
+    } = this.props;
 
-    return (
-      <div>
-        <Search tags={this.state.tags} />
-        {/* <SearchResultsContainer>
-          {articles && articles.map(article => <ArticleCard key={uuid()} article={article} />)}
-        </SearchResultsContainer> */}
-      </div>
-    );
-  }
+    fetchMore({
+      variables: { input: { term: tags.toString(), offset: articleSearch!.totalCount, sort } },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const { articleSearch: articles } = previousResult;
+        articles.edges = articles.edges.concat(fetchMoreResult!.articleSearch.edges);
+        articles.totalCount = articles.edges.length;
+        return { ...previousResult, articleSearch: articles };
+      },
+    });
+  };
 }
 
-type Props = RouteComponentProps & ReturnType<typeof mapDispatchToProps> & ReturnType<typeof mapStateToProps>;
+// =============================================================================
+//  HOC
+// =============================================================================
+const withArticleSearch = graphql<ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, {}>(
+  ARTICLE_SEARCH_QUERY,
+  {
+    options: ({ tags, sort }) => ({
+      variables: { input: { term: tags.toString(), offset: 0, sort } },
+    }),
+    props: ({ data }) => {
+      const props = { data: data! };
+      return props;
+    },
+  },
+);
 
 const mapStateToProps = createStructuredSelector({
-  articles: makeSelectArticles(),
-  offset: makeSelectOffset(),
   tags: makeSelectTags(),
   sort: makeSelectSort(),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  handleRefresh: () => dispatch(refresh()),
-  handleLoadArticles: () => dispatch(loadArticlesAll()),
-  handleLoadNext: () => dispatch(loadNext()),
   handleSetSearch: (search: string[]) => dispatch(setSearch(search)),
 });
 
@@ -159,4 +140,16 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default withRouter(compose(withConnect)(SearchResults));
+export default compose(
+  withRouter,
+  withConnect,
+  withArticleSearch,
+)(SearchResults);
+
+// =============================================================================
+//  TYPES
+// =============================================================================
+type SearchResultsProps = RouteComponentProps &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> &
+  ChildDataProps<{}, ArticleSearchResponse>;

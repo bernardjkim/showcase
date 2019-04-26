@@ -8,10 +8,11 @@ import { Container, StyledCard, StyledCardActionArea, StyledCardContent, StyledC
 
 type Props = RouteComponentProps & {
   article: Article;
+  likes: number;
 };
 
-const Result: React.FC<Props> = props => {
-  const { article } = props;
+const Result: React.SFC<Props> = props => {
+  const { article, likes } = props;
 
   const handleViewArticle = (id: string) => () => {
     props.history.push(`/article?id=${id}`);
@@ -25,7 +26,7 @@ const Result: React.FC<Props> = props => {
         </StyledCardActionArea>
         <StyledCardContent
           handleViewArticle={handleViewArticle(article._id)}
-          title={article.title}
+          title={`${article.title} ${likes}`}
           description={article.description}
           tags={article.tags}
         />

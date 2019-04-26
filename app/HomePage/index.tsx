@@ -12,20 +12,16 @@ import { createStructuredSelector } from 'reselect';
 
 /* Utils */
 import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 
 /* Local Components */
 import SearchResults from './SearchResults';
 import SearchSettings from './SearchSettings';
-// import GraphqlTest from './graphql';
 
 /* Locals */
 import { clearState } from './actions';
 import reducer from './reducer';
-import saga from './saga';
 import makeSelectHomePage from './selectors';
 
-/* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent<Props> {
   componentWillUnmount() {
     this.props.handleClearState();
@@ -34,7 +30,6 @@ export class HomePage extends React.PureComponent<Props> {
   render() {
     return (
       <React.Fragment>
-        {/* <GraphqlTest /> */}
         <SearchSettings />
         <SearchResults />
       </React.Fragment>
@@ -48,11 +43,9 @@ const mapStateToProps = createStructuredSelector({
   homePage: makeSelectHomePage(),
 });
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    handleClearState: () => dispatch(clearState()),
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  handleClearState: () => dispatch(clearState()),
+});
 
 const withConnect = connect(
   mapStateToProps,
@@ -60,10 +53,8 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'homePage', reducer });
-const withSaga = injectSaga({ key: 'homePage', saga, mode: '' });
 
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
 )(HomePage);

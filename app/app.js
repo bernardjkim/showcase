@@ -57,7 +57,7 @@ const jss = create({
 });
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/api/graphql',
+  uri: 'api/graphql',
 });
 
 const render = messages => {

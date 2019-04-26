@@ -12,30 +12,6 @@ const selectHomePageDomain = (state: any): HomeState =>
 /**
  * Other specific selectors
  */
-const makeSelectLoading = () =>
-  createSelector(
-    selectHomePageDomain,
-    homeState => homeState.loading,
-  );
-
-const makeSelectError = () =>
-  createSelector(
-    selectHomePageDomain,
-    homeState => homeState.error,
-  );
-
-const makeSelectArticles = () =>
-  createSelector(
-    selectHomePageDomain,
-    homeState => homeState.articles,
-  );
-
-const makeSelectOffset = () =>
-  createSelector(
-    selectHomePageDomain,
-    homeState => homeState.offset,
-  );
-
 const makeSelectTags = () =>
   createSelector(
     selectHomePageDomain,
@@ -59,12 +35,4 @@ const makeSelectHomePage = () =>
   );
 
 export default makeSelectHomePage;
-export {
-  selectHomePageDomain,
-  makeSelectArticles,
-  makeSelectError,
-  makeSelectLoading,
-  makeSelectOffset,
-  makeSelectTags,
-  makeSelectSort,
-};
+export { selectHomePageDomain, makeSelectTags, makeSelectSort };
