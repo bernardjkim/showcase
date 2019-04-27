@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { makeSelectUser } from 'Root/selectors';
 
-import { createComment } from './actions';
+// import { createComment } from './actions';
 import { CommentBox, StyledTextField, SubmitCommentButton } from './components';
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleCreateComment: (comment: string) => {
     // ignore empty comments
     if (comment.length > 0) {
-      dispatch(createComment(comment));
+      // dispatch(createComment(comment));
     }
   },
 });

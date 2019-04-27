@@ -13,35 +13,12 @@ const selectArticlePageDomain = (state: any): ArticleState =>
  * Other specific selectors
  */
 
-const makeSelectLoading = () =>
+const makeSelectArticleId = () =>
   createSelector(
     selectArticlePageDomain,
-    articleState => articleState.loading,
+    articleState => articleState.articleId,
   );
 
-const makeSelectError = () =>
-  createSelector(
-    selectArticlePageDomain,
-    articleState => articleState.error,
-  );
-
-const makeSelectArticle = () =>
-  createSelector(
-    selectArticlePageDomain,
-    articleState => articleState.article,
-  );
-
-const makeSelectComments = () =>
-  createSelector(
-    selectArticlePageDomain,
-    articleState => articleState.comments,
-  );
-
-const makeSelectLikes = () =>
-  createSelector(
-    selectArticlePageDomain,
-    articleState => articleState.likes,
-  );
 /**
  * Default selector used by ArticlePage
  */
@@ -53,11 +30,4 @@ const makeSelectArticlePage = () =>
   );
 
 export default makeSelectArticlePage;
-export {
-  selectArticlePageDomain,
-  makeSelectArticle,
-  makeSelectComments,
-  makeSelectLikes,
-  makeSelectLoading,
-  makeSelectError,
-};
+export { selectArticlePageDomain, makeSelectArticleId };

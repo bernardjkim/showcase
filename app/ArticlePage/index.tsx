@@ -13,14 +13,13 @@ import { createStructuredSelector } from 'reselect';
 
 /* Utils */
 import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 
 /* Locals */
-import { loadArticle } from './actions';
+import { graphql, ChildDataProps } from 'react-apollo';
+import { setArticleId } from './actions';
+import { ArticleQueryInput, ArticleQueryResponse, ArticleQueryVariables, ARTICLE_QUERY } from './queries';
 import reducer from './reducer';
-import saga from './saga';
-import makeSelectArticlePage, { makeSelectArticle, makeSelectComments, makeSelectLikes } from './selectors';
-import { Query } from './types';
+import makeSelectArticlePage, { makeSelectArticleId } from './selectors';
 
 /* Local Components */
 import CommentForm from './CommentForm';
@@ -29,38 +28,24 @@ import Header from './Header';
 import Info from './Info';
 import { ArticlePageContainer, CommentsContainer, CommentList } from './components';
 
-const mapStateToProps = createStructuredSelector({
-  articlePage: makeSelectArticlePage(),
-  article: makeSelectArticle(),
-  comments: makeSelectComments(),
-  likes: makeSelectLikes(),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  handleLoadArticle: (query: Query) => dispatch(loadArticle(query)),
-});
-
-type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-/* eslint-disable react/prefer-stateless-function */
-export class ArticlePage extends React.PureComponent<Props> {
+export class ArticlePage extends React.PureComponent<ArticlePageProps> {
   componentDidMount() {
     const { id } = queryString.parse(this.props.location.search);
-    this.props.handleLoadArticle({ id: id as string });
+    this.props.handleSetArticleId(id as string);
   }
 
   render() {
-    const { article, comments, likes } = this.props;
+    const { article } = this.props.data;
     return (
       <ArticlePageContainer>
         {article && (
           <React.Fragment>
-            <Header github={article.github} likes={likes} title={article.title} uri={article.uri} />
+            <Header github={article.github} likes={article.likes} title={article.title} uri={article.uri} />
             <Gallary uri={article.uri} image={article.image} />
             <Info description={article.description} tags={article.tags} />
             <CommentsContainer>
               <CommentForm />
-              <CommentList comments={comments} />
+              <CommentList comments={article.comments} />
             </CommentsContainer>
           </React.Fragment>
         )}
@@ -69,16 +54,45 @@ export class ArticlePage extends React.PureComponent<Props> {
   }
 }
 
+// =============================================================================
+//  HOC
+// =============================================================================
+const withArticleQuery = graphql<ArticleQueryInput, ArticleQueryResponse, ArticleQueryVariables, {}>(ARTICLE_QUERY, {
+  options: ({ articleId }) => ({
+    variables: { id: articleId },
+  }),
+  props: ({ data }) => {
+    const props = { data: data! };
+    return props;
+  },
+});
+
+const mapStateToProps = createStructuredSelector({
+  articlePage: makeSelectArticlePage(),
+  articleId: makeSelectArticleId(),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  handleSetArticleId: (id: string) => dispatch(setArticleId(id)),
+});
+
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
 
 const withReducer = injectReducer({ key: 'articlePage', reducer });
-const withSaga = injectSaga({ key: 'articlePage', saga, mode: '' });
 
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
+  withArticleQuery,
 )(ArticlePage);
+
+// =============================================================================
+//  TYPES
+// =============================================================================
+type ArticlePageProps = RouteComponentProps &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> &
+  ChildDataProps<{}, ArticleQueryResponse>;

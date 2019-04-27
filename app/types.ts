@@ -13,6 +13,7 @@ export interface Article {
   tags: string[];
   image: string;
   likes: LikeList;
+  comments: CommentList;
 }
 
 export interface ArticleList {
@@ -31,6 +32,19 @@ export interface Like {
 export interface LikeList {
   totalCount: number;
   edges: Like[];
+}
+
+export interface Comment {
+  _id: string;
+  user: User;
+  article: Article;
+  value: string;
+  updated: Date;
+}
+
+export interface CommentList {
+  totalCount: number;
+  edges: Comment[];
 }
 
 export type Sort = 'new' | 'top';

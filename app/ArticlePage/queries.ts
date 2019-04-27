@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Article } from 'types';
 
 export const ARTICLE_QUERY = gql`
-  query GetArticle($id: ID) {
+  query GetArticle($id: String) {
     article(id: $id) {
       _id
       title
@@ -22,5 +22,6 @@ export const ARTICLE_QUERY = gql`
   }
 `;
 
-export type ArticleSearchResponse = { article: Article };
-export type ArticleSearchVariables = { id: string };
+export type ArticleQueryInput = { articleId: string };
+export type ArticleQueryResponse = { article: Article };
+export type ArticleQueryVariables = { id: string };
