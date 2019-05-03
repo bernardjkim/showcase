@@ -9,12 +9,7 @@ const StyledButton = styled(Button)`
 export const ButtonPrimary: React.FC<Props> = props => {
   const { label, handleClick } = props;
   return (
-    <StyledButton
-      color="primary"
-      size="large"
-      variant="contained"
-      onClick={handleClick}
-    >
+    <StyledButton color="primary" variant="contained" onClick={handleClick}>
       {label}
     </StyledButton>
   );

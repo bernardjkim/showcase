@@ -24,7 +24,7 @@ import makeSelectHomePage from './selectors';
 
 export class HomePage extends React.PureComponent<Props> {
   componentWillUnmount() {
-    this.props.handleClearState();
+    // this.props.handleClearState();
   }
 
   render() {

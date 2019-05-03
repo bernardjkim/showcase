@@ -1,34 +1,17 @@
+import gql from 'graphql-tag';
 import React from 'react';
+import { compose, graphql, ChildDataProps } from 'react-apollo';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { compose, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { makeSelectUser } from 'Root/selectors';
 
-// import { createComment } from './actions';
 import { CommentBox, StyledTextField, SubmitCommentButton } from './components';
+import { makeSelectArticleId } from './selectors';
 
-type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-type State = {
-  comment: string;
-};
-
-const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  handleCreateComment: (comment: string) => {
-    // ignore empty comments
-    if (comment.length > 0) {
-      // dispatch(createComment(comment));
-    }
-  },
-});
-
-export class CommentForm extends React.Component<Props, State> {
+export class CommentForm extends React.Component<CommentFormProps, State> {
   readonly state: State = {
     comment: '',
   };
@@ -44,7 +27,11 @@ export class CommentForm extends React.Component<Props, State> {
   };
 
   handleCreateComment = (comment: string) => () => {
-    this.props.handleCreateComment(comment);
+    if (comment.length <= 0) {
+      return;
+    }
+    const { articleId, submit } = this.props;
+    submit(articleId!, comment);
     this.setState({ comment: '' });
   };
 
@@ -70,9 +57,64 @@ export class CommentForm extends React.Component<Props, State> {
   }
 }
 
+export const CREATE_COMMENT = gql`
+  mutation CreateComment($article: ID, $value: String) {
+    createComment(input: { article: $article, value: $value }) {
+      _id
+      value
+      updated
+    }
+  }
+`;
+
+export type CreateCommentInput = {};
+
+export type CreateCommentResponse = {
+  createComment: Comment;
+};
+
+export type CreateCommentVariables = {
+  article: string;
+  value: string;
+};
+
+export type ChildProps = {
+  submit: (article: string, value: string) => void;
+};
+
+const withArticleQuery = graphql<CreateCommentInput, CreateCommentResponse, CreateCommentVariables, ChildProps>(
+  CREATE_COMMENT,
+  {
+    props: ({ mutate }) => ({
+      submit: (article: string, value: string) =>
+        mutate!({ variables: { article, value }, refetchQueries: ['GetArticle'] }),
+    }),
+  },
+);
+
+type State = {
+  comment: string;
+};
+
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+  articleId: makeSelectArticleId(),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({});
+
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
 
-export default withRouter(compose(withConnect)(CommentForm));
+export default compose(
+  withRouter,
+  withConnect,
+  withArticleQuery,
+)(CommentForm);
+
+type CommentFormProps = RouteComponentProps &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> &
+  ChildDataProps<ChildProps, CreateCommentResponse>;

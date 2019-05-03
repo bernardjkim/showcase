@@ -34,7 +34,6 @@ type State = {
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-/* eslint-disable react/prefer-stateless-function */
 class Nav extends React.Component<Props, State> {
   readonly state: State = {
     search: '',
@@ -46,10 +45,20 @@ class Nav extends React.Component<Props, State> {
 
   handleSubmitSearch = (search: string) => (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && search !== '') {
-      const { tags, history } = this.props;
-      history.push(`/search?term=${[...tags, search]}`);
-      this.setState({ search: '' });
       e.preventDefault();
+      let { tags, history } = this.props;
+      let url = '/search?';
+
+      if (search.startsWith('@')) {
+        url += `username=${search.substring(1)}&`;
+      } else {
+        tags = [...tags, search];
+      }
+      if (tags.length > 0) {
+        url += `term=${[...tags]}`;
+      }
+      history.push(url);
+      this.setState({ search: '' });
     }
   };
 

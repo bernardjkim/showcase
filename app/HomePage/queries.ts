@@ -22,12 +22,13 @@ export const ARTICLE_SEARCH_QUERY = gql`
   }
 `;
 
-export type ArticleSearchInput = { tags: string[]; sort: string };
+export type ArticleSearchInput = { tags: string[]; sort: string; username: string };
 export type ArticleSearchResponse = { articleSearch: ArticleList };
 export type ArticleSearchVariables = {
   input: {
     term: string;
     offset: number;
     sort: string;
+    username: string;
   };
 };

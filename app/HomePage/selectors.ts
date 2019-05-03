@@ -12,6 +12,13 @@ const selectHomePageDomain = (state: any): HomeState =>
 /**
  * Other specific selectors
  */
+
+const makeSelectOffset = () =>
+  createSelector(
+    selectHomePageDomain,
+    homeState => homeState.offset,
+  );
+
 const makeSelectTags = () =>
   createSelector(
     selectHomePageDomain,
@@ -22,6 +29,12 @@ const makeSelectSort = () =>
   createSelector(
     selectHomePageDomain,
     homeState => homeState.sort,
+  );
+
+const makeSelectUsername = () =>
+  createSelector(
+    selectHomePageDomain,
+    homeState => homeState.username,
   );
 
 /**
@@ -35,4 +48,4 @@ const makeSelectHomePage = () =>
   );
 
 export default makeSelectHomePage;
-export { selectHomePageDomain, makeSelectTags, makeSelectSort };
+export { selectHomePageDomain, makeSelectOffset, makeSelectTags, makeSelectSort, makeSelectUsername };

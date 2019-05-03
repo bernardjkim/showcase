@@ -4,12 +4,7 @@ import React from 'react';
 export const ButtonSecondary: React.FC<Props> = props => {
   const { label, handleClick } = props;
   return (
-    <Button
-      onClick={handleClick}
-      color="primary"
-      size="large"
-      variant="outlined"
-    >
+    <Button onClick={handleClick} color="primary" variant="outlined">
       {label}
     </Button>
   );

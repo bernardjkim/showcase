@@ -10,16 +10,18 @@ import { createStructuredSelector } from 'reselect';
 import ArticleCard from 'components/ArticleCard';
 
 // /* Local Components */
-import { setSearch } from './actions';
+import { setOffset, setSearch, setUsername } from './actions';
 import { SearchResultsContainer } from './components';
 import { ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, ARTICLE_SEARCH_QUERY } from './queries';
-import { makeSelectSort, makeSelectTags } from './selectors';
+import { makeSelectOffset, makeSelectSort, makeSelectTags, makeSelectUsername } from './selectors';
 
-class SearchResults extends React.Component<SearchResultsProps> {
+class SearchResults extends React.PureComponent<SearchResultsProps> {
   // ===========================================================================
   //  LIFECYCLE
   // ===========================================================================
   componentDidMount() {
+    // this.updateSearchValue();
+    // this.props.data.refetch();
     // Binds our scroll event handler
     window.addEventListener('scroll', this.handleScroll);
   }
@@ -37,19 +39,14 @@ class SearchResults extends React.Component<SearchResultsProps> {
   }
 
   render() {
-    const { articleSearch: articles, loading } = this.props.data;
-    if (loading) {
-      return 'Loading...';
-    }
+    const { articleSearch: articles } = this.props.data;
     return (
-      <div>
-        <SearchResultsContainer>
-          {articles &&
-            articles.edges.map(article => (
-              <ArticleCard key={article._id} article={article} likes={article.likes.totalCount} />
-            ))}
-        </SearchResultsContainer>
-      </div>
+      <SearchResultsContainer>
+        {articles &&
+          articles.edges.map(article => (
+            <ArticleCard key={article._id} article={article} likes={article.likes.totalCount} />
+          ))}
+      </SearchResultsContainer>
     );
   }
 
@@ -58,13 +55,14 @@ class SearchResults extends React.Component<SearchResultsProps> {
   // ===========================================================================
 
   /**
-   * This function will grab the query 'term' from the current location and
-   * save it to the HomePage state.
+   * This function will grab the query term/username from the current location
+   * and save it to the HomePage state.
    */
   updateSearchValue() {
-    const { term } = queryString.parse(this.props.location.search);
+    const { term, username } = queryString.parse(this.props.location.search);
     const tags = term ? (term as string).split(',') : [];
     this.props.handleSetSearch(tags);
+    this.props.handleSetUsername(username as string);
   }
 
   /**
@@ -95,16 +93,25 @@ class SearchResults extends React.Component<SearchResultsProps> {
     const {
       tags,
       sort,
-      data: { articleSearch, fetchMore },
+      username,
+      data: { articleSearch: articles, fetchMore },
     } = this.props;
 
     fetchMore({
-      variables: { input: { term: tags.toString(), offset: articleSearch!.totalCount, sort } },
+      variables: { input: { term: tags.toString(), offset: articles!.totalCount, sort, username } },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        const { articleSearch: articles } = previousResult;
-        articles.edges = articles.edges.concat(fetchMoreResult!.articleSearch.edges);
-        articles.totalCount = articles.edges.length;
-        return { ...previousResult, articleSearch: articles };
+        const articleSearch = { ...previousResult.articleSearch };
+
+        // remove potential duplicates
+        const ids = new Set(articleSearch.edges.map(article => article._id));
+        for (const article of fetchMoreResult!.articleSearch.edges) {
+          if (!ids.has(article._id)) {
+            ids.add(article._id);
+            articleSearch.edges.push(article);
+          }
+        }
+        articleSearch.totalCount = articleSearch.edges.length;
+        return { ...previousResult, articleSearch };
       },
     });
   };
@@ -116,8 +123,8 @@ class SearchResults extends React.Component<SearchResultsProps> {
 const withArticleSearch = graphql<ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, {}>(
   ARTICLE_SEARCH_QUERY,
   {
-    options: ({ tags, sort }) => ({
-      variables: { input: { term: tags.toString(), offset: 0, sort } },
+    options: ({ tags, sort, username }) => ({
+      variables: { input: { term: tags.toString(), offset: 0, sort, username } },
     }),
     props: ({ data }) => {
       const props = { data: data! };
@@ -128,11 +135,15 @@ const withArticleSearch = graphql<ArticleSearchInput, ArticleSearchResponse, Art
 
 const mapStateToProps = createStructuredSelector({
   tags: makeSelectTags(),
+  offset: makeSelectOffset(),
   sort: makeSelectSort(),
+  username: makeSelectUsername(),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
+  handleSetOffset: (offset: number) => dispatch(setOffset(offset)),
   handleSetSearch: (search: string[]) => dispatch(setSearch(search)),
+  handleSetUsername: (username: string) => dispatch(setUsername(username)),
 });
 
 const withConnect = connect(

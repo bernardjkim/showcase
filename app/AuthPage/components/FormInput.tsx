@@ -13,15 +13,7 @@ const StyledTextField = styled(TextField)`
 
 export const FormInput: React.FC<Props> = props => {
   const { onChange, ...rest } = props;
-  return (
-    <StyledTextField
-      onChange={onChange}
-      fullWidth={true}
-      margin="dense"
-      variant="outlined"
-      {...rest}
-    />
-  );
+  return <StyledTextField onChange={onChange} fullWidth={true} margin="dense" {...rest} />;
 };
 
 type Props = {

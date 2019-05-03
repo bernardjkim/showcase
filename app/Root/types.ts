@@ -1,15 +1,14 @@
 import { User } from 'types';
 
 export interface RootState {
-  loading: boolean;
-  error?: Error;
   user?: User;
-  validateToken: boolean;
 }
 
 // =============================================================================
 //  ACTIONS
 // =============================================================================
+
+export const SET_USER = 'app/App/SET_USER';
 
 export const DELETE_TOKEN = 'app/App/DELETE_TOKEN';
 export const DELETE_TOKEN_SUCCESS = 'app/App/DELETE_TOKEN_SUCCESS';
@@ -18,6 +17,11 @@ export const DELETE_TOKEN_ERROR = 'app/App/DELETE_TOKEN_ERROR';
 export const LOAD_USER = 'app/App/LOAD_USER';
 export const LOAD_USER_SUCCESS = 'app/App/LOAD_USER_SUCCESS';
 export const LOAD_USER_ERROR = 'app/App/LOAD_USER_ERROR';
+
+interface SetUserAction {
+  type: typeof SET_USER;
+  user: User;
+}
 
 interface DeleteTokenAction {
   type: typeof DELETE_TOKEN;
@@ -52,4 +56,5 @@ export type RootActionTypes =
   | DeleteTokenSuccessAction
   | LoadUserAction
   | LoadUserErrorAction
-  | LoadUserSuccessAction;
+  | LoadUserSuccessAction
+  | SetUserAction;

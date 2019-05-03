@@ -7,10 +7,12 @@
  *
  */
 
+import gql from 'graphql-tag';
 import React from 'react';
+import { compose, graphql, ChildDataProps } from 'react-apollo';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { compose, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Font Awesome Icons */
@@ -34,21 +36,27 @@ import PrivateRoute from './PrivateRoute';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { loadUser } from './actions';
+import { setUser } from './actions';
 
 import reducer from './reducer';
 import saga from './saga';
 
+import { User } from 'types';
 import GlobalStyle from '../global-styles';
 import theme from './theme';
 
 library.add(fas, fab);
 
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-export class App extends React.PureComponent<Props> {
+export class App extends React.PureComponent<RootProps> {
   componentDidMount() {
-    this.props.handleLoadUser();
+    // this.props.handleLoadUser();
+  }
+
+  componentDidUpdate(prevProps: RootProps) {
+    // update user
+    if (this.props.data.user !== prevProps.data.user) {
+      this.props.handleSetUser(this.props.data.user!);
+    }
   }
 
   render() {
@@ -69,13 +77,37 @@ export class App extends React.PureComponent<Props> {
   }
 }
 
+export const USER_QUERY = gql`
+  query GetUser {
+    user {
+      _id
+      username
+      email
+      updated
+    }
+  }
+`;
+
+export type UserQueryInput = {};
+
+export type UserQueryResponse = {
+  user: User;
+};
+
+export type UserQueryVariables = {};
+
+const withUserQuery = graphql<UserQueryInput, UserQueryResponse, UserQueryVariables, {}>(USER_QUERY, {
+  props: ({ data }) => {
+    const props = { data: data! };
+    return props;
+  },
+});
+
 const mapStateToProps = createStructuredSelector({});
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    handleLoadUser: () => dispatch(loadUser()),
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  handleSetUser: (user: User) => dispatch(setUser(user)),
+});
 
 const withConnect = connect(
   mapStateToProps,
@@ -85,10 +117,14 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'global', reducer });
 const withSaga = injectSaga({ key: 'global', saga, mode: '' });
 
-export default withRouter(
-  compose(
-    withReducer,
-    withSaga,
-    withConnect,
-  )(App),
-);
+export default compose(
+  withRouter,
+  withReducer,
+  withSaga,
+  withConnect,
+  withUserQuery,
+)(App);
+
+type RootProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> &
+  ChildDataProps<{}, UserQueryResponse>;

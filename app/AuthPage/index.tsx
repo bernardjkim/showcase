@@ -21,7 +21,7 @@ import injectSaga from 'utils/injectSaga';
 import { makeSelectUser } from 'Root/selectors';
 
 /* Locals */
-import { clearErrors } from './actions';
+import { clearErrors, createToken } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectAuthPage, { makeSelectError } from './selectors';
@@ -31,21 +31,26 @@ import Header from './Header';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { AuthPageContainer } from './components';
+import { LoginFormData } from './types';
 
-const Toggle = styled(Button)`` as typeof Button;
-const AuthAction = styled.div`
-  width: 90%;
-  padding-left: 60px;
-  padding-right: 60px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+const Demo = styled(Button)`
+  width: 80%;
+` as typeof Button;
+
+const AuthPageGraphic = styled.div`
+  width: 100%;
+  background-color: rgba(87, 193, 174, 0.5);
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 type State = {
   showLogin: boolean;
 };
 
-/* eslint-disable react/prefer-stateless-function */
 export class AuthPage extends React.PureComponent<Props, State> {
   readonly state: State = {
     showLogin: true,
@@ -57,37 +62,37 @@ export class AuthPage extends React.PureComponent<Props, State> {
   };
 
   render() {
-    /* state */
-    const { user } = this.props;
+    const { handleToggle } = this;
+    const { user, handleCreateToken } = this.props;
 
     if (user) {
       return <Redirect to="/" />;
     }
 
     return (
-      <AuthPageContainer>
-        {this.state.showLogin ? (
-          <React.Fragment>
-            <Header message="Showcase your personal projects" welcome="Welcome Back. Please Login To Continue." />
-            <LoginForm />
-            <AuthAction>
-              <Toggle onClick={this.handleToggle(false)}>Sign Up</Toggle>
-            </AuthAction>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Header
-              message="Showcase your personal projects"
-              welcome="Welcome to koblstone. Please Signup To Continue."
-            />
-            <SignupForm />
-
-            <AuthAction>
-              <Toggle onClick={this.handleToggle(true)}>Login</Toggle>
-            </AuthAction>
-          </React.Fragment>
-        )}
-      </AuthPageContainer>
+      <Container>
+        <AuthPageContainer>
+          {this.state.showLogin ? (
+            <React.Fragment>
+              <Header message="Welcome to Koblstone" welcome="Please Login To Continue." />
+              <LoginForm handleToggle={handleToggle(false)} />
+              <Demo
+                color="secondary"
+                variant="contained"
+                onClick={handleCreateToken({ email: 'demo@koblstone.com', password: 'password' })}
+              >
+                Demo
+              </Demo>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Header message="Welcome to Koblstone" welcome="Please Signup To Continue." />
+              <SignupForm handleToggle={handleToggle(true)} />
+            </React.Fragment>
+          )}
+        </AuthPageContainer>
+        <AuthPageGraphic />
+      </Container>
     );
   }
 }
@@ -103,6 +108,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
     handleClearErrors: () => dispatch(clearErrors()),
+    handleCreateToken: (form: LoginFormData) => () => dispatch(createToken(form)),
   };
 }
 

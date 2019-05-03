@@ -20,28 +20,10 @@ const selectGlobalDomain = (state: any): RootState => (state.get ? state.get('gl
  * Other specific selectors
  */
 
-const makeSelectLoading = () =>
-  createSelector(
-    selectGlobalDomain,
-    globalState => globalState.loading,
-  );
-
-const makeSelectError = () =>
-  createSelector(
-    selectGlobalDomain,
-    globalState => globalState.error,
-  );
-
 const makeSelectUser = () =>
   createSelector(
     selectGlobalDomain,
     globalState => globalState.user,
-  );
-
-const makeSelectValidateToken = () =>
-  createSelector(
-    selectGlobalDomain,
-    globalState => globalState.validateToken,
   );
 
 /**
@@ -55,11 +37,4 @@ const makeSelectApp = () =>
   );
 
 export default makeSelectApp;
-export {
-  makeSelectLocation,
-  selectGlobalDomain,
-  makeSelectUser,
-  makeSelectValidateToken,
-  makeSelectLoading,
-  makeSelectError,
-};
+export { makeSelectLocation, selectGlobalDomain, makeSelectUser };

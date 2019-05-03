@@ -40,7 +40,13 @@ export class ArticlePage extends React.PureComponent<ArticlePageProps> {
       <ArticlePageContainer>
         {article && (
           <React.Fragment>
-            <Header github={article.github} likes={article.likes} title={article.title} uri={article.uri} />
+            <Header
+              github={article.github}
+              likes={article.likes}
+              title={article.title}
+              uri={article.uri}
+              articleId={article._id}
+            />
             <Gallary uri={article.uri} image={article.image} />
             <Info description={article.description} tags={article.tags} />
             <CommentsContainer>

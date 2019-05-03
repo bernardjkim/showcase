@@ -7,4 +7,6 @@ export const StyledCard = styled(Card)`
   position: relative;
   display: flex;
   flex-direction: column;
+  border-radius: 0px;
+  border-bottom: 1px solid #ceeae5;
 ` as typeof Card;

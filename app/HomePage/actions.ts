@@ -3,7 +3,7 @@
  * HomePage actions
  *
  */
-import { CLEAR_STATE, HomeActionTypes, SET_SEARCH, SET_SORT } from './types';
+import { CLEAR_STATE, HomeActionTypes, SET_OFFSET, SET_SEARCH, SET_SORT, SET_USERNAME } from './types';
 
 /**
  * Clears the homepage state
@@ -13,6 +13,13 @@ import { CLEAR_STATE, HomeActionTypes, SET_SEARCH, SET_SORT } from './types';
 export function clearState(): HomeActionTypes {
   return {
     type: CLEAR_STATE,
+  };
+}
+
+export function setOffset(offset: number): HomeActionTypes {
+  return {
+    type: SET_OFFSET,
+    offset,
   };
 }
 
@@ -32,5 +39,12 @@ export function setSort(sort: string): HomeActionTypes {
   return {
     type: SET_SORT,
     sort,
+  };
+}
+
+export function setUsername(username: string): HomeActionTypes {
+  return {
+    type: SET_USERNAME,
+    username,
   };
 }

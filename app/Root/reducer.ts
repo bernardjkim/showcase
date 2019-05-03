@@ -13,18 +13,19 @@ import {
   LOAD_USER_SUCCESS,
   RootActionTypes,
   RootState,
+  SET_USER,
 } from './types';
 
 // The initial state of the App
 export const initialState: RootState = {
-  loading: false,
-  error: undefined,
   user: undefined,
-  validateToken: true,
 };
 
 function AppReducer(state: RootState = initialState, action: RootActionTypes) {
   switch (action.type) {
+    case SET_USER:
+      return { ...state, user: action.user };
+
     case DELETE_TOKEN:
       return { ...state, loading: true, error: undefined };
 

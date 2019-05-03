@@ -13,7 +13,15 @@ import {
   LOAD_USER_ERROR,
   LOAD_USER_SUCCESS,
   RootActionTypes,
+  SET_USER,
 } from './types';
+
+export function setUser(user: User): RootActionTypes {
+  return {
+    type: SET_USER,
+    user,
+  };
+}
 
 /**
  * Delete token

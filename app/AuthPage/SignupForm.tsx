@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { clearErrors, createUser } from './actions';
 import { makeSelectError } from './selectors';
 
-import { Actions, ButtonPrimary, ErrorMessage, FormContainer, FormInput } from './components';
+import { Actions, ButtonPrimary, ButtonSecondary, ErrorMessage, FormContainer, FormInput } from './components';
 import { SignupFormData } from './types';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -30,7 +30,7 @@ class SignupForm extends React.PureComponent<Props, State> {
 
   render() {
     const { handleOnChange } = this;
-    const { error, handleCreateUser } = this.props;
+    const { error, handleCreateUser, handleToggle } = this.props;
     const { username, email, password, passwordConfirm } = this.state;
 
     return (
@@ -45,15 +45,16 @@ class SignupForm extends React.PureComponent<Props, State> {
             label="Signup"
             handleClick={handleCreateUser({ username, email, password, passwordConfirm })}
           />
-          {/* <ButtonSecondary label="Login" handleClick={handleToggle(true)} /> */}
+
+          <ButtonSecondary label="Login" handleClick={handleToggle} />
         </Actions>
-        <ErrorMessage hidden={!error || !error.get('createUser')}>Invalid Fields</ErrorMessage>
+        <ErrorMessage hidden={!error || !error.createUser}>Invalid Fields</ErrorMessage>
       </FormContainer>
     );
   }
 }
 
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & { handleToggle: () => void };
 
 type State = {
   username: string;

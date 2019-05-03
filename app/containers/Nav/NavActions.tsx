@@ -2,14 +2,15 @@ import React from 'react';
 
 import { AuthLink, SubmitLink } from 'Routes';
 
+import { User } from 'types';
 import { ActionsContainer, NavContent, StyledButton } from './components';
 
 type Props = {
-  user?: object;
+  user?: User;
   handleLogout: () => void;
 };
 
-const NavActions: React.FC<Props> = props => {
+const NavActions: React.SFC<Props> = props => {
   const { user, handleLogout } = props;
   return (
     <NavContent>
