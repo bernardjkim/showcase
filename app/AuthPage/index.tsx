@@ -11,7 +11,7 @@ import { compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 /* Utils */
 import injectReducer from 'utils/injectReducer';
@@ -21,7 +21,7 @@ import injectSaga from 'utils/injectSaga';
 import { makeSelectUser } from 'Root/selectors';
 
 /* Locals */
-import { clearErrors, createToken } from './actions';
+import { clearErrors } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectAuthPage, { makeSelectError } from './selectors';
@@ -30,22 +30,20 @@ import makeSelectAuthPage, { makeSelectError } from './selectors';
 import Header from './Header';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import { AuthPageContainer } from './components';
-import { LoginFormData } from './types';
 
-const Demo = styled(Button)`
-  width: 80%;
-` as typeof Button;
+const AuthPageGraphic = styled(Grid)`
+  @media (min-width: 460px) {
+    background-color: rgba(224, 253, 248, 0.5);
+  }
+` as typeof Grid;
 
-const AuthPageGraphic = styled.div`
-  width: 100%;
-  background-color: rgba(87, 193, 174, 0.5);
-`;
+const AuthPageContainer = styled(Grid)`
+  height: 100vh;
+` as typeof Grid;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+const AuthFormContainer = styled(Grid)`
+  height: 100%;
+` as typeof Grid;
 
 type State = {
   showLogin: boolean;
@@ -63,26 +61,19 @@ export class AuthPage extends React.PureComponent<Props, State> {
 
   render() {
     const { handleToggle } = this;
-    const { user, handleCreateToken } = this.props;
+    const { user } = this.props;
 
     if (user) {
       return <Redirect to="/" />;
     }
 
     return (
-      <Container>
-        <AuthPageContainer>
+      <AuthPageContainer xs={12} container={true} justify="flex-start">
+        <AuthFormContainer xs={12} sm={6} md={4} container={true} justify="center" spacing={8}>
           {this.state.showLogin ? (
             <React.Fragment>
               <Header message="Welcome to Koblstone" welcome="Please Login To Continue." />
               <LoginForm handleToggle={handleToggle(false)} />
-              <Demo
-                color="secondary"
-                variant="contained"
-                onClick={handleCreateToken({ email: 'demo@koblstone.com', password: 'password' })}
-              >
-                Demo
-              </Demo>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -90,9 +81,9 @@ export class AuthPage extends React.PureComponent<Props, State> {
               <SignupForm handleToggle={handleToggle(true)} />
             </React.Fragment>
           )}
-        </AuthPageContainer>
-        <AuthPageGraphic />
-      </Container>
+        </AuthFormContainer>
+        <AuthPageGraphic xs={false} sm={6} md={8} />
+      </AuthPageContainer>
     );
   }
 }
@@ -108,7 +99,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
     handleClearErrors: () => dispatch(clearErrors()),
-    handleCreateToken: (form: LoginFormData) => () => dispatch(createToken(form)),
   };
 }
 

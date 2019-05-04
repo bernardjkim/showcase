@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
   color: white;
+  width: 100%;
 ` as typeof Button;
 
 export const ButtonPrimary: React.FC<Props> = props => {

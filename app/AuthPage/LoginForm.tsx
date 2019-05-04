@@ -11,9 +11,11 @@ import { createStructuredSelector } from 'reselect';
 
 import { clearErrors, createToken } from './actions';
 
-import { Actions, ButtonPrimary, ButtonSecondary, ErrorMessage, FormContainer, FormInput } from './components';
+import { ButtonPrimary, ButtonSecondary, ErrorMessage, FormInput } from './components';
 import { makeSelectError } from './selectors';
 import { LoginFormData } from './types';
+
+import Grid from '@material-ui/core/Grid';
 
 class LoginForm extends React.PureComponent<Props, State> {
   readonly state: State = {
@@ -31,16 +33,25 @@ class LoginForm extends React.PureComponent<Props, State> {
     const { email, password } = this.state;
 
     return (
-      <FormContainer>
-        <FormInput onChange={handleOnChange('email')} label="Email Address" type="email" autoFocus={true} />
-        <FormInput onChange={handleOnChange('password')} label="Password" type="password" />
-
-        <Actions>
+      <Grid xs={10} item={true} container={true} spacing={16} alignContent="flex-start">
+        <Grid item={true} xs={12}>
+          <FormInput onChange={handleOnChange('email')} label="Email Address" type="email" autoFocus={true} />
+          <FormInput onChange={handleOnChange('password')} label="Password" type="password" />
+          <ErrorMessage hidden={!error || !error.createToken}>Invalid Email or Password</ErrorMessage>
+        </Grid>
+        <Grid item={true} xs={6}>
           <ButtonPrimary label="Login" handleClick={handleCreateToken({ email, password })} />
+        </Grid>
+        <Grid item={true} xs={6}>
           <ButtonSecondary label="Signup" handleClick={handleToggle} />
-        </Actions>
-        <ErrorMessage hidden={!error || !error.createToken}>Invalid Email or Password</ErrorMessage>
-      </FormContainer>
+        </Grid>
+        <Grid item={true} xs={12}>
+          <ButtonPrimary
+            label="Demo"
+            handleClick={handleCreateToken({ email: 'demo@koblstone.com', password: 'password' })}
+          />
+        </Grid>
+      </Grid>
     );
   }
 }

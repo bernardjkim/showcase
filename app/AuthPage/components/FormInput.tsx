@@ -3,9 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledTextField = styled(TextField)`
-  margin-top: 20px;
-  margin-bottom: 20px;
-
   label {
     color: #57c1ae;
   }

@@ -12,10 +12,11 @@ import { createStructuredSelector } from 'reselect';
 import { clearErrors, createUser } from './actions';
 import { makeSelectError } from './selectors';
 
-import { Actions, ButtonPrimary, ButtonSecondary, ErrorMessage, FormContainer, FormInput } from './components';
+import { ButtonPrimary, ButtonSecondary, ErrorMessage, FormInput } from './components';
 import { SignupFormData } from './types';
 
-/* eslint-disable react/prefer-stateless-function */
+import Grid from '@material-ui/core/Grid';
+
 class SignupForm extends React.PureComponent<Props, State> {
   readonly state: State = {
     username: '',
@@ -34,22 +35,26 @@ class SignupForm extends React.PureComponent<Props, State> {
     const { username, email, password, passwordConfirm } = this.state;
 
     return (
-      <FormContainer>
-        <FormInput onChange={handleOnChange('username')} label="Username" type="username" autoFocus={true} />
-        <FormInput onChange={handleOnChange('email')} label="Email Address" type="email" />
-        <FormInput onChange={handleOnChange('password')} label="Password" type="password" />
-        <FormInput onChange={handleOnChange('passwordConfirm')} label="Confirm Password" type="password" />
+      <Grid xs={10} item={true} container={true} spacing={16} alignContent="flex-start">
+        <Grid item={true} xs={12}>
+          <FormInput onChange={handleOnChange('username')} label="Username" type="username" autoFocus={true} />
+          <FormInput onChange={handleOnChange('email')} label="Email Address" type="email" />
+          <FormInput onChange={handleOnChange('password')} label="Password" type="password" />
+          <FormInput onChange={handleOnChange('passwordConfirm')} label="Confirm Password" type="password" />
+          <ErrorMessage hidden={!error || !error.createUser}>Invalid Fields</ErrorMessage>
+        </Grid>
 
-        <Actions>
+        <Grid item={true} xs={6}>
           <ButtonPrimary
             label="Signup"
             handleClick={handleCreateUser({ username, email, password, passwordConfirm })}
           />
+        </Grid>
 
+        <Grid item={true} xs={6}>
           <ButtonSecondary label="Login" handleClick={handleToggle} />
-        </Actions>
-        <ErrorMessage hidden={!error || !error.createUser}>Invalid Fields</ErrorMessage>
-      </FormContainer>
+        </Grid>
+      </Grid>
     );
   }
 }
