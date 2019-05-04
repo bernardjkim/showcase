@@ -19,6 +19,7 @@ const Tag = styled(Chip)`
   font-size: 11px;
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
   span {
     padding-left: 6px;
     padding-right: 6px;

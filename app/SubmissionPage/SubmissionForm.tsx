@@ -13,7 +13,9 @@ import { createStructuredSelector } from 'reselect';
 import TagList from 'components/TagList';
 
 /* Local Components */
-import { InputImage, StyledTextField, SubmissionFormContainer, SubmitButton } from './components';
+import { InputImage, StyledTextField, SubmitButton } from './components';
+
+import Grid from '@material-ui/core/Grid';
 
 import { submitForm } from './actions';
 import { makeSelectLoading } from './selectors';
@@ -101,7 +103,7 @@ class SubmissionForm extends React.PureComponent<Props, State> {
     const { form, tag, preview } = this.state;
 
     return (
-      <SubmissionFormContainer>
+      <Grid item={true} xs={10} sm={8}>
         <StyledTextField label="Title" required={true} onChange={handleChange('title')} value={form.title} />
         <StyledTextField label="URL" required={true} onChange={this.handleChange('uri')} value={form.uri} />
         <StyledTextField label="GitHub" onChange={this.handleChange('github')} value={form.github} />
@@ -117,7 +119,7 @@ class SubmissionForm extends React.PureComponent<Props, State> {
         <TagList tags={form.tags} handleDeleteTag={handleDeleteTag} />
         <InputImage preview={preview} handleFileUpload={handleFileUpload} />
         <SubmitButton loading={loadingSubmit} handleSubmit={handleSubmitForm(form)} />
-      </SubmissionFormContainer>
+      </Grid>
     );
   }
 }

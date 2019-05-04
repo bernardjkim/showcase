@@ -13,7 +13,6 @@ import ArticleCard from 'components/ArticleCard';
 
 // /* Local Components */
 import { setOffset, setSearch, setUsername } from './actions';
-// import { SearchResultsContainer } from './components';
 import { ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, ARTICLE_SEARCH_QUERY } from './queries';
 import { makeSelectOffset, makeSelectSort, makeSelectTags, makeSelectUsername } from './selectors';
 
@@ -22,7 +21,7 @@ class SearchResults extends React.PureComponent<SearchResultsProps> {
   //  LIFECYCLE
   // ===========================================================================
   componentDidMount() {
-    // this.updateSearchValue();
+    this.updateSearchValue();
     // this.props.data.refetch();
     // Binds our scroll event handler
     window.addEventListener('scroll', this.handleScroll);
@@ -72,16 +71,16 @@ class SearchResults extends React.PureComponent<SearchResultsProps> {
    * or bottom of the component.
    */
   handleScroll = () => {
-    const { innerHeight } = window;
-    const { offsetHeight, scrollHeight, scrollTop } = document.documentElement;
+    const { innerHeight, pageYOffset } = window;
+    const { offsetHeight, scrollHeight } = document.documentElement;
 
     // Handle scroll top
-    if (innerHeight + scrollTop === offsetHeight) {
+    if (innerHeight + pageYOffset <= offsetHeight) {
       // Refresh?
     }
 
     // Handle scroll bottom
-    if (innerHeight + scrollTop === scrollHeight) {
+    if (innerHeight + pageYOffset >= scrollHeight - 50) {
       this.onFetchMore();
     }
   };

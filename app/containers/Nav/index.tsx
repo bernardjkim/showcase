@@ -10,6 +10,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import Grid from '@material-ui/core/Grid';
+
 import { deleteToken } from 'Root/actions';
 import { makeSelectUser } from 'Root/selectors';
 
@@ -19,7 +21,6 @@ import NavActions from './NavActions';
 import SearchBar from './SearchBar';
 import { StyledAppBar, StyledToolbar } from './components';
 
-import Grid from '@material-ui/core/Grid';
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   tags: makeSelectTags(),
@@ -47,7 +48,8 @@ class Nav extends React.Component<Props, State> {
   handleSubmitSearch = (search: string) => (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && search !== '') {
       e.preventDefault();
-      let { tags, history } = this.props;
+      const { history } = this.props;
+      let { tags } = this.props;
       let url = '/search?';
 
       if (search.startsWith('@')) {
@@ -72,9 +74,7 @@ class Nav extends React.Component<Props, State> {
       <StyledAppBar color="inherit" position="relative">
         <StyledToolbar>
           <Grid container={true} justify="space-between">
-            <Grid item={true} xs={2}>
-              <Logo />
-            </Grid>
+            <Logo />
             <SearchBar handleSubmit={handleSubmitSearch(search)} handleChange={handleChange} value={search} />
             <NavActions user={user} handleLogout={handleLogout} />
           </Grid>

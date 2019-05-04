@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Typography from '@material-ui/core/Typography';
 
 const ScreenShot = styled.img`
-  margin-top: 20px;
-  height: 400px;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const PlaceHolder = styled.label`
@@ -16,11 +16,18 @@ const PlaceHolder = styled.label`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-  height: 400px;
+  height: 160px;
   background-color: #e8eaea;
+
+  @media (min-width: 600px) {
+    height: 240px;
+  }
+  @media (min-width: 1000px) {
+    height: 300px;
+  }
+  @media (min-width: 1400px) {
+    height: 360px;
+  }
 `;
 
 const Label = styled(Typography)`
@@ -44,9 +51,10 @@ export const InputImage: React.FC<Props> = props => {
 
   if (preview) {
     return (
-      <div>
+      <PlaceHolder>
+        <InputFile type="file" onChange={handleFileUpload} />
         <ScreenShot src={preview} alt="ScreenShot" />
-      </div>
+      </PlaceHolder>
     );
   }
   return (

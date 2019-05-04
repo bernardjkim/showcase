@@ -17,7 +17,7 @@ const SearchBar: React.FC<Props> = props => {
   const { value, handleChange, handleSubmit } = props;
 
   return (
-    <Grid item={true} xs={8}>
+    <Grid item={true} xs={8} sm={6} lg={4}>
       <StyledTextField
         color="primary"
         variant="outlined"
@@ -31,7 +31,7 @@ const SearchBar: React.FC<Props> = props => {
             </InputAdornment>
           ),
         }}
-        placeholder="Search koblstone"
+        placeholder="Search Koblstone"
       />
     </Grid>
   );

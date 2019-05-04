@@ -21,7 +21,7 @@ const Result: React.SFC<Props> = props => {
   };
 
   return (
-    <Grid item={true} xs={12} sm={6} md={4} lg={3}>
+    <Grid item={true} xs={12} sm={6} md={4} xl={3}>
       <StyledCard>
         <StyledCardActionArea>
           <StyledCardMedia image={article.image} title={article.title} onClick={openInNewTab(article.uri)} />

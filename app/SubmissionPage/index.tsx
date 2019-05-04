@@ -22,10 +22,31 @@ import makeSelectSubmissionPage, { makeSelectSubmissionSuccess } from './selecto
 import { Form } from './types';
 
 /* Local Components */
-import Footer from './Footer';
-import Header from './Header';
 import SubmissionForm from './SubmissionForm';
-import { SubmissionPageContainer } from './components';
+
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
+
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+export const HeaderMessage = styled(Typography)`
+  font-weight: 100;
+  font-size: 32px;
+  @media (min-width: 600px) {
+    font-size: 48px;
+  }
+` as typeof Typography;
+
+const FormContainer = styled(Grid)`
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 14px;
+  padding-right: 14px;
+` as typeof Grid;
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
@@ -41,7 +62,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
   };
 }
 
-/* eslint-disable react/prefer-stateless-function */
 export class SubmissionPage extends React.PureComponent<Props> {
   componentWillUnmount() {
     this.props.handleClearState();
@@ -55,11 +75,17 @@ export class SubmissionPage extends React.PureComponent<Props> {
 
   render() {
     return (
-      <SubmissionPageContainer>
-        <Header />
-        <SubmissionForm {...this.props} />
-        <Footer />
-      </SubmissionPageContainer>
+      <Grid container={true} justify="center">
+        <FormContainer item={true} container={true} justify="center" xs={12} sm={10} md={8} xl={6} component={Paper}>
+          <Grid item={true} container={true} xs={12} justify="flex-end">
+            <Button onClick={() => this.props.history.push(`/`)}>
+              <FontAwesomeIcon color="#a9caca" size="2x" icon={faTimesCircle} />
+            </Button>
+          </Grid>
+          <HeaderMessage color="primary">Submit A Website</HeaderMessage>
+          <SubmissionForm {...this.props} />
+        </FormContainer>
+      </Grid>
     );
   }
 }
