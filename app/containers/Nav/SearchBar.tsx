@@ -2,9 +2,10 @@ import React from 'react';
 
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { NavContent, StyledTextField } from './components';
+import { StyledTextField } from './components';
 
 type Props = {
   value: string;
@@ -16,7 +17,7 @@ const SearchBar: React.FC<Props> = props => {
   const { value, handleChange, handleSubmit } = props;
 
   return (
-    <NavContent>
+    <Grid item={true} xs={8}>
       <StyledTextField
         color="primary"
         variant="outlined"
@@ -32,7 +33,7 @@ const SearchBar: React.FC<Props> = props => {
         }}
         placeholder="Search koblstone"
       />
-    </NavContent>
+    </Grid>
   );
 };
 

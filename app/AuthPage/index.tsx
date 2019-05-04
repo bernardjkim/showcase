@@ -68,8 +68,8 @@ export class AuthPage extends React.PureComponent<Props, State> {
     }
 
     return (
-      <AuthPageContainer xs={12} container={true} justify="flex-start">
-        <AuthFormContainer xs={12} sm={6} md={4} container={true} justify="center" spacing={8}>
+      <AuthPageContainer container={true} justify="flex-start">
+        <AuthFormContainer item={true} xs={12} sm={6} md={4} container={true} justify="center" spacing={8}>
           {this.state.showLogin ? (
             <React.Fragment>
               <Header message="Welcome to Koblstone" welcome="Please Login To Continue." />
@@ -82,7 +82,7 @@ export class AuthPage extends React.PureComponent<Props, State> {
             </React.Fragment>
           )}
         </AuthFormContainer>
-        <AuthPageGraphic xs={false} sm={6} md={8} />
+        <AuthPageGraphic item={true} xs={false} sm={6} md={8} />
       </AuthPageContainer>
     );
   }

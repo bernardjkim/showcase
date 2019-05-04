@@ -2,14 +2,17 @@ import React from 'react';
 
 import { HomeLink } from 'Routes';
 
-import { LogoText, NavContent } from './components';
+import { LongText, ShortText } from './components';
 
 const Logo = () => (
-  <NavContent>
-    <LogoText color="primary" component={HomeLink}>
+  <React.Fragment>
+    <LongText color="primary" component={HomeLink}>
       koblstone
-    </LogoText>
-  </NavContent>
+    </LongText>
+    <ShortText color="primary" component={HomeLink}>
+      ks
+    </ShortText>
+  </React.Fragment>
 );
 
 export default Logo;

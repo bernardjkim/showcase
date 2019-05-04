@@ -19,6 +19,7 @@ import NavActions from './NavActions';
 import SearchBar from './SearchBar';
 import { StyledAppBar, StyledToolbar } from './components';
 
+import Grid from '@material-ui/core/Grid';
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   tags: makeSelectTags(),
@@ -70,9 +71,13 @@ class Nav extends React.Component<Props, State> {
     return (
       <StyledAppBar color="inherit" position="relative">
         <StyledToolbar>
-          <Logo />
-          <SearchBar handleSubmit={handleSubmitSearch(search)} handleChange={handleChange} value={search} />
-          <NavActions user={user} handleLogout={handleLogout} />
+          <Grid container={true} justify="space-between">
+            <Grid item={true} xs={2}>
+              <Logo />
+            </Grid>
+            <SearchBar handleSubmit={handleSubmitSearch(search)} handleChange={handleChange} value={search} />
+            <NavActions user={user} handleLogout={handleLogout} />
+          </Grid>
         </StyledToolbar>
       </StyledAppBar>
     );

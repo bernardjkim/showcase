@@ -6,7 +6,6 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -17,11 +16,6 @@ import TagList from 'components/TagList';
 
 import { setSort } from './actions';
 import { makeSelectSort, makeSelectTags } from './selectors';
-
-export const ClearAction = styled(Button)`
-  font-size: 12px;
-  background-color: transparent;
-` as typeof Button;
 
 export const ToolbarDivider = styled.div`
   background-color: #ceece7;
@@ -103,18 +97,12 @@ export class SearchSettings extends React.Component<Props, State> {
       history.push(`/`);
     }
   };
-
-  handleClearTags = () => {
-    this.props.history.push(`/`);
-  };
-
   render() {
-    const { handleDeleteTag, handleClearTags } = this;
+    const { handleDeleteTag } = this;
     const { tags, sort, handleSetSort } = this.props;
     return (
       <StyledAppBar color="inherit" position="relative">
         <StyledToolbar>
-          <SortLabel>SORT</SortLabel>
           <StyledSelect
             disableUnderline={true}
             value={sort}
@@ -139,10 +127,7 @@ export class SearchSettings extends React.Component<Props, State> {
           </StyledSelect>
           {tags.length > 0 && (
             <React.Fragment>
-              <ToolbarDividerLeft />
               <TagList tags={tags} handleDeleteTag={handleDeleteTag} />
-              <ToolbarDividerRight />
-              <ClearAction onClick={handleClearTags}>CLEAR</ClearAction>
             </React.Fragment>
           )}
         </StyledToolbar>

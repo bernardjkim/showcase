@@ -4,7 +4,9 @@ import { withRouter, RouteComponentProps } from 'react-router';
 import { Article } from 'types';
 import openInNewTab from 'utils/openInNewTab';
 
-import { Container, StyledCard, StyledCardActionArea, StyledCardContent, StyledCardMedia } from './components';
+import Grid from '@material-ui/core/Grid';
+
+import { StyledCard, StyledCardActionArea, StyledCardContent, StyledCardMedia } from './components';
 
 type Props = RouteComponentProps & {
   article: Article;
@@ -19,7 +21,7 @@ const Result: React.SFC<Props> = props => {
   };
 
   return (
-    <Container>
+    <Grid item={true} xs={12} sm={6} md={4} lg={3}>
       <StyledCard>
         <StyledCardActionArea>
           <StyledCardMedia image={article.image} title={article.title} onClick={openInNewTab(article.uri)} />
@@ -31,7 +33,7 @@ const Result: React.SFC<Props> = props => {
           tags={article.tags}
         />
       </StyledCard>
-    </Container>
+    </Grid>
   );
 };
 export default withRouter(Result);

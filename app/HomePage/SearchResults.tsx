@@ -6,12 +6,14 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import Grid from '@material-ui/core/Grid';
+
 // /* Shared Components */
 import ArticleCard from 'components/ArticleCard';
 
 // /* Local Components */
 import { setOffset, setSearch, setUsername } from './actions';
-import { SearchResultsContainer } from './components';
+// import { SearchResultsContainer } from './components';
 import { ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, ARTICLE_SEARCH_QUERY } from './queries';
 import { makeSelectOffset, makeSelectSort, makeSelectTags, makeSelectUsername } from './selectors';
 
@@ -41,12 +43,12 @@ class SearchResults extends React.PureComponent<SearchResultsProps> {
   render() {
     const { articleSearch: articles } = this.props.data;
     return (
-      <SearchResultsContainer>
+      <Grid container={true} spacing={8}>
         {articles &&
           articles.edges.map(article => (
             <ArticleCard key={article._id} article={article} likes={article.likes.totalCount} />
           ))}
-      </SearchResultsContainer>
+      </Grid>
     );
   }
 
