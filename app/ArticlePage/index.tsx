@@ -30,6 +30,7 @@ import { ArticlePageContainer, CommentsContainer, CommentList } from './componen
 
 export class ArticlePage extends React.PureComponent<ArticlePageProps> {
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { id } = queryString.parse(this.props.location.search);
     this.props.handleSetArticleId(id as string);
   }

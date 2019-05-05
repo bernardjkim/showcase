@@ -35,8 +35,8 @@ class SignupForm extends React.PureComponent<Props, State> {
     const { username, email, password, passwordConfirm } = this.state;
 
     return (
-      <Grid xs={10} item={true} container={true} spacing={16} alignContent="flex-start">
-        <Grid item={true} xs={12}>
+      <React.Fragment>
+        <Grid item={true} xs={10}>
           <FormInput onChange={handleOnChange('username')} label="Username" type="username" autoFocus={true} />
           <FormInput onChange={handleOnChange('email')} label="Email Address" type="email" />
           <FormInput onChange={handleOnChange('password')} label="Password" type="password" />
@@ -44,17 +44,17 @@ class SignupForm extends React.PureComponent<Props, State> {
           <ErrorMessage hidden={!error || !error.createUser}>Invalid Fields</ErrorMessage>
         </Grid>
 
-        <Grid item={true} xs={6}>
+        <Grid item={true} xs={5}>
           <ButtonPrimary
             label="Signup"
             handleClick={handleCreateUser({ username, email, password, passwordConfirm })}
           />
         </Grid>
 
-        <Grid item={true} xs={6}>
+        <Grid item={true} xs={5}>
           <ButtonSecondary label="Login" handleClick={handleToggle} />
         </Grid>
-      </Grid>
+      </React.Fragment>
     );
   }
 }

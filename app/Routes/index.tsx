@@ -17,20 +17,12 @@ const StyledLink = styled(Link)`
 
 export const HomeLink = (props: any) => <StyledLink to="/" {...props} />;
 
-export const SubmitLink = (props: any) => (
-  <StyledLink to="/submit" {...props} />
-);
+export const SubmitLink = (props: any) => <StyledLink to="/submit" {...props} />;
 
 export const AuthLink = (props: any) => <StyledLink to="/auth" {...props} />;
 
-export const SignupLink = (props: any) => (
-  <StyledLink to="/signup" {...props} />
-);
+export const SignupLink = (props: any) => <StyledLink to="/signup" {...props} />;
 
-export const SearchLink = (props: any) => (
-  <StyledLink to="/search" {...props} />
-);
+export const SearchLink = (props: any) => <StyledLink to="/search" {...props} />;
 
-export const ArticleLink = (props: any) => (
-  <StyledLink to="/article" {...props} />
-);
+export const ArticleLink = (props: any) => <StyledLink to="/article" {...props} />;

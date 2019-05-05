@@ -7,8 +7,9 @@ import uuid from 'uuid/v1';
 
 const TagsList = styled.div`
   overflow: hidden;
+  displat: flex;
+  align-items: center;
   height: 100%;
-  max-height: 28px;
   transition: all 0.15s ease-out;
 `;
 
@@ -29,7 +30,6 @@ const Tag = styled(Chip)`
 const TopDiv = styled.div`
   overflow: hidden;
   height: 100%;
-  max-height: 20px;
   transition: all 0.15s ease-out;
 `;
 
@@ -58,25 +58,33 @@ const StyledContent = styled(CardContent)`
   justify-content: space-between;
   bottom: 0;
   position: absolute;
-  height: 100%;
+  height: 30%;
   width: 100%;
-  max-height: 100px;
   transition: all 0.2s ease-out;
+
+  &:last-child {
+    padding: 14px;
+  }
 
   :hover {
     background-color: white;
     opacity: 0.9;
-    max-height: 300px;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
     transition: all 0.2s ease-in;
 
     ${TopDiv} {
-      max-height: 184px;
+      max-height: 70%;
+      padding-top: 14px;
+      padding-bottom: 14px;
       transition: max-height 0.25 ease-in;
     }
 
     ${TagsList} {
-      max-height: 76px;
-      padding-top: 10px;
+      max-height: 30%;
+      padding-top: 14px;
+      padding-bottom: 14px;
       transition: max-height 0.25 ease-in;
     }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
+// import styled from 'styled-components';
 
 import { Article } from 'types';
 import openInNewTab from 'utils/openInNewTab';
@@ -21,10 +22,15 @@ const Result: React.SFC<Props> = props => {
   };
 
   return (
-    <Grid item={true} xs={12} sm={6} md={4} xl={3}>
+    <Grid item={true} xs={12} sm={6} md={4} lg={3} xl={2}>
       <StyledCard>
         <StyledCardActionArea>
-          <StyledCardMedia image={article.image} title={article.title} onClick={openInNewTab(article.uri)} />
+          <StyledCardMedia
+            component="img"
+            image={article.image}
+            title={article.title}
+            onClick={openInNewTab(article.uri)}
+          />
         </StyledCardActionArea>
         <StyledCardContent
           handleViewArticle={handleViewArticle(article._id)}

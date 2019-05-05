@@ -30,7 +30,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 
-import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const HeaderMessage = styled(Typography)`
@@ -42,11 +42,21 @@ export const HeaderMessage = styled(Typography)`
 ` as typeof Typography;
 
 const FormContainer = styled(Grid)`
-  padding-top: 14px;
-  padding-bottom: 14px;
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: 20px;
+
+  @media (min-width: 600px) {
+    margin: 60px;
+    box-shadow: 0 24px 36px -16px rgba(0, 0, 0, 0.14), 0px 4px 16px rgba(0, 0, 0, 0.08);
+  }
 ` as typeof Grid;
+
+const StyledButton = styled(Button)`
+  min-width: 28px;
+  padding: 0px;
+  &:hover {
+    background: none;
+  }
+` as typeof Button;
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
@@ -77,10 +87,10 @@ export class SubmissionPage extends React.PureComponent<Props> {
     return (
       <Grid container={true} justify="center">
         <FormContainer item={true} container={true} justify="center" xs={12} sm={10} md={8} xl={6} component={Paper}>
-          <Grid item={true} container={true} xs={12} justify="flex-end">
-            <Button onClick={() => this.props.history.push(`/`)}>
-              <FontAwesomeIcon color="#a9caca" size="2x" icon={faTimesCircle} />
-            </Button>
+          <Grid item={true} xs={12}>
+            <StyledButton onClick={() => this.props.history.push(`/`)}>
+              <FontAwesomeIcon color="#a9caca" size="2x" icon={faTimes} />
+            </StyledButton>
           </Grid>
           <HeaderMessage color="primary">Submit A Website</HeaderMessage>
           <SubmissionForm {...this.props} />

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -15,6 +16,12 @@ import ArticleCard from 'components/ArticleCard';
 import { setOffset, setSearch, setUsername } from './actions';
 import { ArticleSearchInput, ArticleSearchResponse, ArticleSearchVariables, ARTICLE_SEARCH_QUERY } from './queries';
 import { makeSelectOffset, makeSelectSort, makeSelectTags, makeSelectUsername } from './selectors';
+
+const Container = styled(Grid)`
+  @media (min-width: 600px) {
+    padding: 32px;
+  }
+` as typeof Grid;
 
 class SearchResults extends React.PureComponent<SearchResultsProps> {
   // ===========================================================================
@@ -42,12 +49,12 @@ class SearchResults extends React.PureComponent<SearchResultsProps> {
   render() {
     const { articleSearch: articles } = this.props.data;
     return (
-      <Grid container={true} spacing={8}>
+      <Container container={true} spacing={32}>
         {articles &&
           articles.edges.map(article => (
             <ArticleCard key={article._id} article={article} likes={article.likes.totalCount} />
           ))}
-      </Grid>
+      </Container>
     );
   }
 
@@ -64,6 +71,7 @@ class SearchResults extends React.PureComponent<SearchResultsProps> {
     const tags = term ? (term as string).split(',') : [];
     this.props.handleSetSearch(tags);
     this.props.handleSetUsername(username as string);
+    window.scrollTo(0, 0);
   }
 
   /**

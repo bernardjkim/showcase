@@ -60,9 +60,8 @@ export const StyledSelect = styled(Select)`
 ` as typeof Select;
 
 export const StyledAppBar = styled(AppBar)`
-  box-shadow: none;
-  border-bottom: solid 1px;
-  border-color: #ccddda;
+  padding-top: 48px;
+  box-shadow: 0 16px 24px 0 rgba(154, 56, 56, 0.06);
 ` as typeof AppBar;
 
 export const StyledToolbar = styled(Toolbar)`
@@ -101,7 +100,7 @@ export class SearchSettings extends React.Component<Props, State> {
     const { handleDeleteTag } = this;
     const { tags, sort, handleSetSort } = this.props;
     return (
-      <StyledAppBar color="inherit" position="relative">
+      <StyledAppBar color="inherit" position="static">
         <StyledToolbar>
           <StyledSelect
             disableUnderline={true}

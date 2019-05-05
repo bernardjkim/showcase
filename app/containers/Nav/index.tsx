@@ -71,7 +71,7 @@ class Nav extends React.Component<Props, State> {
     const { search } = this.state;
 
     return (
-      <StyledAppBar color="inherit" position="relative">
+      <StyledAppBar color="inherit" position="fixed">
         <StyledToolbar>
           <Grid container={true} justify="space-between">
             <Logo />

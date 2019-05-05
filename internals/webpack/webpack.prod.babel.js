@@ -120,9 +120,9 @@ module.exports = require('./webpack.base.babel')({
 
     // TODO: manifest
     new WebpackPwaManifest({
-      name: 'Koblstone',
-      short_name: 'Koblstone',
-      description: 'Koblstone',
+      name: 'koblstone',
+      short_name: 'koblstone',
+      description: 'koblstone',
       background_color: '#fafafa',
       theme_color: '#b1624d',
       inject: true,

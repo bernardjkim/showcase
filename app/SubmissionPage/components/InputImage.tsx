@@ -48,20 +48,17 @@ type Props = {
 
 export const InputImage: React.FC<Props> = props => {
   const { preview, handleFileUpload } = props;
-
-  if (preview) {
-    return (
-      <PlaceHolder>
-        <InputFile type="file" onChange={handleFileUpload} />
-        <ScreenShot src={preview} alt="ScreenShot" />
-      </PlaceHolder>
-    );
-  }
   return (
     <PlaceHolder>
       <InputFile type="file" onChange={handleFileUpload} />
-      <Label>Upload ScreenShot</Label>
-      <FontAwesomeIcon size="3x" color="#a9caca" icon={faPlusCircle} />
+      {preview ? (
+        <ScreenShot src={preview} alt="ScreenShot" />
+      ) : (
+        <React.Fragment>
+          <Label>Upload ScreenShot</Label>
+          <FontAwesomeIcon size="3x" color="#a9caca" icon={faPlusCircle} />
+        </React.Fragment>
+      )}
     </PlaceHolder>
   );
 };

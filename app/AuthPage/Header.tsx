@@ -15,7 +15,7 @@ import { Logo, Message, Welcome } from './components';
 const Header: React.FC<Props> = props => {
   const { message, welcome } = props;
   return (
-    <Grid item={true} container={true} xs={10} justify="center" direction="column">
+    <Grid item={true} xs={10}>
       <Logo color="primary" component={HomeLink}>
         koblstone
       </Logo>

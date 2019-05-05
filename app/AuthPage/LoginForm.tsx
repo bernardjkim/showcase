@@ -8,6 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
+// import styled from 'styled-components'
 
 import { clearErrors, createToken } from './actions';
 
@@ -16,6 +17,10 @@ import { makeSelectError } from './selectors';
 import { LoginFormData } from './types';
 
 import Grid from '@material-ui/core/Grid';
+
+// const Container = styled(Grid)`
+//   height: 60%;
+// ` as typeof Grid;
 
 class LoginForm extends React.PureComponent<Props, State> {
   readonly state: State = {
@@ -33,25 +38,25 @@ class LoginForm extends React.PureComponent<Props, State> {
     const { email, password } = this.state;
 
     return (
-      <Grid xs={10} item={true} container={true} spacing={16} alignContent="flex-start">
-        <Grid item={true} xs={12}>
+      <React.Fragment>
+        <Grid item={true} xs={10}>
           <FormInput onChange={handleOnChange('email')} label="Email Address" type="email" autoFocus={true} />
           <FormInput onChange={handleOnChange('password')} label="Password" type="password" />
           <ErrorMessage hidden={!error || !error.createToken}>Invalid Email or Password</ErrorMessage>
         </Grid>
-        <Grid item={true} xs={6}>
+        <Grid item={true} xs={5}>
           <ButtonPrimary label="Login" handleClick={handleCreateToken({ email, password })} />
         </Grid>
-        <Grid item={true} xs={6}>
+        <Grid item={true} xs={5}>
           <ButtonSecondary label="Signup" handleClick={handleToggle} />
         </Grid>
-        <Grid item={true} xs={12}>
+        <Grid item={true} xs={10}>
           <ButtonPrimary
             label="Demo"
             handleClick={handleCreateToken({ email: 'demo@koblstone.com', password: 'password' })}
           />
         </Grid>
-      </Grid>
+      </React.Fragment>
     );
   }
 }

@@ -12,7 +12,9 @@ const Logo = () => (
       color="primary"
       component={HomeLink}
       onClick={() => {
-        window.location.reload();
+        if (window.location.pathname === '/') {
+          window.location.reload();
+        }
       }}
     >
       koblstone
@@ -21,7 +23,9 @@ const Logo = () => (
       color="primary"
       component={HomeLink}
       onClick={() => {
-        window.location.reload();
+        if (window.location.pathname === '/') {
+          window.location.reload();
+        }
       }}
     >
       ks
