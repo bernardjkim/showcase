@@ -7,8 +7,6 @@ export const StyledCard = styled(Card)`
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 0px;
-
   @media (min-width: 600px) {
     height: 300px;
   }

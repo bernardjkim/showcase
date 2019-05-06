@@ -5,11 +5,19 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import { makeSelectUser } from 'Root/selectors';
 
-import { CommentBox, StyledTextField, SubmitCommentButton } from './components';
+import { SubmitCommentButton } from './components';
 import { makeSelectArticleId } from './selectors';
+
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+
+export const Container = styled(Grid)`
+  margin-top: 20px;
+` as typeof Grid;
 
 export class CommentForm extends React.Component<CommentFormProps, State> {
   readonly state: State = {
@@ -36,23 +44,17 @@ export class CommentForm extends React.Component<CommentFormProps, State> {
   };
 
   render() {
-    const { handleChange, handleUnauthorized, handleCreateComment } = this;
+    const { handleChange, handleCreateComment } = this;
     const { comment } = this.state;
     return (
-      <CommentBox onClick={handleUnauthorized}>
-        <StyledTextField
-          multiline={true}
-          placeholder="Leave a Comment"
-          rows={6}
-          fullWidth={true}
-          InputProps={{ disableUnderline: true }}
-          onChange={handleChange}
-          value={comment}
-        />
-        <SubmitCommentButton label="Comment" onClick={handleCreateComment(comment)}>
-          Comment
-        </SubmitCommentButton>
-      </CommentBox>
+      <Container item={true} container={true} xs={12}>
+        <TextField value={comment} placeholder="Comment" onChange={handleChange} multiline={true} fullWidth={true} />
+        <Grid container={true} justify="flex-end">
+          <SubmitCommentButton label="Comment" onClick={handleCreateComment(comment)}>
+            Comment
+          </SubmitCommentButton>
+        </Grid>
+      </Container>
     );
   }
 }

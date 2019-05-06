@@ -33,7 +33,7 @@ import SignupForm from './SignupForm';
 
 const AuthPageGraphic = styled(Grid)`
   @media (min-width: 460px) {
-    background-color: rgba(224, 253, 248, 0.5);
+    background-color: #7edaca80;
   }
 ` as typeof Grid;
 

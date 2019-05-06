@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
+  margin-top: 10px;
   color: white;
   font-weight: 300;
 ` as typeof Button;

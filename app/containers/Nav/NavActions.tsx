@@ -20,7 +20,12 @@ import { User } from 'types';
 
 const SideList = styled(List)`
   width: 200px;
+  padding: 0px;
 ` as typeof List;
+
+const StyledListItem = styled(ListItem)`
+  height: 48px;
+` as typeof ListItem;
 
 type Props = {
   user?: User;
@@ -41,41 +46,41 @@ class NavActions extends React.Component<Props> {
 
     const list = (
       <SideList>
-        <ListItem button={true} onClick={this.toggleDrawer}>
+        <StyledListItem button={true} onClick={this.toggleDrawer}>
           <ListItemIcon>
             <MenuIcon />
           </ListItemIcon>
           <ListItemText primary="MENU" />
-        </ListItem>
+        </StyledListItem>
         <Divider />
         {user ? (
           <React.Fragment>
-            <ListItem button={true}>
+            <StyledListItem button={true}>
               <ListItemIcon>
                 <FontAwesomeIcon size="lg" icon={faUser} />
               </ListItemIcon>
               <ListItemText primary="PROFILE" />
-            </ListItem>
-            <ListItem button={true} component={SubmitLink}>
+            </StyledListItem>
+            <StyledListItem button={true} component={SubmitLink}>
               <ListItemIcon>
                 <FontAwesomeIcon size="lg" icon={faPlus} />
               </ListItemIcon>
               <ListItemText primary="SUBMIT" />
-            </ListItem>
-            <ListItem button={true} onClick={handleLogout}>
+            </StyledListItem>
+            <StyledListItem button={true} onClick={handleLogout}>
               <ListItemIcon>
                 <FontAwesomeIcon size="lg" icon={faSignOutAlt} />
               </ListItemIcon>
               <ListItemText primary="LOGOUT" />
-            </ListItem>
+            </StyledListItem>
           </React.Fragment>
         ) : (
-          <ListItem button={true} component={AuthLink}>
+          <StyledListItem button={true} component={AuthLink}>
             <ListItemIcon>
               <FontAwesomeIcon size="lg" icon={faSignInAlt} />
             </ListItemIcon>
             <ListItemText primary="LOGIN" />
-          </ListItem>
+          </StyledListItem>
         )}
       </SideList>
     );
