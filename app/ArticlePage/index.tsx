@@ -16,6 +16,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 /* Utils */
 import injectReducer from 'utils/injectReducer';
 import openInNewTab from 'utils/openInNewTab';
@@ -27,11 +31,10 @@ import { ArticleQueryInput, ArticleQueryResponse, ArticleQueryVariables, ARTICLE
 import reducer from './reducer';
 import makeSelectArticlePage, { makeSelectArticleId } from './selectors';
 
+import TagList from 'components/TagList';
+
 /* Local Components */
 import CommentForm from './CommentForm';
-// import Gallary from './Gallary';
-// import Header from './Header';
-// import Info from './Info';
 import { CommentList } from './components';
 
 const Container = styled(Grid)`
@@ -49,6 +52,11 @@ export const GridPaper = styled(Grid)`
   overflow: hidden;
 ` as typeof Grid;
 
+export const ContainerInfo = styled(Grid)`
+  padding-top: 20px;
+  padding-bottom: 20px;
+` as typeof Grid;
+
 export const Title = styled(Typography)`
   margin-top: 20px;
   font-size: 36px;
@@ -57,7 +65,6 @@ export const Title = styled(Typography)`
 ` as typeof Typography;
 
 export const Description = styled(Typography)`
-  margin-top: 20px;
   font-size: 17px;
   font-weight: 400;
   line-height: 1.75;
@@ -76,39 +83,64 @@ export class ArticlePage extends React.PureComponent<ArticlePageProps> {
       return '404 Not Found';
     }
     return (
-      <Container container={true} spacing={40} justify="center" direction="row-reverse">
-        <Grid item={true} container={true} xs={12} sm={10} md={4}>
-          <GridPaper component={Paper} item={true} container={true} xs={12} justify="center" alignContent="flex-start">
-            <Grid item={true} xs={10}>
-              <Typography>username: [username]</Typography>
-            </Grid>
-            <Grid item={true} xs={10}>
-              <Typography>github: {article.github}</Typography>
-            </Grid>
-            <Grid item={true} xs={10}>
-              <Typography>link: {article.uri}</Typography>
-            </Grid>
-          </GridPaper>
-        </Grid>
+      <Container container={true} spacing={40} justify="center">
         <Grid item={true} container={true} xs={12} sm={10} md={8}>
           <GridPaper component={Paper} container={true} item={true} xs={12} justify="center">
             <Grid item={true} xs={12}>
               <StyledImage onClick={openInNewTab(article.uri)} src={article.image} alt="Image Not Found" />
             </Grid>
-            <Grid item={true} xs={10}>
-              <Title>{article.title}</Title>
-            </Grid>
-            <Grid item={true} xs={10}>
-              <Description>{article.description}</Description>
-            </Grid>
-            <Grid item={true} xs={10}>
-              <Description>[ACTIONS(LIKE, SHARE, FLAG,...)]</Description>
-            </Grid>
-            <Grid item={true} xs={10}>
-              <CommentForm />
-              <CommentList comments={article.comments} />
+            <Grid item={true} container={true} xs={10} spacing={16}>
+              <Grid item={true} xs={12}>
+                <Title>{article.title}</Title>
+              </Grid>
+              <Grid item={true} container={true} xs={12}>
+                <TagList tags={article.tags} />
+              </Grid>
+              <Grid item={true} xs={12}>
+                <Typography>by [username] on [timestamp]</Typography>
+              </Grid>
+
+              <Grid item={true} container={true} xs={12}>
+                <Grid item={true} container={true} xs={1} justify="center" alignContent="center">
+                  <FontAwesomeIcon size="sm" icon={faGithub} />
+                </Grid>
+                <Grid item={true} container={true} xs={11}>
+                  <Typography>{article.github || 'N/A'}</Typography>
+                </Grid>
+                <Grid item={true} container={true} xs={1} justify="center" alignContent="center">
+                  <FontAwesomeIcon size="sm" icon={faExternalLinkAlt} />
+                </Grid>
+                <Grid item={true} container={true} xs={11}>
+                  <Typography>{article.uri}</Typography>
+                </Grid>
+              </Grid>
+
+              <Grid item={true} xs={12}>
+                <Description>{article.description}</Description>
+              </Grid>
+              <Grid item={true} container={true} xs={12}>
+                <Grid item={true} container={true} xs={2} spacing={8} justify="center" alignItems="center">
+                  <Typography>likes</Typography>
+                  <FontAwesomeIcon size="sm" icon={faGithub} />
+                </Grid>
+                <Grid item={true} container={true} xs={2} spacing={8} justify="center" alignItems="center">
+                  <Typography>share</Typography>
+                  <FontAwesomeIcon size="sm" icon={faGithub} />
+                </Grid>
+                <Grid item={true} container={true} xs={2} spacing={8} justify="center" alignItems="center">
+                  <Typography>flag</Typography>
+                  <FontAwesomeIcon size="sm" icon={faGithub} />
+                </Grid>
+              </Grid>
+              <Grid item={true} xs={12}>
+                <CommentForm />
+                <CommentList comments={article.comments} />
+              </Grid>
             </Grid>
           </GridPaper>
+        </Grid>
+        <Grid item={true} container={true} xs={12} sm={10} md={4}>
+          <GridPaper component={Paper} item={true} container={true} xs={12} justify="center" />
         </Grid>
       </Container>
     );

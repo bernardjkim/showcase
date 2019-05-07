@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'uuid/v1';
 
-import { List, StyledChip } from './components';
+import { StyledChip } from './components';
 
 type Props = {
   tags: string[];
@@ -12,7 +12,7 @@ const TagList: React.FC<Props> = props => {
   const { tags, handleDeleteTag } = props;
 
   return (
-    <List>
+    <React.Fragment>
       {tags.map(tag => (
         <StyledChip
           variant="outlined"
@@ -21,7 +21,7 @@ const TagList: React.FC<Props> = props => {
           onDelete={handleDeleteTag ? handleDeleteTag(tag) : undefined}
         />
       ))}
-    </List>
+    </React.Fragment>
   );
 };
 
